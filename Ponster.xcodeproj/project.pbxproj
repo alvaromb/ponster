@@ -1,0 +1,482 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		99D3AD91181EEC150035508B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99D3AD90181EEC150035508B /* Foundation.framework */; };
+		99D3AD93181EEC150035508B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99D3AD92181EEC150035508B /* CoreGraphics.framework */; };
+		99D3AD95181EEC150035508B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99D3AD94181EEC150035508B /* UIKit.framework */; };
+		99D3AD97181EEC150035508B /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99D3AD96181EEC150035508B /* CoreData.framework */; };
+		99D3AD9D181EEC150035508B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 99D3AD9B181EEC150035508B /* InfoPlist.strings */; };
+		99D3AD9F181EEC150035508B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 99D3AD9E181EEC150035508B /* main.m */; };
+		99D3ADA3181EEC150035508B /* PNSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 99D3ADA2181EEC150035508B /* PNSAppDelegate.m */; };
+		99D3ADA6181EEC150035508B /* Ponster.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 99D3ADA4181EEC150035508B /* Ponster.xcdatamodeld */; };
+		99D3ADA8181EEC150035508B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 99D3ADA7181EEC150035508B /* Images.xcassets */; };
+		99D3ADAF181EEC150035508B /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99D3ADAE181EEC150035508B /* XCTest.framework */; };
+		99D3ADB0181EEC150035508B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99D3AD90181EEC150035508B /* Foundation.framework */; };
+		99D3ADB1181EEC150035508B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99D3AD94181EEC150035508B /* UIKit.framework */; };
+		99D3ADB2181EEC150035508B /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99D3AD96181EEC150035508B /* CoreData.framework */; };
+		99D3ADBA181EEC150035508B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 99D3ADB8181EEC150035508B /* InfoPlist.strings */; };
+		99D3ADBC181EEC150035508B /* PonsterTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 99D3ADBB181EEC150035508B /* PonsterTests.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		99D3ADB3181EEC150035508B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 99D3AD85181EEC150035508B /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 99D3AD8C181EEC150035508B;
+			remoteInfo = Ponster;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		99D3AD8D181EEC150035508B /* Ponster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ponster.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		99D3AD90181EEC150035508B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		99D3AD92181EEC150035508B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		99D3AD94181EEC150035508B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		99D3AD96181EEC150035508B /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		99D3AD9A181EEC150035508B /* Ponster-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Ponster-Info.plist"; sourceTree = "<group>"; };
+		99D3AD9C181EEC150035508B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		99D3AD9E181EEC150035508B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		99D3ADA0181EEC150035508B /* Ponster-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Ponster-Prefix.pch"; sourceTree = "<group>"; };
+		99D3ADA1181EEC150035508B /* PNSAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PNSAppDelegate.h; sourceTree = "<group>"; };
+		99D3ADA2181EEC150035508B /* PNSAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PNSAppDelegate.m; sourceTree = "<group>"; };
+		99D3ADA5181EEC150035508B /* Ponster.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Ponster.xcdatamodel; sourceTree = "<group>"; };
+		99D3ADA7181EEC150035508B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
+		99D3ADAD181EEC150035508B /* PonsterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PonsterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		99D3ADAE181EEC150035508B /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		99D3ADB7181EEC150035508B /* PonsterTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PonsterTests-Info.plist"; sourceTree = "<group>"; };
+		99D3ADB9181EEC150035508B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		99D3ADBB181EEC150035508B /* PonsterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PonsterTests.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		99D3AD8A181EEC150035508B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				99D3AD93181EEC150035508B /* CoreGraphics.framework in Frameworks */,
+				99D3AD97181EEC150035508B /* CoreData.framework in Frameworks */,
+				99D3AD95181EEC150035508B /* UIKit.framework in Frameworks */,
+				99D3AD91181EEC150035508B /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		99D3ADAA181EEC150035508B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				99D3ADAF181EEC150035508B /* XCTest.framework in Frameworks */,
+				99D3ADB2181EEC150035508B /* CoreData.framework in Frameworks */,
+				99D3ADB1181EEC150035508B /* UIKit.framework in Frameworks */,
+				99D3ADB0181EEC150035508B /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		99D3AD84181EEC150035508B = {
+			isa = PBXGroup;
+			children = (
+				99D3AD98181EEC150035508B /* Ponster */,
+				99D3ADB5181EEC150035508B /* PonsterTests */,
+				99D3AD8F181EEC150035508B /* Frameworks */,
+				99D3AD8E181EEC150035508B /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		99D3AD8E181EEC150035508B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				99D3AD8D181EEC150035508B /* Ponster.app */,
+				99D3ADAD181EEC150035508B /* PonsterTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		99D3AD8F181EEC150035508B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				99D3AD90181EEC150035508B /* Foundation.framework */,
+				99D3AD92181EEC150035508B /* CoreGraphics.framework */,
+				99D3AD94181EEC150035508B /* UIKit.framework */,
+				99D3AD96181EEC150035508B /* CoreData.framework */,
+				99D3ADAE181EEC150035508B /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		99D3AD98181EEC150035508B /* Ponster */ = {
+			isa = PBXGroup;
+			children = (
+				99D3ADA1181EEC150035508B /* PNSAppDelegate.h */,
+				99D3ADA2181EEC150035508B /* PNSAppDelegate.m */,
+				99D3ADA7181EEC150035508B /* Images.xcassets */,
+				99D3ADA4181EEC150035508B /* Ponster.xcdatamodeld */,
+				99D3AD99181EEC150035508B /* Supporting Files */,
+			);
+			path = Ponster;
+			sourceTree = "<group>";
+		};
+		99D3AD99181EEC150035508B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				99D3AD9A181EEC150035508B /* Ponster-Info.plist */,
+				99D3AD9B181EEC150035508B /* InfoPlist.strings */,
+				99D3AD9E181EEC150035508B /* main.m */,
+				99D3ADA0181EEC150035508B /* Ponster-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		99D3ADB5181EEC150035508B /* PonsterTests */ = {
+			isa = PBXGroup;
+			children = (
+				99D3ADBB181EEC150035508B /* PonsterTests.m */,
+				99D3ADB6181EEC150035508B /* Supporting Files */,
+			);
+			path = PonsterTests;
+			sourceTree = "<group>";
+		};
+		99D3ADB6181EEC150035508B /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				99D3ADB7181EEC150035508B /* PonsterTests-Info.plist */,
+				99D3ADB8181EEC150035508B /* InfoPlist.strings */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		99D3AD8C181EEC150035508B /* Ponster */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 99D3ADBF181EEC150035508B /* Build configuration list for PBXNativeTarget "Ponster" */;
+			buildPhases = (
+				99D3AD89181EEC150035508B /* Sources */,
+				99D3AD8A181EEC150035508B /* Frameworks */,
+				99D3AD8B181EEC150035508B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = Ponster;
+			productName = Ponster;
+			productReference = 99D3AD8D181EEC150035508B /* Ponster.app */;
+			productType = "com.apple.product-type.application";
+		};
+		99D3ADAC181EEC150035508B /* PonsterTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 99D3ADC2181EEC150035508B /* Build configuration list for PBXNativeTarget "PonsterTests" */;
+			buildPhases = (
+				99D3ADA9181EEC150035508B /* Sources */,
+				99D3ADAA181EEC150035508B /* Frameworks */,
+				99D3ADAB181EEC150035508B /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				99D3ADB4181EEC150035508B /* PBXTargetDependency */,
+			);
+			name = PonsterTests;
+			productName = PonsterTests;
+			productReference = 99D3ADAD181EEC150035508B /* PonsterTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		99D3AD85181EEC150035508B /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = PNS;
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = alvaromb;
+				TargetAttributes = {
+					99D3ADAC181EEC150035508B = {
+						TestTargetID = 99D3AD8C181EEC150035508B;
+					};
+				};
+			};
+			buildConfigurationList = 99D3AD88181EEC150035508B /* Build configuration list for PBXProject "Ponster" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 99D3AD84181EEC150035508B;
+			productRefGroup = 99D3AD8E181EEC150035508B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				99D3AD8C181EEC150035508B /* Ponster */,
+				99D3ADAC181EEC150035508B /* PonsterTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		99D3AD8B181EEC150035508B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				99D3AD9D181EEC150035508B /* InfoPlist.strings in Resources */,
+				99D3ADA8181EEC150035508B /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		99D3ADAB181EEC150035508B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				99D3ADBA181EEC150035508B /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		99D3AD89181EEC150035508B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				99D3ADA3181EEC150035508B /* PNSAppDelegate.m in Sources */,
+				99D3ADA6181EEC150035508B /* Ponster.xcdatamodeld in Sources */,
+				99D3AD9F181EEC150035508B /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		99D3ADA9181EEC150035508B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				99D3ADBC181EEC150035508B /* PonsterTests.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		99D3ADB4181EEC150035508B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 99D3AD8C181EEC150035508B /* Ponster */;
+			targetProxy = 99D3ADB3181EEC150035508B /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		99D3AD9B181EEC150035508B /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				99D3AD9C181EEC150035508B /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		99D3ADB8181EEC150035508B /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				99D3ADB9181EEC150035508B /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		99D3ADBD181EEC150035508B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		99D3ADBE181EEC150035508B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				SDKROOT = iphoneos;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		99D3ADC0181EEC150035508B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Ponster/Ponster-Prefix.pch";
+				INFOPLIST_FILE = "Ponster/Ponster-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		99D3ADC1181EEC150035508B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Ponster/Ponster-Prefix.pch";
+				INFOPLIST_FILE = "Ponster/Ponster-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		99D3ADC3181EEC150035508B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Ponster.app/Ponster";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Ponster/Ponster-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "PonsterTests/PonsterTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		99D3ADC4181EEC150035508B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				BUNDLE_LOADER = "$(BUILT_PRODUCTS_DIR)/Ponster.app/Ponster";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(SDKROOT)/Developer/Library/Frameworks",
+					"$(inherited)",
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "Ponster/Ponster-Prefix.pch";
+				INFOPLIST_FILE = "PonsterTests/PonsterTests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TEST_HOST = "$(BUNDLE_LOADER)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		99D3AD88181EEC150035508B /* Build configuration list for PBXProject "Ponster" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				99D3ADBD181EEC150035508B /* Debug */,
+				99D3ADBE181EEC150035508B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		99D3ADBF181EEC150035508B /* Build configuration list for PBXNativeTarget "Ponster" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				99D3ADC0181EEC150035508B /* Debug */,
+				99D3ADC1181EEC150035508B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		99D3ADC2181EEC150035508B /* Build configuration list for PBXNativeTarget "PonsterTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				99D3ADC3181EEC150035508B /* Debug */,
+				99D3ADC4181EEC150035508B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		99D3ADA4181EEC150035508B /* Ponster.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				99D3ADA5181EEC150035508B /* Ponster.xcdatamodel */,
+			);
+			currentVersion = 99D3ADA5181EEC150035508B /* Ponster.xcdatamodel */;
+			path = Ponster.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 99D3AD85181EEC150035508B /* Project object */;
+}
