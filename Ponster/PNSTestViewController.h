@@ -6,11 +6,8 @@
 //  Copyright (c) 2013 alvaromb. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import <opencv2/highgui/cap_ios.h>
+#import "PNSImageCapture.h"
 
-@interface PNSTestViewController : UIViewController
-
-@property (strong, nonatomic) CvVideoCamera *videoCamera;
+@interface PNSTestViewController : UIViewController <PNSImageCaptureDelegate>
 
 @end

@@ -10,9 +10,24 @@
 
 @interface PNSTestViewController ()
 
+@property (strong, nonatomic) UIImageView *backgroundImageView;
+@property (strong, nonatomic) PNSImageCapture *imageCapture;
+
 @end
 
 @implementation PNSTestViewController
+
+#pragma mark - Lazy instantiation
+
+- (UIImageView *)backgroundImageView
+{
+    if (!_backgroundImageView) {
+        _backgroundImageView = [[UIImageView alloc] init];
+    }
+    return _backgroundImageView;
+}
+
+#pragma mark - Lifecycle
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -26,7 +41,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+    [self.view addSubview:self.backgroundImageView];
+    self.imageCapture = [[PNSImageCapture alloc] init];
+    self.imageCapture.delegate = self;
+    [self.imageCapture startWithDevicePosition:AVCaptureDevicePositionBack];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    self.backgroundImageView.frame = self.view.bounds;
 }
 
 - (void)didReceiveMemoryWarning
@@ -35,28 +59,33 @@
     // Dispose of any resources that can be recreated.
 }
 
-- (cv::Mat)cvMatFromUIImage:(UIImage *)image
+#pragma mark - PNSImageCaptureDelegate
+
+- (void)frameReady:(VideoFrame)frame
 {
-    CGColorSpaceRef colorSpace = CGImageGetColorSpace(image.CGImage);
-    CGFloat cols = image.size.width;
-    CGFloat rows = image.size.height;
-    
-    cv::Mat cvMat(rows, cols, CV_8UC4); // 8 bits per component, 4 channels
-    
-    CGContextRef contextRef = CGBitmapContextCreate(cvMat.data,                 // Pointer to  data
-                                                    cols,                       // Width of bitmap
-                                                    rows,                       // Height of bitmap
-                                                    8,                          // Bits per component
-                                                    cvMat.step[0],              // Bytes per row
-                                                    colorSpace,                 // Colorspace
-                                                    kCGImageAlphaNoneSkipLast |
-                                                    kCGBitmapByteOrderDefault); // Bitmap info flags
-    
-    CGContextDrawImage(contextRef, CGRectMake(0, 0, cols, rows), image.CGImage);
-    CGContextRelease(contextRef);
-    CGColorSpaceRelease(colorSpace);
-    
-    return cvMat;
+    __weak typeof(self) _weakSelf = self;
+    dispatch_sync( dispatch_get_main_queue(), ^{
+        // Construct CGContextRef from VideoFrame
+        CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+        CGContextRef newContext = CGBitmapContextCreate(frame.data,
+                                                        frame.width,
+                                                        frame.height,
+                                                        8,
+                                                        frame.bytesPerRow,
+                                                        colorSpace,
+                                                        kCGBitmapByteOrder32Little |
+                                                        kCGImageAlphaPremultipliedFirst);
+        
+        // Construct CGImageRef from CGContextRef
+        CGImageRef newImage = CGBitmapContextCreateImage(newContext);
+        CGContextRelease(newContext);
+        CGColorSpaceRelease(colorSpace);
+        
+        // Construct UIImage from CGImageRef
+        UIImage * image = [UIImage imageWithCGImage:newImage];
+        CGImageRelease(newImage);
+        [[_weakSelf backgroundImageView] setImage:image];
+    });
 }
 
 @end
