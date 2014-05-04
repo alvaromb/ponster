@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "PNSTestViewController.h"
 
 @interface PNSAppDelegate : UIResponder <UIApplicationDelegate>
 

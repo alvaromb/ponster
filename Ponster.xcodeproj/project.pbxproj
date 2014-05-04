@@ -7,6 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		1DCC7F11849F474DB6E0E923 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE944BF35DBA4CFAA158D871 /* libPods.a */; };
+		38F77FD2191657F000E91D91 /* PNSImageCapture.mm in Sources */ = {isa = PBXBuildFile; fileRef = 38F77FD1191657F000E91D91 /* PNSImageCapture.mm */; };
+		9917F15D18218597002CA736 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9917F15C18218597002CA736 /* AVFoundation.framework */; };
+		9917F15F182185A0002CA736 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9917F15E182185A0002CA736 /* ImageIO.framework */; };
+		9917F161182185A9002CA736 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9917F160182185A9002CA736 /* libz.dylib */; };
+		9917F16618218B39002CA736 /* PNSTestViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9917F16518218B39002CA736 /* PNSTestViewController.mm */; };
+		9917F16818218E55002CA736 /* lenna_sjooblom_crude.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9917F16718218E55002CA736 /* lenna_sjooblom_crude.jpg */; };
+		9917F16A18219069002CA736 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9917F16918219069002CA736 /* CoreVideo.framework */; };
+		9917F16C1821906F002CA736 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9917F16B1821906F002CA736 /* CoreMedia.framework */; };
 		99D3AD91181EEC150035508B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99D3AD90181EEC150035508B /* Foundation.framework */; };
 		99D3AD93181EEC150035508B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99D3AD92181EEC150035508B /* CoreGraphics.framework */; };
 		99D3AD95181EEC150035508B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99D3AD94181EEC150035508B /* UIKit.framework */; };
@@ -35,6 +44,18 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		07BE48AEE1F14DB5B11EF518 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		38F77FD0191657F000E91D91 /* PNSImageCapture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNSImageCapture.h; sourceTree = "<group>"; };
+		38F77FD1191657F000E91D91 /* PNSImageCapture.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = PNSImageCapture.mm; sourceTree = "<group>"; };
+		38F77FD31916A3C900E91D91 /* VideoFrame.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VideoFrame.h; sourceTree = "<group>"; };
+		9917F15C18218597002CA736 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		9917F15E182185A0002CA736 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
+		9917F160182185A9002CA736 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		9917F16418218B39002CA736 /* PNSTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNSTestViewController.h; sourceTree = "<group>"; };
+		9917F16518218B39002CA736 /* PNSTestViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PNSTestViewController.mm; sourceTree = "<group>"; };
+		9917F16718218E55002CA736 /* lenna_sjooblom_crude.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lenna_sjooblom_crude.jpg; sourceTree = "<group>"; };
+		9917F16918219069002CA736 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
+		9917F16B1821906F002CA736 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		99D3AD8D181EEC150035508B /* Ponster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ponster.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		99D3AD90181EEC150035508B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		99D3AD92181EEC150035508B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -53,6 +74,7 @@
 		99D3ADB7181EEC150035508B /* PonsterTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PonsterTests-Info.plist"; sourceTree = "<group>"; };
 		99D3ADB9181EEC150035508B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		99D3ADBB181EEC150035508B /* PonsterTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PonsterTests.m; sourceTree = "<group>"; };
+		DE944BF35DBA4CFAA158D871 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -60,10 +82,16 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9917F16C1821906F002CA736 /* CoreMedia.framework in Frameworks */,
+				9917F16A18219069002CA736 /* CoreVideo.framework in Frameworks */,
+				9917F161182185A9002CA736 /* libz.dylib in Frameworks */,
+				9917F15F182185A0002CA736 /* ImageIO.framework in Frameworks */,
+				9917F15D18218597002CA736 /* AVFoundation.framework in Frameworks */,
 				99D3AD93181EEC150035508B /* CoreGraphics.framework in Frameworks */,
 				99D3AD97181EEC150035508B /* CoreData.framework in Frameworks */,
 				99D3AD95181EEC150035508B /* UIKit.framework in Frameworks */,
 				99D3AD91181EEC150035508B /* Foundation.framework in Frameworks */,
+				1DCC7F11849F474DB6E0E923 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,6 +109,40 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		38F77FCC1916577E00E91D91 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				38F77FCF191657A000E91D91 /* Image capture */,
+				38F77FCE1916579A00E91D91 /* Model */,
+				38F77FCD1916578500E91D91 /* View controllers */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		38F77FCD1916578500E91D91 /* View controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "View controllers";
+			sourceTree = "<group>";
+		};
+		38F77FCE1916579A00E91D91 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Model;
+			sourceTree = "<group>";
+		};
+		38F77FCF191657A000E91D91 /* Image capture */ = {
+			isa = PBXGroup;
+			children = (
+				38F77FD0191657F000E91D91 /* PNSImageCapture.h */,
+				38F77FD1191657F000E91D91 /* PNSImageCapture.mm */,
+				38F77FD31916A3C900E91D91 /* VideoFrame.h */,
+			);
+			name = "Image capture";
+			sourceTree = "<group>";
+		};
 		99D3AD84181EEC150035508B = {
 			isa = PBXGroup;
 			children = (
@@ -88,6 +150,7 @@
 				99D3ADB5181EEC150035508B /* PonsterTests */,
 				99D3AD8F181EEC150035508B /* Frameworks */,
 				99D3AD8E181EEC150035508B /* Products */,
+				07BE48AEE1F14DB5B11EF518 /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -103,11 +166,17 @@
 		99D3AD8F181EEC150035508B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				9917F16B1821906F002CA736 /* CoreMedia.framework */,
+				9917F16918219069002CA736 /* CoreVideo.framework */,
+				9917F160182185A9002CA736 /* libz.dylib */,
+				9917F15E182185A0002CA736 /* ImageIO.framework */,
+				9917F15C18218597002CA736 /* AVFoundation.framework */,
 				99D3AD90181EEC150035508B /* Foundation.framework */,
 				99D3AD92181EEC150035508B /* CoreGraphics.framework */,
 				99D3AD94181EEC150035508B /* UIKit.framework */,
 				99D3AD96181EEC150035508B /* CoreData.framework */,
 				99D3ADAE181EEC150035508B /* XCTest.framework */,
+				DE944BF35DBA4CFAA158D871 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -115,9 +184,13 @@
 		99D3AD98181EEC150035508B /* Ponster */ = {
 			isa = PBXGroup;
 			children = (
+				38F77FCC1916577E00E91D91 /* Classes */,
 				99D3ADA1181EEC150035508B /* PNSAppDelegate.h */,
 				99D3ADA2181EEC150035508B /* PNSAppDelegate.m */,
+				9917F16418218B39002CA736 /* PNSTestViewController.h */,
+				9917F16518218B39002CA736 /* PNSTestViewController.mm */,
 				99D3ADA7181EEC150035508B /* Images.xcassets */,
+				9917F16718218E55002CA736 /* lenna_sjooblom_crude.jpg */,
 				99D3ADA4181EEC150035508B /* Ponster.xcdatamodeld */,
 				99D3AD99181EEC150035508B /* Supporting Files */,
 			);
@@ -160,9 +233,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 99D3ADBF181EEC150035508B /* Build configuration list for PBXNativeTarget "Ponster" */;
 			buildPhases = (
+				1A5C2418121941EE805A679A /* Check Pods Manifest.lock */,
 				99D3AD89181EEC150035508B /* Sources */,
 				99D3AD8A181EEC150035508B /* Frameworks */,
 				99D3AD8B181EEC150035508B /* Resources */,
+				6CDE8D01C55F40E88072F6F3 /* Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -229,6 +304,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9917F16818218E55002CA736 /* lenna_sjooblom_crude.jpg in Resources */,
 				99D3AD9D181EEC150035508B /* InfoPlist.strings in Resources */,
 				99D3ADA8181EEC150035508B /* Images.xcassets in Resources */,
 			);
@@ -244,6 +320,39 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		1A5C2418121941EE805A679A /* Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		6CDE8D01C55F40E88072F6F3 /* Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Pods-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		99D3AD89181EEC150035508B /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -251,6 +360,8 @@
 			files = (
 				99D3ADA3181EEC150035508B /* PNSAppDelegate.m in Sources */,
 				99D3ADA6181EEC150035508B /* Ponster.xcdatamodeld in Sources */,
+				38F77FD2191657F000E91D91 /* PNSImageCapture.mm in Sources */,
+				9917F16618218B39002CA736 /* PNSTestViewController.mm in Sources */,
 				99D3AD9F181EEC150035508B /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -297,7 +408,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -337,7 +448,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_INCLUDING_64_BIT)";
+				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
@@ -361,6 +472,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -369,26 +481,40 @@
 		};
 		99D3ADC0181EEC150035508B /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 07BE48AEE1F14DB5B11EF518 /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/ricci/Downloads,
+					/Users/ricci/uib/pfc/Ponster,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Ponster/Ponster-Prefix.pch";
 				INFOPLIST_FILE = "Ponster/Ponster-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
 		};
 		99D3ADC1181EEC150035508B /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 07BE48AEE1F14DB5B11EF518 /* Pods.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					/Users/ricci/Downloads,
+					/Users/ricci/uib/pfc/Ponster,
+				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Ponster/Ponster-Prefix.pch";
 				INFOPLIST_FILE = "Ponster/Ponster-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -454,6 +580,7 @@
 				99D3ADC1181EEC150035508B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		99D3ADC2181EEC150035508B /* Build configuration list for PBXNativeTarget "PonsterTests" */ = {
 			isa = XCConfigurationList;
@@ -462,6 +589,7 @@
 				99D3ADC4181EEC150035508B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 
