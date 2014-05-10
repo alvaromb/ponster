@@ -114,9 +114,11 @@
     // Configure the output port on the captureSession property
     [self.captureSession addOutput:captureOutput];
     
-    // Orientation
+    // Orientation support
     AVCaptureConnection *captureConnection = [captureOutput connectionWithMediaType:AVMediaTypeVideo];
-    [captureConnection setVideoOrientation:AVCaptureVideoOrientationPortrait];
+    if ([captureConnection isVideoOrientationSupported]) {
+        [captureConnection setVideoOrientation:AVCaptureVideoOrientationPortrait];
+    }
 }
 
 #pragma mark - AVCaptureVideoDataOutputSampleBufferDelegate
