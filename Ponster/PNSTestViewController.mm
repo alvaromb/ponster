@@ -23,6 +23,9 @@
 {
     if (!_backgroundImageView) {
         _backgroundImageView = [[UIImageView alloc] init];
+        _backgroundImageView.backgroundColor = [UIColor greenColor];
+        _backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
+        _backgroundImageView.clipsToBounds = YES;
     }
     return _backgroundImageView;
 }
@@ -59,6 +62,27 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
+                                         duration:(NSTimeInterval)duration
+{
+    self.backgroundImageView.frame = self.view.bounds;
+//    UIImage *image;
+//    switch (toInterfaceOrientation) {
+//        case UIInterfaceOrientationLandscapeRight: {
+//            image = [UIImage imageWithCGImage:self.backgroundImageView.image.CGImage scale:1.0 orientation:UIImageOrientationLeftMirrored];
+//            break;
+//        }
+//        case UIInterfaceOrientationLandscapeLeft: {
+//            image = [UIImage imageWithCGImage:self.backgroundImageView.image.CGImage scale:1.0 orientation:UIImageOrientationRightMirrored];
+//            break;
+//        }
+//        default:
+//            image = self.backgroundImageView.image;
+//            break;
+//    }
+//    self.backgroundImageView.image = image;
+}
+
 #pragma mark - PNSImageCaptureDelegate
 
 - (void)frameReady:(VideoFrame)frame
@@ -82,7 +106,8 @@
         CGColorSpaceRelease(colorSpace);
         
         // Construct UIImage from CGImageRef
-        UIImage * image = [UIImage imageWithCGImage:newImage];
+        UIImage *image = [UIImage imageWithCGImage:newImage];
+//        UIImage *image = [UIImage imageWithCGImage:newImage scale:1.0 orientation:UIImageOrientationRight];
         CGImageRelease(newImage);
         [[_weakSelf backgroundImageView] setImage:image];
     });

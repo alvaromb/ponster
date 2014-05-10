@@ -8,6 +8,12 @@
 
 #import "PNSImageCapture.h"
 
+@interface PNSImageCapture ()
+
+@property (strong, nonatomic) AVCaptureVideoPreviewLayer *previewLayer;
+
+@end
+
 @implementation PNSImageCapture
 
 #pragma mark - Lifecycle
@@ -41,7 +47,7 @@
     // Configure capture device for devicePosition
     AVCaptureDevice *captureDevice = [self cameraWithPosition:devicePosition];
     if (nil == captureDevice) {
-        NSLog(@"");
+        NSLog(@"Error configuring AVCaptureDevice");
         return NO;
     }
     
@@ -49,7 +55,7 @@
     NSError *error = nil;
     AVCaptureDeviceInput *captureInput = [AVCaptureDeviceInput deviceInputWithDevice:captureDevice error:&error];
     if (error) {
-        NSLog(@"");
+        NSLog(@"Error configuring AVCaptureDeviceInput");
         return NO;
     }
     
@@ -58,12 +64,16 @@
         [self.captureSession addInput:captureInput];
     }
     else {
-        NSLog(@"");
+        NSLog(@"Error configuring CaptureSession");
         return NO;
     }
     
     // Configure output
     [self configureVideoOutput];
+    
+    // Initialize preview layer
+    self.previewLayer = [AVCaptureVideoPreviewLayer layerWithSession:self.captureSession];
+    self.previewLayer.videoGravity = AVLayerVideoGravityResizeAspectFill;
     
     // Start capture
     [self.captureSession startRunning];
@@ -87,7 +97,7 @@
 - (void)configureVideoOutput
 {
     // Instantiate a new video data output object
-    AVCaptureVideoDataOutput * captureOutput = [[AVCaptureVideoDataOutput alloc] init];
+    AVCaptureVideoDataOutput *captureOutput = [[AVCaptureVideoDataOutput alloc] init];
     captureOutput.alwaysDiscardsLateVideoFrames = YES;
     
     // The sample buffer delegate requires a serial dispatch queue
@@ -103,6 +113,10 @@
     
     // Configure the output port on the captureSession property
     [self.captureSession addOutput:captureOutput];
+    
+    // Orientation
+    AVCaptureConnection *captureConnection = [captureOutput connectionWithMediaType:AVMediaTypeVideo];
+    [captureConnection setVideoOrientation:AVCaptureVideoOrientationPortrait];
 }
 
 #pragma mark - AVCaptureVideoDataOutputSampleBufferDelegate
@@ -117,15 +131,16 @@ didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
     // Lock pixel buffer
     CVPixelBufferLockBaseAddress(imageBuffer, kCVPixelBufferLock_ReadOnly);
     
-    // Construct VideoFrame struct
-    uint8_t *baseAddress = (uint8_t*)CVPixelBufferGetBaseAddress(imageBuffer);
-    size_t width = CVPixelBufferGetWidth(imageBuffer);
-    size_t height = CVPixelBufferGetHeight(imageBuffer);
-    size_t stride = CVPixelBufferGetBytesPerRow(imageBuffer);
-    VideoFrame frame = {width, height, stride, baseAddress};
-    
     // Dispatch VideoFrame to VideoSource delegate
-    [self.delegate frameReady:frame];
+    if ([self.delegate respondsToSelector:@selector(frameReady:)]) {
+        // Construct VideoFrame struct
+        uint8_t *baseAddress = (uint8_t*)CVPixelBufferGetBaseAddress(imageBuffer);
+        size_t width = CVPixelBufferGetWidth(imageBuffer);
+        size_t height = CVPixelBufferGetHeight(imageBuffer);
+        size_t stride = CVPixelBufferGetBytesPerRow(imageBuffer);
+        VideoFrame frame = {width, height, stride, baseAddress};
+        [self.delegate frameReady:frame];
+    }
     
     // Unlock pixel buffer
     CVPixelBufferUnlockBaseAddress(imageBuffer, 0);
