@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		1DCC7F11849F474DB6E0E923 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE944BF35DBA4CFAA158D871 /* libPods.a */; };
+		387AB640191FDC680091BE72 /* PatternDetector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 387AB63C191FDC680091BE72 /* PatternDetector.cpp */; };
+		387AB641191FDC680091BE72 /* UIImage+OpenCV.mm in Sources */ = {isa = PBXBuildFile; fileRef = 387AB63F191FDC680091BE72 /* UIImage+OpenCV.mm */; };
 		38F77FD2191657F000E91D91 /* PNSImageCapture.mm in Sources */ = {isa = PBXBuildFile; fileRef = 38F77FD1191657F000E91D91 /* PNSImageCapture.mm */; };
 		38F77FD51916B8A500E91D91 /* iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38F77FD41916B8A500E91D91 /* iPhone.storyboard */; };
 		9917F15D18218597002CA736 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9917F15C18218597002CA736 /* AVFoundation.framework */; };
@@ -46,6 +48,10 @@
 
 /* Begin PBXFileReference section */
 		07BE48AEE1F14DB5B11EF518 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		387AB63C191FDC680091BE72 /* PatternDetector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PatternDetector.cpp; sourceTree = "<group>"; };
+		387AB63D191FDC680091BE72 /* PatternDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PatternDetector.h; sourceTree = "<group>"; };
+		387AB63E191FDC680091BE72 /* UIImage+OpenCV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+OpenCV.h"; sourceTree = "<group>"; };
+		387AB63F191FDC680091BE72 /* UIImage+OpenCV.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIImage+OpenCV.mm"; sourceTree = "<group>"; };
 		38F77FD0191657F000E91D91 /* PNSImageCapture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNSImageCapture.h; sourceTree = "<group>"; };
 		38F77FD1191657F000E91D91 /* PNSImageCapture.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = PNSImageCapture.mm; sourceTree = "<group>"; };
 		38F77FD31916A3C900E91D91 /* VideoFrame.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VideoFrame.h; sourceTree = "<group>"; };
@@ -111,9 +117,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		387AB63B191FDC4B0091BE72 /* Pattern detector */ = {
+			isa = PBXGroup;
+			children = (
+				387AB63C191FDC680091BE72 /* PatternDetector.cpp */,
+				387AB63D191FDC680091BE72 /* PatternDetector.h */,
+				387AB63E191FDC680091BE72 /* UIImage+OpenCV.h */,
+				387AB63F191FDC680091BE72 /* UIImage+OpenCV.mm */,
+			);
+			name = "Pattern detector";
+			sourceTree = "<group>";
+		};
 		38F77FCC1916577E00E91D91 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				387AB63B191FDC4B0091BE72 /* Pattern detector */,
 				38F77FCF191657A000E91D91 /* Image capture */,
 				38F77FCE1916579A00E91D91 /* Model */,
 				38F77FCD1916578500E91D91 /* View controllers */,
@@ -367,7 +385,9 @@
 			files = (
 				99D3ADA3181EEC150035508B /* PNSAppDelegate.m in Sources */,
 				99D3ADA6181EEC150035508B /* Ponster.xcdatamodeld in Sources */,
+				387AB640191FDC680091BE72 /* PatternDetector.cpp in Sources */,
 				38F77FD2191657F000E91D91 /* PNSImageCapture.mm in Sources */,
+				387AB641191FDC680091BE72 /* UIImage+OpenCV.mm in Sources */,
 				9917F16618218B39002CA736 /* PNSTestViewController.mm in Sources */,
 				99D3AD9F181EEC150035508B /* main.m in Sources */,
 			);

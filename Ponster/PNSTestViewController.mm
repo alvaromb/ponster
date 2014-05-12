@@ -9,9 +9,13 @@
 #import "PNSTestViewController.h"
 
 @interface PNSTestViewController ()
+{
+    PatternDetector *_patternDetector;
+}
 
 @property (strong, nonatomic) UIImageView *backgroundImageView;
 @property (strong, nonatomic) PNSImageCapture *imageCapture;
+@property (strong, nonatomic) NSTimer *trackingTimer;
 
 @end
 
@@ -30,6 +34,18 @@
     return _backgroundImageView;
 }
 
+- (NSTimer *)trackingTimer
+{
+    if (!_trackingTimer) {
+        _trackingTimer = [NSTimer scheduledTimerWithTimeInterval:(1.0f/20.0f)
+                                                          target:self
+                                                        selector:@selector(updateTracking:)
+                                                        userInfo:nil
+                                                         repeats:YES];
+    }
+    return _trackingTimer;
+}
+
 #pragma mark - Lifecycle
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -45,9 +61,17 @@
 {
     [super viewDidLoad];
     [self.view addSubview:self.backgroundImageView];
+    
+    // Configure Pattern Detector
+    UIImage * trackerImage = [UIImage imageNamed:@"target"];
+    _patternDetector = new PatternDetector([trackerImage toCVMat]);
+    
     self.imageCapture = [[PNSImageCapture alloc] init];
     self.imageCapture.delegate = self;
     [self.imageCapture startWithDevicePosition:AVCaptureDevicePositionBack];
+    
+    // Start tracking
+    [self.trackingTimer fire];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -59,58 +83,56 @@
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+    [self.trackingTimer invalidate];
+}
+
+- (void)dealloc
+{
+    [self.trackingTimer invalidate];
 }
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
                                          duration:(NSTimeInterval)duration
 {
     self.backgroundImageView.frame = self.view.bounds;
-//    UIImage *image;
-//    switch (toInterfaceOrientation) {
-//        case UIInterfaceOrientationLandscapeRight: {
-//            image = [UIImage imageWithCGImage:self.backgroundImageView.image.CGImage scale:1.0 orientation:UIImageOrientationLeftMirrored];
-//            break;
-//        }
-//        case UIInterfaceOrientationLandscapeLeft: {
-//            image = [UIImage imageWithCGImage:self.backgroundImageView.image.CGImage scale:1.0 orientation:UIImageOrientationRightMirrored];
-//            break;
-//        }
-//        default:
-//            image = self.backgroundImageView.image;
-//            break;
-//    }
-//    self.backgroundImageView.image = image;
 }
 
 #pragma mark - PNSImageCaptureDelegate
 
 - (void)frameReady:(VideoFrame)frame
 {
-    __weak typeof(self) _weakSelf = self;
-    dispatch_sync( dispatch_get_main_queue(), ^{
-        // Construct CGContextRef from VideoFrame
-        CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-        CGContextRef newContext = CGBitmapContextCreate(frame.data,
-                                                        frame.width,
-                                                        frame.height,
-                                                        8,
-                                                        frame.bytesPerRow,
-                                                        colorSpace,
-                                                        kCGBitmapByteOrder32Little |
-                                                        kCGImageAlphaPremultipliedFirst);
-        
-        // Construct CGImageRef from CGContextRef
-        CGImageRef newImage = CGBitmapContextCreateImage(newContext);
-        CGContextRelease(newContext);
-        CGColorSpaceRelease(colorSpace);
-        
-        // Construct UIImage from CGImageRef
-        UIImage *image = [UIImage imageWithCGImage:newImage];
-//        UIImage *image = [UIImage imageWithCGImage:newImage scale:1.0 orientation:UIImageOrientationRight];
-        CGImageRelease(newImage);
-        [[_weakSelf backgroundImageView] setImage:image];
-    });
+//    __weak typeof(self) _weakSelf = self;
+//    dispatch_sync( dispatch_get_main_queue(), ^{
+//        // Construct CGContextRef from VideoFrame
+//        CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
+//        CGContextRef newContext = CGBitmapContextCreate(frame.data,
+//                                                        frame.width,
+//                                                        frame.height,
+//                                                        8,
+//                                                        frame.bytesPerRow,
+//                                                        colorSpace,
+//                                                        kCGBitmapByteOrder32Little |
+//                                                        kCGImageAlphaPremultipliedFirst);
+//        
+//        // Construct CGImageRef from CGContextRef
+//        CGImageRef newImage = CGBitmapContextCreateImage(newContext);
+//        CGContextRelease(newContext);
+//        CGColorSpaceRelease(colorSpace);
+//        
+//        // Construct UIImage from CGImageRef
+//        UIImage *image = [UIImage imageWithCGImage:newImage];
+////        UIImage *image = [UIImage imageWithCGImage:newImage scale:1.0 orientation:UIImageOrientationRight];
+//        CGImageRelease(newImage);
+//        [[_weakSelf backgroundImageView] setImage:image];
+//    });
+    _patternDetector->scanFrame(frame);
+}
+
+#pragma mark - Tracking timer
+
+- (void)updateTracking:(NSTimer *)timer
+{
+    [self.backgroundImageView setImage:[UIImage fromCVMat:_patternDetector->sampleImage()]];
 }
 
 @end
