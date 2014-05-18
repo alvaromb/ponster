@@ -76,12 +76,13 @@ void PatternDetector::scanFrame(VideoFrame frame)
             break;
     }
     
-//    // (1) copy image
-//    cv::Mat debugImage;
-//    queryImageGrayScale.copyTo(debugImage);
-    // (2) overlay rectangle
-    cv::rectangle(outputImage, m_matchPoint, cv::Point(m_matchPoint.x + 20, m_matchPoint.y + 20), CV_RGB(0, 0, 0), 3);
-    // (3) save to member variable
+    if (PatternDetector::isTracking()) {
+        // Compute the rescaled origin of the detection
+        cv::Point rescaledPoint = m_matchPoint * m_scaleFactor;
+        // Overlay a rectangle
+        cv::rectangle(outputImage, rescaledPoint, cv::Point(rescaledPoint.x + (m_patternImageGrayScaled.cols * m_scaleFactor), rescaledPoint.y + (m_patternImageGrayScaled.rows * m_scaleFactor)), CV_RGB(0, 0, 0), 3);
+    }
+    // Save to member variable
     outputImage.copyTo(m_sampleImage);
 }
 
