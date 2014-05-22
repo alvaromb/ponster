@@ -8,8 +8,9 @@
 
 #include "PatternDetector.h"
 
-const float kDefaultScaleFactor    = 2.00f;
-const float kDefaultThresholdValue = 0.50f;
+const float kDefaultScaleFactor     = 2.00f;
+const float k50ScaleFactor          = 4.00f;
+const float kDefaultThresholdValue  = 0.50f;
 
 PatternDetector::PatternDetector(const cv::Mat& patternImage)
 {
@@ -30,11 +31,15 @@ PatternDetector::PatternDetector(const cv::Mat& patternImage)
             break;
     }
     
-    // (3) Scale the gray image
+    // (3) Create several sizes to make the algorithm scale-invariant
     m_scaleFactor = kDefaultScaleFactor;
     float h = m_patternImageGray.rows / m_scaleFactor;
     float w = m_patternImageGray.cols / m_scaleFactor;
-    cv::resize(m_patternImageGray, m_patternImageGrayScaled, cv::Size(w,h));
+    cv::resize(m_patternImageGray, m_patternImageGrayScaled, cv::Size(w, h));
+    
+    h = m_patternImageGray.rows / k50ScaleFactor;
+    w = m_patternImageGray.cols / k50ScaleFactor;
+    cv::resize(m_patternImageGray, m_patternImageGrayScaled50, cv::Size(w, h));
     
     // (4) Configure the tracking parameters
     m_matchThresholdValue = kDefaultThresholdValue;
@@ -44,10 +49,40 @@ PatternDetector::PatternDetector(const cv::Mat& patternImage)
 void PatternDetector::scanFrame(VideoFrame frame)
 {
     // (1) Build the grayscale query image from the camera data
-    cv::Mat queryImageGray, queryImageGrayScale, outputImage;
+    cv::Mat queryImageGray, outputImage, selectedPattern;
     cv::Mat queryImage = cv::Mat(frame.height, frame.width, CV_8UC4, frame.data, frame.bytesPerRow);
     cv::cvtColor(queryImage, queryImageGray, CV_BGR2GRAY);
     cv::cvtColor(queryImage, outputImage, CV_BGR2BGRA);
+    
+    float selectedScaleFactor = m_scaleFactor;
+    selectedPattern = m_patternImageGrayScaled;
+    PatternDetector::findPattern(queryImageGray, selectedPattern);
+    if (!PatternDetector::isTracking()) {
+        selectedScaleFactor = k50ScaleFactor;
+        selectedPattern = m_patternImageGrayScaled50;
+        PatternDetector::findPattern(queryImageGray, selectedPattern);
+    }
+    
+    if (PatternDetector::isTracking()) {
+        // Compute the rescaled origin of the detection
+        cv::Point rescaledPoint = m_matchPoint * m_scaleFactor; //selectedScaleFactor;
+        
+        if (selectedScaleFactor == k50ScaleFactor) {
+            printf("detecting with k50ScaleFactor");
+        }
+
+        // Overlay a rectangle
+        cv::Point rectanglePoint = cv::Point(rescaledPoint.x + (selectedPattern.cols * m_scaleFactor), rescaledPoint.y + (selectedPattern.rows * m_scaleFactor));
+        cv::rectangle(outputImage, rescaledPoint, rectanglePoint, CV_RGB(0, 0, 0), 3);
+    }
+    
+    // Save to member variable
+    outputImage.copyTo(m_sampleImage);
+}
+
+void PatternDetector::findPattern(cv::Mat queryImageGray, cv::Mat scaledPattern)
+{
+    cv::Mat queryImageGrayScale;
     
     // (2) Scale down the image
     float h = queryImageGray.rows / m_scaleFactor;
@@ -55,10 +90,10 @@ void PatternDetector::scanFrame(VideoFrame frame)
     cv::resize(queryImageGray, queryImageGrayScale, cv::Size(w,h));
     
     // (3) Perform the matching
-    int rows = queryImageGrayScale.rows - m_patternImageGrayScaled.rows + 1;
-    int cols = queryImageGrayScale.cols - m_patternImageGrayScaled.cols + 1;
+    int rows = queryImageGrayScale.rows - scaledPattern.rows + 1;
+    int cols = queryImageGrayScale.cols - scaledPattern.cols + 1;
     cv::Mat resultImage = cv::Mat(cols, rows, CV_32FC1);
-    cv::matchTemplate(queryImageGrayScale, m_patternImageGrayScaled, resultImage, m_matchMethod);
+    cv::matchTemplate(queryImageGrayScale, scaledPattern, resultImage, m_matchMethod);
     
     // (4) Find the min/max settings
     double minVal, maxVal;
@@ -75,15 +110,6 @@ void PatternDetector::scanFrame(VideoFrame frame)
             m_matchValue = maxVal;
             break;
     }
-    
-    if (PatternDetector::isTracking()) {
-        // Compute the rescaled origin of the detection
-        cv::Point rescaledPoint = m_matchPoint * m_scaleFactor;
-        // Overlay a rectangle
-        cv::rectangle(outputImage, rescaledPoint, cv::Point(rescaledPoint.x + (m_patternImageGrayScaled.cols * m_scaleFactor), rescaledPoint.y + (m_patternImageGrayScaled.rows * m_scaleFactor)), CV_RGB(0, 0, 0), 3);
-    }
-    // Save to member variable
-    outputImage.copyTo(m_sampleImage);
 }
 
 const cv::Point& PatternDetector::matchPoint()

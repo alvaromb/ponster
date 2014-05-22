@@ -21,6 +21,7 @@ public:
     
     // (2) Scan the input video frame
     void scanFrame(VideoFrame frame);
+    void findPattern(cv::Mat queryImageGray, cv::Mat scaledPattern);
     
     // (3) Match APIs
     const cv::Point& matchPoint();
@@ -38,8 +39,14 @@ private:
     // (5) Reference Marker Images
     cv::Mat m_patternImage;
     cv::Mat m_patternImageGray;
-    cv::Mat m_patternImageGrayScaled;
     cv::Mat m_sampleImage;
+    
+    // Scale the pattern to several sizes
+    cv::Mat m_patternImageGrayScaled;
+    cv::Mat m_patternImageGrayScaled50;
+    cv::Mat m_patternImageGrayScaled25;
+    cv::Mat m_patternImageGrayScaled10;
+    cv::Mat m_patternImageGrayScaled5;
     
     // (6) Supporting Members
     cv::Point m_matchPoint;
