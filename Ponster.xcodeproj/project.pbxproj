@@ -10,13 +10,14 @@
 		1DCC7F11849F474DB6E0E923 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE944BF35DBA4CFAA158D871 /* libPods.a */; };
 		387AB640191FDC680091BE72 /* PatternDetector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 387AB63C191FDC680091BE72 /* PatternDetector.cpp */; };
 		387AB641191FDC680091BE72 /* UIImage+OpenCV.mm in Sources */ = {isa = PBXBuildFile; fileRef = 387AB63F191FDC680091BE72 /* UIImage+OpenCV.mm */; };
+		38F2469019350F3C0064AEA9 /* lena.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 38F2468F19350F3C0064AEA9 /* lena.jpg */; };
 		38F77FD2191657F000E91D91 /* PNSImageCapture.mm in Sources */ = {isa = PBXBuildFile; fileRef = 38F77FD1191657F000E91D91 /* PNSImageCapture.mm */; };
 		38F77FD51916B8A500E91D91 /* iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38F77FD41916B8A500E91D91 /* iPhone.storyboard */; };
 		9917F15D18218597002CA736 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9917F15C18218597002CA736 /* AVFoundation.framework */; };
 		9917F15F182185A0002CA736 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9917F15E182185A0002CA736 /* ImageIO.framework */; };
 		9917F161182185A9002CA736 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9917F160182185A9002CA736 /* libz.dylib */; };
 		9917F16618218B39002CA736 /* PNSTestViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9917F16518218B39002CA736 /* PNSTestViewController.mm */; };
-		9917F16818218E55002CA736 /* lenna_sjooblom_crude.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9917F16718218E55002CA736 /* lenna_sjooblom_crude.jpg */; };
+		9917F16818218E55002CA736 /* lena_full.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 9917F16718218E55002CA736 /* lena_full.jpg */; };
 		9917F16A18219069002CA736 /* CoreVideo.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9917F16918219069002CA736 /* CoreVideo.framework */; };
 		9917F16C1821906F002CA736 /* CoreMedia.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9917F16B1821906F002CA736 /* CoreMedia.framework */; };
 		99D3AD91181EEC150035508B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99D3AD90181EEC150035508B /* Foundation.framework */; };
@@ -52,6 +53,7 @@
 		387AB63D191FDC680091BE72 /* PatternDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PatternDetector.h; sourceTree = "<group>"; };
 		387AB63E191FDC680091BE72 /* UIImage+OpenCV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+OpenCV.h"; sourceTree = "<group>"; };
 		387AB63F191FDC680091BE72 /* UIImage+OpenCV.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIImage+OpenCV.mm"; sourceTree = "<group>"; };
+		38F2468F19350F3C0064AEA9 /* lena.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lena.jpg; sourceTree = "<group>"; };
 		38F77FD0191657F000E91D91 /* PNSImageCapture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNSImageCapture.h; sourceTree = "<group>"; };
 		38F77FD1191657F000E91D91 /* PNSImageCapture.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = PNSImageCapture.mm; sourceTree = "<group>"; };
 		38F77FD31916A3C900E91D91 /* VideoFrame.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VideoFrame.h; sourceTree = "<group>"; };
@@ -61,7 +63,7 @@
 		9917F160182185A9002CA736 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		9917F16418218B39002CA736 /* PNSTestViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNSTestViewController.h; sourceTree = "<group>"; };
 		9917F16518218B39002CA736 /* PNSTestViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PNSTestViewController.mm; sourceTree = "<group>"; };
-		9917F16718218E55002CA736 /* lenna_sjooblom_crude.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lenna_sjooblom_crude.jpg; sourceTree = "<group>"; };
+		9917F16718218E55002CA736 /* lena_full.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lena_full.jpg; sourceTree = "<group>"; };
 		9917F16918219069002CA736 /* CoreVideo.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreVideo.framework; path = System/Library/Frameworks/CoreVideo.framework; sourceTree = SDKROOT; };
 		9917F16B1821906F002CA736 /* CoreMedia.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreMedia.framework; path = System/Library/Frameworks/CoreMedia.framework; sourceTree = SDKROOT; };
 		99D3AD8D181EEC150035508B /* Ponster.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Ponster.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -219,7 +221,8 @@
 			isa = PBXGroup;
 			children = (
 				99D3ADA7181EEC150035508B /* Images.xcassets */,
-				9917F16718218E55002CA736 /* lenna_sjooblom_crude.jpg */,
+				38F2468F19350F3C0064AEA9 /* lena.jpg */,
+				9917F16718218E55002CA736 /* lena_full.jpg */,
 				99D3AD9A181EEC150035508B /* Ponster-Info.plist */,
 				99D3AD9B181EEC150035508B /* InfoPlist.strings */,
 				99D3AD9E181EEC150035508B /* main.m */,
@@ -328,7 +331,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9917F16818218E55002CA736 /* lenna_sjooblom_crude.jpg in Resources */,
+				9917F16818218E55002CA736 /* lena_full.jpg in Resources */,
+				38F2469019350F3C0064AEA9 /* lena.jpg in Resources */,
 				99D3AD9D181EEC150035508B /* InfoPlist.strings in Resources */,
 				99D3ADA8181EEC150035508B /* Images.xcassets in Resources */,
 				38F77FD51916B8A500E91D91 /* iPhone.storyboard in Resources */,

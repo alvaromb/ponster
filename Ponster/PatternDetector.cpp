@@ -12,10 +12,15 @@ const float kDefaultScaleFactor     = 2.00f;
 const float k50ScaleFactor          = 4.00f;
 const float kDefaultThresholdValue  = 0.50f;
 
-PatternDetector::PatternDetector(const cv::Mat& patternImage)
+PatternDetector::PatternDetector(const cv::Mat& patternImage, const cv::Mat& posterImage)
 {
+    m_scaleFactor = kDefaultScaleFactor;
+    
     // (1) Save the pattern image
     m_patternImage = patternImage;
+    
+    // Set the poster image
+    cv::resize(posterImage, m_resizedPosterImage, cv::Size(posterImage.rows/m_scaleFactor, posterImage.cols/m_scaleFactor));
     
     // (2) Create a grayscale version of the pattern image
     switch ( patternImage.channels() )
@@ -32,7 +37,6 @@ PatternDetector::PatternDetector(const cv::Mat& patternImage)
     }
     
     // (3) Create several sizes to make the algorithm scale-invariant
-    m_scaleFactor = kDefaultScaleFactor;
     float h = m_patternImageGray.rows / m_scaleFactor;
     float w = m_patternImageGray.cols / m_scaleFactor;
     cv::resize(m_patternImageGray, m_patternImageGrayScaled, cv::Size(w, h));
@@ -67,13 +71,25 @@ void PatternDetector::scanFrame(VideoFrame frame)
         // Compute the rescaled origin of the detection
         cv::Point rescaledPoint = m_matchPoint * m_scaleFactor; //selectedScaleFactor;
         
-        if (selectedScaleFactor == k50ScaleFactor) {
-            printf("detecting with k50ScaleFactor");
-        }
+//        if (selectedScaleFactor == k50ScaleFactor) {
+//            printf("detecting with k50ScaleFactor");
+//        }
 
         // Overlay a rectangle
+//        cv::Point rectanglePoint = cv::Point(rescaledPoint.x + (selectedPattern.cols * m_scaleFactor), rescaledPoint.y + (selectedPattern.rows * m_scaleFactor));
+//        cv::rectangle(outputImage, rescaledPoint, rectanglePoint, CV_RGB(0, 0, 0), 3);
+        
+        // Overlay poster image
         cv::Point rectanglePoint = cv::Point(rescaledPoint.x + (selectedPattern.cols * m_scaleFactor), rescaledPoint.y + (selectedPattern.rows * m_scaleFactor));
-        cv::rectangle(outputImage, rescaledPoint, rectanglePoint, CV_RGB(0, 0, 0), 3);
+//        cv::Rect rect = cv::Rect(rescaledPoint.x, rescaledPoint.y,  rescaledPoint.x + 50, rescaledPoint.y + 50);//rectanglePoint.x, rectanglePoint.y);
+
+        cv::Rect roiRect(rescaledPoint.x, rescaledPoint.y, m_resizedPosterImage.size().width, m_resizedPosterImage.size().height);
+        printf("I SHOULD BE PRINTING IMAGE\n");
+        cv::Mat roi(outputImage, roiRect);
+        m_resizedPosterImage.copyTo(outputImage(roiRect));
+//        cv::rectangle(outputImage, rescaledPoint, point, CV_RGB(0, 0, 0), 3);
+        
+//        cv::resize(m_resizedPosterImage, outputImage, cv::Size(rect.width, rect.height));
     }
     
     // Save to member variable

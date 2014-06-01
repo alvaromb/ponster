@@ -63,8 +63,9 @@
     [self.view addSubview:self.backgroundImageView];
     
     // Configure Pattern Detector
-    UIImage * trackerImage = [UIImage imageNamed:@"target"];
-    _patternDetector = new PatternDetector([trackerImage toCVMat]);
+    UIImage *trackerImage = [UIImage imageNamed:@"target"];
+    UIImage *posterImage = [UIImage imageNamed:@"lena.jpg"];
+    _patternDetector = new PatternDetector([trackerImage toCVMat], [posterImage toCVMat]);
     
     self.imageCapture = [[PNSImageCapture alloc] init];
     self.imageCapture.delegate = self;

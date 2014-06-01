@@ -17,7 +17,7 @@ class PatternDetector
 #pragma mark Public Interface
 public:
     // (1) Constructor
-    PatternDetector(const cv::Mat& pattern);
+    PatternDetector(const cv::Mat& pattern, const cv::Mat& posterImage);
     
     // (2) Scan the input video frame
     void scanFrame(VideoFrame frame);
@@ -40,6 +40,7 @@ private:
     cv::Mat m_patternImage;
     cv::Mat m_patternImageGray;
     cv::Mat m_sampleImage;
+    cv::Mat m_resizedPosterImage;
     
     // Scale the pattern to several sizes
     cv::Mat m_patternImageGrayScaled;
