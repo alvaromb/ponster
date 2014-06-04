@@ -8,11 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		1DCC7F11849F474DB6E0E923 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE944BF35DBA4CFAA158D871 /* libPods.a */; };
+		38038439193F984000818615 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 38038438193F984000818615 /* libc++.dylib */; };
 		387AB640191FDC680091BE72 /* PatternDetector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 387AB63C191FDC680091BE72 /* PatternDetector.cpp */; };
 		387AB641191FDC680091BE72 /* UIImage+OpenCV.mm in Sources */ = {isa = PBXBuildFile; fileRef = 387AB63F191FDC680091BE72 /* UIImage+OpenCV.mm */; };
 		38F2469019350F3C0064AEA9 /* lena.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 38F2468F19350F3C0064AEA9 /* lena.jpg */; };
 		38F77FD2191657F000E91D91 /* PNSImageCapture.mm in Sources */ = {isa = PBXBuildFile; fileRef = 38F77FD1191657F000E91D91 /* PNSImageCapture.mm */; };
-		38F77FD51916B8A500E91D91 /* iPhone.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 38F77FD41916B8A500E91D91 /* iPhone.storyboard */; };
 		9917F15D18218597002CA736 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9917F15C18218597002CA736 /* AVFoundation.framework */; };
 		9917F15F182185A0002CA736 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9917F15E182185A0002CA736 /* ImageIO.framework */; };
 		9917F161182185A9002CA736 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9917F160182185A9002CA736 /* libz.dylib */; };
@@ -25,8 +25,8 @@
 		99D3AD95181EEC150035508B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99D3AD94181EEC150035508B /* UIKit.framework */; };
 		99D3AD97181EEC150035508B /* CoreData.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99D3AD96181EEC150035508B /* CoreData.framework */; };
 		99D3AD9D181EEC150035508B /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 99D3AD9B181EEC150035508B /* InfoPlist.strings */; };
-		99D3AD9F181EEC150035508B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 99D3AD9E181EEC150035508B /* main.m */; };
-		99D3ADA3181EEC150035508B /* PNSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 99D3ADA2181EEC150035508B /* PNSAppDelegate.m */; };
+		99D3AD9F181EEC150035508B /* main.mm in Sources */ = {isa = PBXBuildFile; fileRef = 99D3AD9E181EEC150035508B /* main.mm */; };
+		99D3ADA3181EEC150035508B /* PNSAppDelegate.mm in Sources */ = {isa = PBXBuildFile; fileRef = 99D3ADA2181EEC150035508B /* PNSAppDelegate.mm */; };
 		99D3ADA6181EEC150035508B /* Ponster.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 99D3ADA4181EEC150035508B /* Ponster.xcdatamodeld */; };
 		99D3ADA8181EEC150035508B /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 99D3ADA7181EEC150035508B /* Images.xcassets */; };
 		99D3ADAF181EEC150035508B /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99D3ADAE181EEC150035508B /* XCTest.framework */; };
@@ -49,6 +49,7 @@
 
 /* Begin PBXFileReference section */
 		07BE48AEE1F14DB5B11EF518 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		38038438193F984000818615 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
 		387AB63C191FDC680091BE72 /* PatternDetector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PatternDetector.cpp; sourceTree = "<group>"; };
 		387AB63D191FDC680091BE72 /* PatternDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PatternDetector.h; sourceTree = "<group>"; };
 		387AB63E191FDC680091BE72 /* UIImage+OpenCV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+OpenCV.h"; sourceTree = "<group>"; };
@@ -57,7 +58,6 @@
 		38F77FD0191657F000E91D91 /* PNSImageCapture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNSImageCapture.h; sourceTree = "<group>"; };
 		38F77FD1191657F000E91D91 /* PNSImageCapture.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = PNSImageCapture.mm; sourceTree = "<group>"; };
 		38F77FD31916A3C900E91D91 /* VideoFrame.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VideoFrame.h; sourceTree = "<group>"; };
-		38F77FD41916B8A500E91D91 /* iPhone.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = iPhone.storyboard; sourceTree = "<group>"; };
 		9917F15C18218597002CA736 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		9917F15E182185A0002CA736 /* ImageIO.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		9917F160182185A9002CA736 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
@@ -73,10 +73,10 @@
 		99D3AD96181EEC150035508B /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = System/Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		99D3AD9A181EEC150035508B /* Ponster-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "Ponster-Info.plist"; sourceTree = "<group>"; };
 		99D3AD9C181EEC150035508B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
-		99D3AD9E181EEC150035508B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		99D3AD9E181EEC150035508B /* main.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = main.mm; sourceTree = "<group>"; };
 		99D3ADA0181EEC150035508B /* Ponster-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Ponster-Prefix.pch"; sourceTree = "<group>"; };
 		99D3ADA1181EEC150035508B /* PNSAppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PNSAppDelegate.h; sourceTree = "<group>"; };
-		99D3ADA2181EEC150035508B /* PNSAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PNSAppDelegate.m; sourceTree = "<group>"; };
+		99D3ADA2181EEC150035508B /* PNSAppDelegate.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = PNSAppDelegate.mm; sourceTree = "<group>"; };
 		99D3ADA5181EEC150035508B /* Ponster.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = Ponster.xcdatamodel; sourceTree = "<group>"; };
 		99D3ADA7181EEC150035508B /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		99D3ADAD181EEC150035508B /* PonsterTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PonsterTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -92,6 +92,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				38038439193F984000818615 /* libc++.dylib in Frameworks */,
 				9917F16C1821906F002CA736 /* CoreMedia.framework in Frameworks */,
 				9917F16A18219069002CA736 /* CoreVideo.framework in Frameworks */,
 				9917F161182185A9002CA736 /* libz.dylib in Frameworks */,
@@ -191,6 +192,7 @@
 		99D3AD8F181EEC150035508B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				38038438193F984000818615 /* libc++.dylib */,
 				9917F16B1821906F002CA736 /* CoreMedia.framework */,
 				9917F16918219069002CA736 /* CoreVideo.framework */,
 				9917F160182185A9002CA736 /* libz.dylib */,
@@ -211,7 +213,7 @@
 			children = (
 				38F77FCC1916577E00E91D91 /* Classes */,
 				99D3ADA1181EEC150035508B /* PNSAppDelegate.h */,
-				99D3ADA2181EEC150035508B /* PNSAppDelegate.m */,
+				99D3ADA2181EEC150035508B /* PNSAppDelegate.mm */,
 				99D3AD99181EEC150035508B /* Supporting Files */,
 			);
 			path = Ponster;
@@ -225,9 +227,8 @@
 				9917F16718218E55002CA736 /* lena_full.jpg */,
 				99D3AD9A181EEC150035508B /* Ponster-Info.plist */,
 				99D3AD9B181EEC150035508B /* InfoPlist.strings */,
-				99D3AD9E181EEC150035508B /* main.m */,
+				99D3AD9E181EEC150035508B /* main.mm */,
 				99D3ADA0181EEC150035508B /* Ponster-Prefix.pch */,
-				38F77FD41916B8A500E91D91 /* iPhone.storyboard */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -301,7 +302,7 @@
 				ORGANIZATIONNAME = alvaromb;
 				TargetAttributes = {
 					99D3AD8C181EEC150035508B = {
-						DevelopmentTeam = D3W274AZ6P;
+						DevelopmentTeam = NT336YL2P8;
 					};
 					99D3ADAC181EEC150035508B = {
 						TestTargetID = 99D3AD8C181EEC150035508B;
@@ -335,7 +336,6 @@
 				38F2469019350F3C0064AEA9 /* lena.jpg in Resources */,
 				99D3AD9D181EEC150035508B /* InfoPlist.strings in Resources */,
 				99D3ADA8181EEC150035508B /* Images.xcassets in Resources */,
-				38F77FD51916B8A500E91D91 /* iPhone.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -387,13 +387,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				99D3ADA3181EEC150035508B /* PNSAppDelegate.m in Sources */,
+				99D3ADA3181EEC150035508B /* PNSAppDelegate.mm in Sources */,
 				99D3ADA6181EEC150035508B /* Ponster.xcdatamodeld in Sources */,
 				387AB640191FDC680091BE72 /* PatternDetector.cpp in Sources */,
 				38F77FD2191657F000E91D91 /* PNSImageCapture.mm in Sources */,
 				387AB641191FDC680091BE72 /* UIImage+OpenCV.mm in Sources */,
 				9917F16618218B39002CA736 /* PNSTestViewController.mm in Sources */,
-				99D3AD9F181EEC150035508B /* main.m in Sources */,
+				99D3AD9F181EEC150035508B /* main.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
