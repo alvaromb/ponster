@@ -9,6 +9,10 @@
 /* Begin PBXBuildFile section */
 		1DCC7F11849F474DB6E0E923 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = DE944BF35DBA4CFAA158D871 /* libPods.a */; };
 		38038439193F984000818615 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 38038438193F984000818615 /* libc++.dylib */; };
+		383B67E319436AA400697BF2 /* AbstractPoster.m in Sources */ = {isa = PBXBuildFile; fileRef = 383B67E219436AA400697BF2 /* AbstractPoster.m */; };
+		383B67E619436AA400697BF2 /* Poster.m in Sources */ = {isa = PBXBuildFile; fileRef = 383B67E519436AA400697BF2 /* Poster.m */; };
+		383B67E919436AA400697BF2 /* Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 383B67E819436AA400697BF2 /* Category.m */; };
+		383B67EB19436B3400697BF2 /* NSManagedObject+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 383B67EA19436B3400697BF2 /* NSManagedObject+Utils.m */; };
 		387AB640191FDC680091BE72 /* PatternDetector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 387AB63C191FDC680091BE72 /* PatternDetector.cpp */; };
 		387AB641191FDC680091BE72 /* UIImage+OpenCV.mm in Sources */ = {isa = PBXBuildFile; fileRef = 387AB63F191FDC680091BE72 /* UIImage+OpenCV.mm */; };
 		38F2469019350F3C0064AEA9 /* lena.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 38F2468F19350F3C0064AEA9 /* lena.jpg */; };
@@ -50,6 +54,14 @@
 /* Begin PBXFileReference section */
 		07BE48AEE1F14DB5B11EF518 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		38038438193F984000818615 /* libc++.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = "libc++.dylib"; path = "usr/lib/libc++.dylib"; sourceTree = SDKROOT; };
+		383B67E119436AA400697BF2 /* AbstractPoster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractPoster.h; sourceTree = "<group>"; };
+		383B67E219436AA400697BF2 /* AbstractPoster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractPoster.m; sourceTree = "<group>"; };
+		383B67E419436AA400697BF2 /* Poster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Poster.h; sourceTree = "<group>"; };
+		383B67E519436AA400697BF2 /* Poster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Poster.m; sourceTree = "<group>"; };
+		383B67E719436AA400697BF2 /* Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Category.h; sourceTree = "<group>"; };
+		383B67E819436AA400697BF2 /* Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Category.m; sourceTree = "<group>"; };
+		383B67EA19436B3400697BF2 /* NSManagedObject+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+Utils.m"; sourceTree = "<group>"; };
+		383B67EC19436B7000697BF2 /* NSManagedObject+Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+Utils.h"; sourceTree = "<group>"; };
 		387AB63C191FDC680091BE72 /* PatternDetector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PatternDetector.cpp; sourceTree = "<group>"; };
 		387AB63D191FDC680091BE72 /* PatternDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PatternDetector.h; sourceTree = "<group>"; };
 		387AB63E191FDC680091BE72 /* UIImage+OpenCV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+OpenCV.h"; sourceTree = "<group>"; };
@@ -120,6 +132,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		383B67E019436A5900697BF2 /* Managed Objects */ = {
+			isa = PBXGroup;
+			children = (
+				383B67E719436AA400697BF2 /* Category.h */,
+				383B67E819436AA400697BF2 /* Category.m */,
+				383B67E419436AA400697BF2 /* Poster.h */,
+				383B67E519436AA400697BF2 /* Poster.m */,
+				383B67E119436AA400697BF2 /* AbstractPoster.h */,
+				383B67E219436AA400697BF2 /* AbstractPoster.m */,
+				383B67EA19436B3400697BF2 /* NSManagedObject+Utils.m */,
+				383B67EC19436B7000697BF2 /* NSManagedObject+Utils.h */,
+			);
+			name = "Managed Objects";
+			sourceTree = "<group>";
+		};
 		387AB63B191FDC4B0091BE72 /* Pattern detector */ = {
 			isa = PBXGroup;
 			children = (
@@ -154,6 +181,7 @@
 		38F77FCE1916579A00E91D91 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				383B67E019436A5900697BF2 /* Managed Objects */,
 				99D3ADA4181EEC150035508B /* Ponster.xcdatamodeld */,
 			);
 			name = Model;
@@ -391,8 +419,12 @@
 				99D3ADA6181EEC150035508B /* Ponster.xcdatamodeld in Sources */,
 				387AB640191FDC680091BE72 /* PatternDetector.cpp in Sources */,
 				38F77FD2191657F000E91D91 /* PNSImageCapture.mm in Sources */,
+				383B67E319436AA400697BF2 /* AbstractPoster.m in Sources */,
 				387AB641191FDC680091BE72 /* UIImage+OpenCV.mm in Sources */,
 				9917F16618218B39002CA736 /* PNSTestViewController.mm in Sources */,
+				383B67E919436AA400697BF2 /* Category.m in Sources */,
+				383B67E619436AA400697BF2 /* Poster.m in Sources */,
+				383B67EB19436B3400697BF2 /* NSManagedObject+Utils.m in Sources */,
 				99D3AD9F181EEC150035508B /* main.mm in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
