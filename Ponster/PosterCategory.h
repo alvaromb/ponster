@@ -1,5 +1,5 @@
 //
-//  Category.h
+//  PosterCategory.h
 //  Ponster
 //
 //  Created by Álvaro on 07/06/14.
@@ -11,13 +11,13 @@
 
 @class AbstractPoster;
 
-@interface Category : NSManagedObject
+@interface PosterCategory : NSManagedObject
 
 @property (nonatomic, retain) NSString * title;
 @property (nonatomic, retain) NSSet *posters;
 @end
 
-@interface Category (CoreDataGeneratedAccessors)
+@interface PosterCategory (CoreDataGeneratedAccessors)
 
 - (void)addPostersObject:(AbstractPoster *)value;
 - (void)removePostersObject:(AbstractPoster *)value;

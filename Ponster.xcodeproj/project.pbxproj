@@ -11,10 +11,16 @@
 		38038439193F984000818615 /* libc++.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 38038438193F984000818615 /* libc++.dylib */; };
 		383B67E319436AA400697BF2 /* AbstractPoster.m in Sources */ = {isa = PBXBuildFile; fileRef = 383B67E219436AA400697BF2 /* AbstractPoster.m */; };
 		383B67E619436AA400697BF2 /* Poster.m in Sources */ = {isa = PBXBuildFile; fileRef = 383B67E519436AA400697BF2 /* Poster.m */; };
-		383B67E919436AA400697BF2 /* Category.m in Sources */ = {isa = PBXBuildFile; fileRef = 383B67E819436AA400697BF2 /* Category.m */; };
 		383B67EB19436B3400697BF2 /* NSManagedObject+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 383B67EA19436B3400697BF2 /* NSManagedObject+Utils.m */; };
+		383B67EF1943732D00697BF2 /* PosterCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 383B67EE1943732D00697BF2 /* PosterCategory.m */; };
+		383B67F3194374CD00697BF2 /* PNSPostersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 383B67F2194374CD00697BF2 /* PNSPostersViewController.m */; };
+		383B67F6194374F300697BF2 /* PNSPostersCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 383B67F5194374F300697BF2 /* PNSPostersCollectionViewController.m */; };
+		383B67F91943750200697BF2 /* PNSPosterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 383B67F81943750200697BF2 /* PNSPosterViewController.m */; };
 		387AB640191FDC680091BE72 /* PatternDetector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 387AB63C191FDC680091BE72 /* PatternDetector.cpp */; };
 		387AB641191FDC680091BE72 /* UIImage+OpenCV.mm in Sources */ = {isa = PBXBuildFile; fileRef = 387AB63F191FDC680091BE72 /* UIImage+OpenCV.mm */; };
+		38CE52C51944C5B7002004E3 /* PNSCollectionViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 38CE52C41944C5B7002004E3 /* PNSCollectionViewDataSource.m */; };
+		38CE52C81944C5C6002004E3 /* PNSCollectionViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 38CE52C71944C5C6002004E3 /* PNSCollectionViewDelegate.m */; };
+		38CE52CC1944EAD1002004E3 /* PNSPosterCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 38CE52CB1944EAD1002004E3 /* PNSPosterCollectionViewCell.m */; };
 		38F2469019350F3C0064AEA9 /* lena.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 38F2468F19350F3C0064AEA9 /* lena.jpg */; };
 		38F77FD2191657F000E91D91 /* PNSImageCapture.mm in Sources */ = {isa = PBXBuildFile; fileRef = 38F77FD1191657F000E91D91 /* PNSImageCapture.mm */; };
 		9917F15D18218597002CA736 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9917F15C18218597002CA736 /* AVFoundation.framework */; };
@@ -58,14 +64,26 @@
 		383B67E219436AA400697BF2 /* AbstractPoster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractPoster.m; sourceTree = "<group>"; };
 		383B67E419436AA400697BF2 /* Poster.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Poster.h; sourceTree = "<group>"; };
 		383B67E519436AA400697BF2 /* Poster.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Poster.m; sourceTree = "<group>"; };
-		383B67E719436AA400697BF2 /* Category.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Category.h; sourceTree = "<group>"; };
-		383B67E819436AA400697BF2 /* Category.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Category.m; sourceTree = "<group>"; };
 		383B67EA19436B3400697BF2 /* NSManagedObject+Utils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSManagedObject+Utils.m"; sourceTree = "<group>"; };
 		383B67EC19436B7000697BF2 /* NSManagedObject+Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSManagedObject+Utils.h"; sourceTree = "<group>"; };
+		383B67ED1943732D00697BF2 /* PosterCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PosterCategory.h; sourceTree = "<group>"; };
+		383B67EE1943732D00697BF2 /* PosterCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PosterCategory.m; sourceTree = "<group>"; };
+		383B67F1194374CD00697BF2 /* PNSPostersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNSPostersViewController.h; sourceTree = "<group>"; };
+		383B67F2194374CD00697BF2 /* PNSPostersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNSPostersViewController.m; sourceTree = "<group>"; };
+		383B67F4194374F300697BF2 /* PNSPostersCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNSPostersCollectionViewController.h; sourceTree = "<group>"; };
+		383B67F5194374F300697BF2 /* PNSPostersCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNSPostersCollectionViewController.m; sourceTree = "<group>"; };
+		383B67F71943750200697BF2 /* PNSPosterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNSPosterViewController.h; sourceTree = "<group>"; };
+		383B67F81943750200697BF2 /* PNSPosterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNSPosterViewController.m; sourceTree = "<group>"; };
 		387AB63C191FDC680091BE72 /* PatternDetector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PatternDetector.cpp; sourceTree = "<group>"; };
 		387AB63D191FDC680091BE72 /* PatternDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PatternDetector.h; sourceTree = "<group>"; };
 		387AB63E191FDC680091BE72 /* UIImage+OpenCV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+OpenCV.h"; sourceTree = "<group>"; };
 		387AB63F191FDC680091BE72 /* UIImage+OpenCV.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIImage+OpenCV.mm"; sourceTree = "<group>"; };
+		38CE52C31944C5B7002004E3 /* PNSCollectionViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNSCollectionViewDataSource.h; sourceTree = "<group>"; };
+		38CE52C41944C5B7002004E3 /* PNSCollectionViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNSCollectionViewDataSource.m; sourceTree = "<group>"; };
+		38CE52C61944C5C6002004E3 /* PNSCollectionViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNSCollectionViewDelegate.h; sourceTree = "<group>"; };
+		38CE52C71944C5C6002004E3 /* PNSCollectionViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNSCollectionViewDelegate.m; sourceTree = "<group>"; };
+		38CE52CA1944EAD1002004E3 /* PNSPosterCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNSPosterCollectionViewCell.h; sourceTree = "<group>"; };
+		38CE52CB1944EAD1002004E3 /* PNSPosterCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNSPosterCollectionViewCell.m; sourceTree = "<group>"; };
 		38F2468F19350F3C0064AEA9 /* lena.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lena.jpg; sourceTree = "<group>"; };
 		38F77FD0191657F000E91D91 /* PNSImageCapture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNSImageCapture.h; sourceTree = "<group>"; };
 		38F77FD1191657F000E91D91 /* PNSImageCapture.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = PNSImageCapture.mm; sourceTree = "<group>"; };
@@ -135,8 +153,8 @@
 		383B67E019436A5900697BF2 /* Managed Objects */ = {
 			isa = PBXGroup;
 			children = (
-				383B67E719436AA400697BF2 /* Category.h */,
-				383B67E819436AA400697BF2 /* Category.m */,
+				383B67ED1943732D00697BF2 /* PosterCategory.h */,
+				383B67EE1943732D00697BF2 /* PosterCategory.m */,
 				383B67E419436AA400697BF2 /* Poster.h */,
 				383B67E519436AA400697BF2 /* Poster.m */,
 				383B67E119436AA400697BF2 /* AbstractPoster.h */,
@@ -158,9 +176,30 @@
 			name = "Pattern detector";
 			sourceTree = "<group>";
 		};
+		38CE52C21944C559002004E3 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				38CE52C31944C5B7002004E3 /* PNSCollectionViewDataSource.h */,
+				38CE52C41944C5B7002004E3 /* PNSCollectionViewDataSource.m */,
+				38CE52C61944C5C6002004E3 /* PNSCollectionViewDelegate.h */,
+				38CE52C71944C5C6002004E3 /* PNSCollectionViewDelegate.m */,
+			);
+			name = Base;
+			sourceTree = "<group>";
+		};
+		38CE52C91944EABF002004E3 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				38CE52CA1944EAD1002004E3 /* PNSPosterCollectionViewCell.h */,
+				38CE52CB1944EAD1002004E3 /* PNSPosterCollectionViewCell.m */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
 		38F77FCC1916577E00E91D91 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				38CE52C91944EABF002004E3 /* Cells */,
 				387AB63B191FDC4B0091BE72 /* Pattern detector */,
 				38F77FCF191657A000E91D91 /* Image capture */,
 				38F77FCE1916579A00E91D91 /* Model */,
@@ -172,8 +211,15 @@
 		38F77FCD1916578500E91D91 /* View controllers */ = {
 			isa = PBXGroup;
 			children = (
+				38CE52C21944C559002004E3 /* Base */,
 				9917F16418218B39002CA736 /* PNSTestViewController.h */,
 				9917F16518218B39002CA736 /* PNSTestViewController.mm */,
+				383B67F1194374CD00697BF2 /* PNSPostersViewController.h */,
+				383B67F2194374CD00697BF2 /* PNSPostersViewController.m */,
+				383B67F4194374F300697BF2 /* PNSPostersCollectionViewController.h */,
+				383B67F5194374F300697BF2 /* PNSPostersCollectionViewController.m */,
+				383B67F71943750200697BF2 /* PNSPosterViewController.h */,
+				383B67F81943750200697BF2 /* PNSPosterViewController.m */,
 			);
 			name = "View controllers";
 			sourceTree = "<group>";
@@ -416,14 +462,20 @@
 			buildActionMask = 2147483647;
 			files = (
 				99D3ADA3181EEC150035508B /* PNSAppDelegate.mm in Sources */,
+				383B67F6194374F300697BF2 /* PNSPostersCollectionViewController.m in Sources */,
+				383B67F3194374CD00697BF2 /* PNSPostersViewController.m in Sources */,
 				99D3ADA6181EEC150035508B /* Ponster.xcdatamodeld in Sources */,
 				387AB640191FDC680091BE72 /* PatternDetector.cpp in Sources */,
+				38CE52CC1944EAD1002004E3 /* PNSPosterCollectionViewCell.m in Sources */,
 				38F77FD2191657F000E91D91 /* PNSImageCapture.mm in Sources */,
 				383B67E319436AA400697BF2 /* AbstractPoster.m in Sources */,
+				383B67EF1943732D00697BF2 /* PosterCategory.m in Sources */,
 				387AB641191FDC680091BE72 /* UIImage+OpenCV.mm in Sources */,
+				38CE52C81944C5C6002004E3 /* PNSCollectionViewDelegate.m in Sources */,
+				38CE52C51944C5B7002004E3 /* PNSCollectionViewDataSource.m in Sources */,
 				9917F16618218B39002CA736 /* PNSTestViewController.mm in Sources */,
-				383B67E919436AA400697BF2 /* Category.m in Sources */,
 				383B67E619436AA400697BF2 /* Poster.m in Sources */,
+				383B67F91943750200697BF2 /* PNSPosterViewController.m in Sources */,
 				383B67EB19436B3400697BF2 /* NSManagedObject+Utils.m in Sources */,
 				99D3AD9F181EEC150035508B /* main.mm in Sources */,
 			);

@@ -4,16 +4,16 @@
         <attribute name="desc" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="imageUrl" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Category" inverseName="posters" inverseEntity="Category" syncable="YES"/>
+        <relationship name="category" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PosterCategory" inverseName="posters" inverseEntity="PosterCategory" syncable="YES"/>
     </entity>
-    <entity name="Category" representedClassName="Category" syncable="YES">
+    <entity name="Poster" representedClassName="Poster" parentEntity="AbstractPoster" syncable="YES"/>
+    <entity name="PosterCategory" representedClassName="PosterCategory" syncable="YES">
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="posters" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="AbstractPoster" inverseName="category" inverseEntity="AbstractPoster" syncable="YES"/>
     </entity>
-    <entity name="Poster" representedClassName="Poster" parentEntity="AbstractPoster" syncable="YES"/>
     <elements>
         <element name="AbstractPoster" positionX="-8343" positionY="-4311" width="128" height="103"/>
-        <element name="Category" positionX="-8075" positionY="-4329" width="128" height="73"/>
+        <element name="PosterCategory" positionX="-8111" positionY="-4293" width="128" height="73"/>
         <element name="Poster" positionX="-8343" positionY="-4122" width="128" height="43"/>
     </elements>
 </model>

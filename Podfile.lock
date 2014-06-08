@@ -1,10 +1,15 @@
 PODS:
+  - MagicalRecord (2.2):
+    - MagicalRecord/Core
+  - MagicalRecord/Core (2.2)
   - OpenCV (2.4.8)
 
 DEPENDENCIES:
+  - MagicalRecord (~> 2.2)
   - OpenCV
 
 SPEC CHECKSUMS:
-  OpenCV: 418f74b9632e02f9968cc61d5fae23674fc5151a
+  MagicalRecord: 2b471584fc9e3137f3d0a56967917baa4979e224
+  OpenCV: 7d5de7dc31a8f3925eb643b62d16c2cafa373527
 
-COCOAPODS: 0.32.1
+COCOAPODS: 0.33.1
