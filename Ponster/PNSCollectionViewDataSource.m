@@ -13,12 +13,29 @@
 @property (copy, nonatomic) NSMutableArray *sectionChanges;
 @property (copy, nonatomic) NSMutableArray *itemChanges;
 
-@property (copy, nonatomic) CollectionViewCellClass cellClassBlock;
 @property (copy, nonatomic) CollectionViewCellConfigurationBlock cellConfigurationBlock;
 
 @end
 
 @implementation PNSCollectionViewDataSource
+
+#pragma mark - Lifecycle
+
+- (instancetype)initWithReferenceViewController:(UICollectionViewController *)viewController
+                                   fetchRequest:(NSFetchRequest *)fetchRequest
+                           managedObjectContext:(NSManagedObjectContext *)context
+                             sectionNameKeyPath:(NSString *)keyPath
+                             configurationBlock:(CollectionViewCellConfigurationBlock)configurationBlock
+{
+    if (self = [super init]) {
+        self.referenceViewController = viewController;
+        self.fetchRequest = fetchRequest;
+        self.context = context;
+        self.sectionKeyPath = keyPath;
+        self.cellConfigurationBlock = configurationBlock;
+    }
+    return self;
+}
 
 #pragma mark - <UICollectionViewDataSource>
 
@@ -38,6 +55,27 @@
 }
 
 #pragma mark - <NSFetchedResultsControllerDelegate>
+
+- (NSFetchedResultsController *)fetchedResultsController
+{
+    if (!_fetchedResultsController) {
+        _fetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:self.fetchRequest
+                                                                        managedObjectContext:self.context
+                                                                          sectionNameKeyPath:self.sectionKeyPath
+                                                                                   cacheName:nil];
+        _fetchedResultsController.delegate = self;
+        self.referenceViewController.collectionView.backgroundColor = [UIColor clearColor];
+        [self.referenceViewController.collectionView reloadData];
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            [_fetchedResultsController performFetch:nil];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                [self.referenceViewController.collectionView reloadData];
+            });
+        });
+    }
+    return _fetchedResultsController;
+}
 
 - (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
 {

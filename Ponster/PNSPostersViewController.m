@@ -19,7 +19,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    self.childViewController = [[PNSPostersCollectionViewController alloc] init];
+    self.navigationItem.title = @"Ponster";
+    self.view.backgroundColor = [UIColor greenColor];
+    UICollectionViewFlowLayout *collectionViewLayout = [[UICollectionViewFlowLayout alloc] init];
+    collectionViewLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
+    self.childViewController = [[PNSPostersCollectionViewController alloc] initWithCollectionViewLayout:collectionViewLayout];
     [self addChildViewController:self.childViewController];
     [self.view addSubview:self.childViewController.view];
     [self.childViewController didMoveToParentViewController:self];
@@ -28,6 +32,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
+    self.childViewController.view.frame = self.view.bounds;
 }
 
 - (void)didReceiveMemoryWarning

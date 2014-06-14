@@ -6,8 +6,10 @@
 //  Copyright (c) 2014 alvaromb. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "Poster.h"
 
 @interface PNSPosterViewController : UIViewController
+
+- (instancetype)initWithPoster:(Poster *)poster;
 
 @end

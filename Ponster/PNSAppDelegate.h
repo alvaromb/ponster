@@ -7,7 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PNSTestViewController.h"
+//#import "PNSTestViewController.h"
+#import "PNSPostersViewController.h"
 
 @interface PNSAppDelegate : UIResponder <UIApplicationDelegate>
 

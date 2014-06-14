@@ -8,6 +8,12 @@
 
 #import <Foundation/Foundation.h>
 
+typedef CGSize (^CollectionViewCellSizeBlock)(NSIndexPath *indexPath);
+typedef void (^CollectionViewCellSelectionBlock)(NSIndexPath *indexPath);
+
 @interface PNSCollectionViewDelegate : NSObject <UICollectionViewDelegate>
+
+- (instancetype)initWithCellSizeBlock:(CollectionViewCellSizeBlock)cellSizeBlock
+                   cellSelectionBlock:(CollectionViewCellSelectionBlock)cellSelectionBlock;
 
 @end

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-typedef Class (^CollectionViewCellClass)(NSIndexPath *indexPath);
+//typedef Class (^CollectionViewCellClass)(NSIndexPath *indexPath);
 typedef void (^CollectionViewCellConfigurationBlock)(UICollectionViewCell *cell, id item);
 
 static NSString * const cellIdentifier = @"CollectionViewCellIdentifier";
@@ -18,7 +18,14 @@ static NSString * const cellIdentifier = @"CollectionViewCellIdentifier";
 @property (strong, nonatomic) NSManagedObjectContext *context;
 @property (strong, nonatomic) NSFetchedResultsController *fetchedResultsController;
 @property (strong, nonatomic) NSFetchRequest *fetchRequest;
+@property (strong, nonatomic) NSString *sectionKeyPath;
 
 @property (weak, nonatomic) UICollectionViewController *referenceViewController;
+
+- (instancetype)initWithReferenceViewController:(UICollectionViewController *)viewController
+                                   fetchRequest:(NSFetchRequest *)fetchRequest
+                           managedObjectContext:(NSManagedObjectContext *)context
+                             sectionNameKeyPath:(NSString *)keyPath
+                             configurationBlock:(CollectionViewCellConfigurationBlock)configurationBlock;
 
 @end

@@ -6,8 +6,10 @@
 //  Copyright (c) 2014 alvaromb. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "Poster.h"
 
 @interface PNSPosterCollectionViewCell : UICollectionViewCell
+
+- (void)configureCellWithObject:(id)object;
 
 @end

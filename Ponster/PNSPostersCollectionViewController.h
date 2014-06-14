@@ -9,6 +9,8 @@
 #import "PNSCollectionViewDataSource.h"
 #import "PNSCollectionViewDelegate.h"
 #import "PNSPosterCollectionViewCell.h"
+#import "PNSPosterViewController.h"
+#import "Poster.h"
 
 @interface PNSPostersCollectionViewController : UICollectionViewController
 

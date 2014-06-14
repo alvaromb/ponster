@@ -13,8 +13,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:@"Ponster.sqlite"];
+    [self mockPosterData];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.window.rootViewController = [[PNSTestViewController alloc] init];
+    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[PNSPostersViewController alloc] init]];
     [self.window makeKeyAndVisible];
     return YES;
 }
@@ -52,6 +53,58 @@
 - (NSURL *)applicationDocumentsDirectory
 {
     return [[[NSFileManager defaultManager] URLsForDirectory:NSDocumentDirectory inDomains:NSUserDomainMask] lastObject];
+}
+
+- (void)mockPosterData
+{
+    [Poster MR_truncateAllInContext:[NSManagedObjectContext MR_defaultContext]];
+    Poster *poster = [Poster MR_createInContext:[NSManagedObjectContext MR_defaultContext]];
+    poster.title = @"Back to the future";
+    poster.imageUrl = @"";
+    poster.desc = @"";
+    [[NSManagedObjectContext MR_defaultContext] save:NULL];
+    
+    poster = [Poster MR_createInContext:[NSManagedObjectContext MR_defaultContext]];
+    poster.title = @"Alien";
+    poster.imageUrl = @"";
+    poster.desc = @"";
+    [[NSManagedObjectContext MR_defaultContext] save:NULL];
+    
+    poster = [Poster MR_createInContext:[NSManagedObjectContext MR_defaultContext]];
+    poster.title = @"Drive";
+    poster.imageUrl = @"";
+    poster.desc = @"";
+    [[NSManagedObjectContext MR_defaultContext] save:NULL];
+    
+    poster = [Poster MR_createInContext:[NSManagedObjectContext MR_defaultContext]];
+    poster.title = @"Saving Private Ryan";
+    poster.imageUrl = @"";
+    poster.desc = @"";
+    [[NSManagedObjectContext MR_defaultContext] save:NULL];
+    
+    poster = [Poster MR_createInContext:[NSManagedObjectContext MR_defaultContext]];
+    poster.title = @"The Dark Knight";
+    poster.imageUrl = @"";
+    poster.desc = @"";
+    [[NSManagedObjectContext MR_defaultContext] save:NULL];
+    
+    poster = [Poster MR_createInContext:[NSManagedObjectContext MR_defaultContext]];
+    poster.title = @"The Godfather";
+    poster.imageUrl = @"";
+    poster.desc = @"";
+    [[NSManagedObjectContext MR_defaultContext] save:NULL];
+    
+    poster = [Poster MR_createInContext:[NSManagedObjectContext MR_defaultContext]];
+    poster.title = @"The Thin Red Line";
+    poster.imageUrl = @"";
+    poster.desc = @"";
+    [[NSManagedObjectContext MR_defaultContext] save:NULL];
+    
+    poster = [Poster MR_createInContext:[NSManagedObjectContext MR_defaultContext]];
+    poster.title = @"Star Wars";
+    poster.imageUrl = @"";
+    poster.desc = @"";
+    [[NSManagedObjectContext MR_defaultContext] save:NULL];
 }
 
 @end
