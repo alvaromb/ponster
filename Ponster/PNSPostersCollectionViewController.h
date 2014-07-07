@@ -6,11 +6,12 @@
 //  Copyright (c) 2014 alvaromb. All rights reserved.
 //
 
-#import "PNSCollectionViewDataSource.h"
+#import "PNSCollectionViewDataSourceLayoutManager.h"
 #import "PNSCollectionViewDelegate.h"
 #import "PNSPosterCollectionViewCell.h"
 #import "PNSPosterViewController.h"
 #import "Poster.h"
+#import "PDKTCollectionViewWaterfallLayout.h"
 
 @interface PNSPostersCollectionViewController : UICollectionViewController
 

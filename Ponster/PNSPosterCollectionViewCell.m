@@ -12,6 +12,7 @@
 
 @property (strong, nonatomic) Poster *poster;
 @property (strong, nonatomic) UILabel *posterTitleLabel;
+@property (strong, nonatomic) UIImageView *posterImageView;
 
 @end
 
@@ -27,6 +28,15 @@
         _posterTitleLabel.numberOfLines = 0;
     }
     return _posterTitleLabel;
+}
+
+- (UIImageView *)posterImageView
+{
+    if (!_posterImageView) {
+        _posterImageView = [[UIImageView alloc] init];
+        _posterImageView.backgroundColor = [UIColor cyanColor];
+    }
+    return _posterImageView;
 }
 
 #pragma mark - Lifecycle
@@ -52,6 +62,7 @@
 {
     self.opaque = YES;
     self.backgroundColor = [UIColor redColor];
+    [self.contentView addSubview:self.posterImageView];
     [self.contentView addSubview:self.posterTitleLabel];
 }
 
@@ -60,7 +71,9 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
+    NSLog(@"self.contentView.bounds = %@", NSStringFromCGRect(self.contentView.bounds));
     self.posterTitleLabel.frame = CGRectMake(5, 5, 90, 90);
+    self.posterImageView.frame = self.contentView.bounds;
 }
 
 #pragma mark - Cell configuration
@@ -73,6 +86,7 @@
     Poster *poster = (Poster *)object;
     self.poster = poster;
     self.posterTitleLabel.text = poster.title;
+    [self.posterImageView setImage:[UIImage imageNamed:self.poster.imageUrl]];
 }
 
 @end

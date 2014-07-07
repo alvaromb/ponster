@@ -26,6 +26,7 @@
 		386B69D0194CB27D003D733B /* Alien.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 386B69C8194CB27D003D733B /* Alien.jpg */; };
 		387AB640191FDC680091BE72 /* PatternDetector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 387AB63C191FDC680091BE72 /* PatternDetector.cpp */; };
 		387AB641191FDC680091BE72 /* UIImage+OpenCV.mm in Sources */ = {isa = PBXBuildFile; fileRef = 387AB63F191FDC680091BE72 /* UIImage+OpenCV.mm */; };
+		38AED396194F63E8008415D0 /* PNSCollectionViewDataSourceLayoutManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 38AED395194F63E8008415D0 /* PNSCollectionViewDataSourceLayoutManager.m */; };
 		38CE52C51944C5B7002004E3 /* PNSCollectionViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 38CE52C41944C5B7002004E3 /* PNSCollectionViewDataSource.m */; };
 		38CE52C81944C5C6002004E3 /* PNSCollectionViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 38CE52C71944C5C6002004E3 /* PNSCollectionViewDelegate.m */; };
 		38CE52CC1944EAD1002004E3 /* PNSPosterCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 38CE52CB1944EAD1002004E3 /* PNSPosterCollectionViewCell.m */; };
@@ -94,6 +95,8 @@
 		387AB63D191FDC680091BE72 /* PatternDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PatternDetector.h; sourceTree = "<group>"; };
 		387AB63E191FDC680091BE72 /* UIImage+OpenCV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+OpenCV.h"; sourceTree = "<group>"; };
 		387AB63F191FDC680091BE72 /* UIImage+OpenCV.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = "UIImage+OpenCV.mm"; sourceTree = "<group>"; };
+		38AED394194F63E8008415D0 /* PNSCollectionViewDataSourceLayoutManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNSCollectionViewDataSourceLayoutManager.h; sourceTree = "<group>"; };
+		38AED395194F63E8008415D0 /* PNSCollectionViewDataSourceLayoutManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNSCollectionViewDataSourceLayoutManager.m; sourceTree = "<group>"; };
 		38CE52C31944C5B7002004E3 /* PNSCollectionViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNSCollectionViewDataSource.h; sourceTree = "<group>"; };
 		38CE52C41944C5B7002004E3 /* PNSCollectionViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNSCollectionViewDataSource.m; sourceTree = "<group>"; };
 		38CE52C61944C5C6002004E3 /* PNSCollectionViewDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNSCollectionViewDelegate.h; sourceTree = "<group>"; };
@@ -214,6 +217,8 @@
 				38CE52C41944C5B7002004E3 /* PNSCollectionViewDataSource.m */,
 				38CE52C61944C5C6002004E3 /* PNSCollectionViewDelegate.h */,
 				38CE52C71944C5C6002004E3 /* PNSCollectionViewDelegate.m */,
+				38AED394194F63E8008415D0 /* PNSCollectionViewDataSourceLayoutManager.h */,
+				38AED395194F63E8008415D0 /* PNSCollectionViewDataSourceLayoutManager.m */,
 			);
 			name = Base;
 			sourceTree = "<group>";
@@ -516,6 +521,7 @@
 				9917F16618218B39002CA736 /* PNSTestViewController.mm in Sources */,
 				383B67E619436AA400697BF2 /* Poster.m in Sources */,
 				383B67F91943750200697BF2 /* PNSPosterViewController.m in Sources */,
+				38AED396194F63E8008415D0 /* PNSCollectionViewDataSourceLayoutManager.m in Sources */,
 				383B67EB19436B3400697BF2 /* NSManagedObject+Utils.m in Sources */,
 				99D3AD9F181EEC150035508B /* main.mm in Sources */,
 			);

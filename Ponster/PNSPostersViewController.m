@@ -21,9 +21,7 @@
     [super viewDidLoad];
     self.navigationItem.title = @"Ponster";
     self.view.backgroundColor = [UIColor greenColor];
-    UICollectionViewFlowLayout *collectionViewLayout = [[UICollectionViewFlowLayout alloc] init];
-    collectionViewLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
-    self.childViewController = [[PNSPostersCollectionViewController alloc] initWithCollectionViewLayout:collectionViewLayout];
+    self.childViewController = [[PNSPostersCollectionViewController alloc] init];
     [self addChildViewController:self.childViewController];
     [self.view addSubview:self.childViewController.view];
     [self.childViewController didMoveToParentViewController:self];

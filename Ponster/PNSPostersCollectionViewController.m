@@ -10,35 +10,47 @@
 
 @interface PNSPostersCollectionViewController ()
 
-@property (strong, nonatomic) PNSCollectionViewDataSource *dataSource;
+@property (strong, nonatomic) PNSCollectionViewDataSourceLayoutManager *dataSourceLayoutManager;
 @property (strong, nonatomic) PNSCollectionViewDelegate *delegate;
 
 @end
 
 @implementation PNSPostersCollectionViewController
 
-- (void)viewDidLoad
+- (instancetype)init
 {
-    [super viewDidLoad];
-    self.view.backgroundColor = [UIColor whiteColor];
-    self.collectionView.backgroundColor = [UIColor whiteColor];
-    self.collectionView.alwaysBounceVertical = YES;
-    self.collectionView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
-    [self.collectionView registerClass:[PNSPosterCollectionViewCell class] forCellWithReuseIdentifier:cellIdentifier];
-    self.dataSource = [[PNSCollectionViewDataSource alloc] initWithReferenceViewController:self fetchRequest:[self fetchRequest] managedObjectContext:[NSManagedObjectContext MR_defaultContext] sectionNameKeyPath:nil configurationBlock:^(UICollectionViewCell *cell, id item) {
-        PNSPosterCollectionViewCell *posterCell = (PNSPosterCollectionViewCell *)cell;
-        [posterCell configureCellWithObject:item];
-    }];
-    self.collectionView.dataSource = self.dataSource;
-    self.delegate = [[PNSCollectionViewDelegate alloc] initWithCellSizeBlock:^CGSize(NSIndexPath *indexPath) {
-        return CGSizeMake(100, 100);
-    } cellSelectionBlock:^(NSIndexPath *indexPath) {
-        Poster *selectedPoster = [self.dataSource.fetchedResultsController objectAtIndexPath:indexPath];
-        NSLog(@"cellSelectionBlock indexPath = %@", indexPath);
-        PNSPosterViewController *viewController = [[PNSPosterViewController alloc] initWithPoster:selectedPoster];
-        [self.navigationController pushViewController:viewController animated:YES];
-    }];
-    self.collectionView.delegate = self.delegate;
+    PDKTCollectionViewWaterfallLayout *waterfallLayout = [[PDKTCollectionViewWaterfallLayout alloc] init];
+    if (self = [super initWithCollectionViewLayout:waterfallLayout]) {
+        self.view.backgroundColor = [UIColor whiteColor];
+        self.collectionView.backgroundColor = [UIColor whiteColor];
+        self.collectionView.alwaysBounceVertical = YES;
+        self.collectionView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
+        [self.collectionView registerClass:[PNSPosterCollectionViewCell class] forCellWithReuseIdentifier:cellIdentifier];
+        
+        self.dataSourceLayoutManager = [[PNSCollectionViewDataSourceLayoutManager alloc] initWithReferenceViewController:self fetchRequest:[self fetchRequest] managedObjectContext:[NSManagedObjectContext MR_defaultContext] sectionNameKeyPath:nil configurationBlock:^(UICollectionViewCell *cell, id item) {
+            PNSPosterCollectionViewCell *posterCell = (PNSPosterCollectionViewCell *)cell;
+            [posterCell configureCellWithObject:item];
+        } aspectRatioBlock:^CGFloat(NSIndexPath *indexPath, id item) {
+            Poster *poster = (Poster *)item;
+            UIImage *posterImage = [UIImage imageNamed:poster.imageUrl];
+            NSLog(@"posterImage.size = %@", NSStringFromCGSize(posterImage.size));
+            return (157/posterImage.size.width)*posterImage.size.height;
+        }];
+        self.collectionView.dataSource = self.dataSourceLayoutManager;
+        self.collectionView.collectionViewLayout = waterfallLayout;
+        waterfallLayout.delegate = self.dataSourceLayoutManager;
+        
+        self.delegate = [[PNSCollectionViewDelegate alloc] initWithCellSizeBlock:^CGSize(NSIndexPath *indexPath) {
+            return CGSizeMake(100, 100);
+        } cellSelectionBlock:^(NSIndexPath *indexPath) {
+            Poster *selectedPoster = [self.dataSourceLayoutManager.fetchedResultsController objectAtIndexPath:indexPath];
+            NSLog(@"cellSelectionBlock indexPath = %@", indexPath);
+            PNSPosterViewController *viewController = [[PNSPosterViewController alloc] initWithPoster:selectedPoster];
+            [self.navigationController pushViewController:viewController animated:YES];
+        }];
+        self.collectionView.delegate = self.delegate;
+    }
+    return self;
 }
 
 #pragma mark - NSFetchRequest
