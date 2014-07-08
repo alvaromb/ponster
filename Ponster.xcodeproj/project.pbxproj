@@ -13,9 +13,9 @@
 		383B67E619436AA400697BF2 /* Poster.m in Sources */ = {isa = PBXBuildFile; fileRef = 383B67E519436AA400697BF2 /* Poster.m */; };
 		383B67EB19436B3400697BF2 /* NSManagedObject+Utils.m in Sources */ = {isa = PBXBuildFile; fileRef = 383B67EA19436B3400697BF2 /* NSManagedObject+Utils.m */; };
 		383B67EF1943732D00697BF2 /* PosterCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 383B67EE1943732D00697BF2 /* PosterCategory.m */; };
-		383B67F3194374CD00697BF2 /* PNSPostersViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 383B67F2194374CD00697BF2 /* PNSPostersViewController.m */; };
-		383B67F6194374F300697BF2 /* PNSPostersCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 383B67F5194374F300697BF2 /* PNSPostersCollectionViewController.m */; };
-		383B67F91943750200697BF2 /* PNSPosterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 383B67F81943750200697BF2 /* PNSPosterViewController.m */; };
+		383B67F3194374CD00697BF2 /* PNSPostersViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 383B67F2194374CD00697BF2 /* PNSPostersViewController.mm */; };
+		383B67F6194374F300697BF2 /* PNSPostersCollectionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 383B67F5194374F300697BF2 /* PNSPostersCollectionViewController.mm */; };
+		383B67F91943750200697BF2 /* PNSPosterViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 383B67F81943750200697BF2 /* PNSPosterViewController.mm */; };
 		386B69C9194CB27D003D733B /* TheThinRedLine.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 386B69C1194CB27D003D733B /* TheThinRedLine.jpg */; };
 		386B69CA194CB27D003D733B /* TheGodfather.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 386B69C2194CB27D003D733B /* TheGodfather.jpg */; };
 		386B69CB194CB27D003D733B /* TheDarkKnightRises.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 386B69C3194CB27D003D733B /* TheDarkKnightRises.jpg */; };
@@ -78,11 +78,11 @@
 		383B67ED1943732D00697BF2 /* PosterCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PosterCategory.h; sourceTree = "<group>"; };
 		383B67EE1943732D00697BF2 /* PosterCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PosterCategory.m; sourceTree = "<group>"; };
 		383B67F1194374CD00697BF2 /* PNSPostersViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNSPostersViewController.h; sourceTree = "<group>"; };
-		383B67F2194374CD00697BF2 /* PNSPostersViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNSPostersViewController.m; sourceTree = "<group>"; };
+		383B67F2194374CD00697BF2 /* PNSPostersViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PNSPostersViewController.mm; sourceTree = "<group>"; };
 		383B67F4194374F300697BF2 /* PNSPostersCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNSPostersCollectionViewController.h; sourceTree = "<group>"; };
-		383B67F5194374F300697BF2 /* PNSPostersCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNSPostersCollectionViewController.m; sourceTree = "<group>"; };
+		383B67F5194374F300697BF2 /* PNSPostersCollectionViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PNSPostersCollectionViewController.mm; sourceTree = "<group>"; };
 		383B67F71943750200697BF2 /* PNSPosterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNSPosterViewController.h; sourceTree = "<group>"; };
-		383B67F81943750200697BF2 /* PNSPosterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNSPosterViewController.m; sourceTree = "<group>"; };
+		383B67F81943750200697BF2 /* PNSPosterViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PNSPosterViewController.mm; sourceTree = "<group>"; };
 		386B69C1194CB27D003D733B /* TheThinRedLine.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = TheThinRedLine.jpg; sourceTree = "<group>"; };
 		386B69C2194CB27D003D733B /* TheGodfather.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = TheGodfather.jpg; sourceTree = "<group>"; };
 		386B69C3194CB27D003D733B /* TheDarkKnightRises.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = TheDarkKnightRises.jpg; sourceTree = "<group>"; };
@@ -251,11 +251,11 @@
 				9917F16418218B39002CA736 /* PNSTestViewController.h */,
 				9917F16518218B39002CA736 /* PNSTestViewController.mm */,
 				383B67F1194374CD00697BF2 /* PNSPostersViewController.h */,
-				383B67F2194374CD00697BF2 /* PNSPostersViewController.m */,
+				383B67F2194374CD00697BF2 /* PNSPostersViewController.mm */,
 				383B67F4194374F300697BF2 /* PNSPostersCollectionViewController.h */,
-				383B67F5194374F300697BF2 /* PNSPostersCollectionViewController.m */,
+				383B67F5194374F300697BF2 /* PNSPostersCollectionViewController.mm */,
 				383B67F71943750200697BF2 /* PNSPosterViewController.h */,
-				383B67F81943750200697BF2 /* PNSPosterViewController.m */,
+				383B67F81943750200697BF2 /* PNSPosterViewController.mm */,
 			);
 			name = "View controllers";
 			sourceTree = "<group>";
@@ -507,8 +507,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				99D3ADA3181EEC150035508B /* PNSAppDelegate.mm in Sources */,
-				383B67F6194374F300697BF2 /* PNSPostersCollectionViewController.m in Sources */,
-				383B67F3194374CD00697BF2 /* PNSPostersViewController.m in Sources */,
+				383B67F6194374F300697BF2 /* PNSPostersCollectionViewController.mm in Sources */,
+				383B67F3194374CD00697BF2 /* PNSPostersViewController.mm in Sources */,
 				99D3ADA6181EEC150035508B /* Ponster.xcdatamodeld in Sources */,
 				387AB640191FDC680091BE72 /* PatternDetector.cpp in Sources */,
 				38CE52CC1944EAD1002004E3 /* PNSPosterCollectionViewCell.m in Sources */,
@@ -520,7 +520,7 @@
 				38CE52C51944C5B7002004E3 /* PNSCollectionViewDataSource.m in Sources */,
 				9917F16618218B39002CA736 /* PNSTestViewController.mm in Sources */,
 				383B67E619436AA400697BF2 /* Poster.m in Sources */,
-				383B67F91943750200697BF2 /* PNSPosterViewController.m in Sources */,
+				383B67F91943750200697BF2 /* PNSPosterViewController.mm in Sources */,
 				38AED396194F63E8008415D0 /* PNSCollectionViewDataSourceLayoutManager.m in Sources */,
 				383B67EB19436B3400697BF2 /* NSManagedObject+Utils.m in Sources */,
 				99D3AD9F181EEC150035508B /* main.mm in Sources */,

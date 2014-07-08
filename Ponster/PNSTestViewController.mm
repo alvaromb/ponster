@@ -16,6 +16,7 @@
 @property (strong, nonatomic) UIImageView *backgroundImageView;
 @property (strong, nonatomic) PNSImageCapture *imageCapture;
 @property (strong, nonatomic) NSTimer *trackingTimer;
+@property (strong, nonatomic) UIImage *posterImage;
 
 @end
 
@@ -48,6 +49,14 @@
 
 #pragma mark - Lifecycle
 
+- (instancetype)initWithImage:(UIImage *)posterImage
+{
+    if (self = [super init]) {
+        self.posterImage = posterImage;
+    }
+    return self;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -55,8 +64,8 @@
     
     // Configure Pattern Detector
     UIImage *trackerImage = [UIImage imageNamed:@"target"];
-    UIImage *posterImage = [UIImage imageNamed:@"lena.jpg"];
-    _patternDetector = new PatternDetector([trackerImage toCVMat], [posterImage toCVMat]);
+//    UIImage *posterImage = [UIImage imageNamed:@"lena.jpg"];
+    _patternDetector = new PatternDetector([trackerImage toCVMat], [self.posterImage toCVMat]);
     
     self.imageCapture = [[PNSImageCapture alloc] init];
     self.imageCapture.delegate = self;

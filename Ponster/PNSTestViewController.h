@@ -10,7 +10,8 @@
 #import "PatternDetector.h"
 #import "UIImage+OpenCV.h"
 
-
 @interface PNSTestViewController : UIViewController <PNSImageCaptureDelegate>
+
+- (instancetype)initWithImage:(UIImage *)posterImage;
 
 @end

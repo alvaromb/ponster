@@ -84,7 +84,7 @@ void PatternDetector::scanFrame(VideoFrame frame)
 //        cv::Rect rect = cv::Rect(rescaledPoint.x, rescaledPoint.y,  rescaledPoint.x + 50, rescaledPoint.y + 50);//rectanglePoint.x, rectanglePoint.y);
 
         cv::Rect roiRect(rescaledPoint.x, rescaledPoint.y, m_resizedPosterImage.size().width, m_resizedPosterImage.size().height);
-        printf("I SHOULD BE PRINTING IMAGE\n");
+//        printf("I SHOULD BE PRINTING IMAGE\n");
         cv::Mat roi(outputImage, roiRect);
         m_resizedPosterImage.copyTo(outputImage(roiRect));
 //        cv::rectangle(outputImage, rescaledPoint, point, CV_RGB(0, 0, 0), 3);

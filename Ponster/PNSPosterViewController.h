@@ -7,6 +7,7 @@
 //
 
 #import "Poster.h"
+#import "PNSTestViewController.h"
 
 @interface PNSPosterViewController : UIViewController
 

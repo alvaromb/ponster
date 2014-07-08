@@ -79,7 +79,8 @@
 
 - (void)tryMeAction
 {
-    
+    PNSTestViewController *viewController = [[PNSTestViewController alloc] initWithImage:self.posterImageView.image];
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 @end
