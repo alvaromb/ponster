@@ -10,6 +10,6 @@
 
 @interface PNSPosterViewController : UIViewController
 
-- (instancetype)initWithPoster:(Poster *)poster;
+- (instancetype)initWithPosterID:(NSManagedObjectID *)posterObjectID;
 
 @end

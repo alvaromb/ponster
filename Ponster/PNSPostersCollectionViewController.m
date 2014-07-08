@@ -44,7 +44,7 @@
         } cellSelectionBlock:^(NSIndexPath *indexPath) {
             Poster *selectedPoster = [self.dataSourceLayoutManager.fetchedResultsController objectAtIndexPath:indexPath];
             NSLog(@"cellSelectionBlock indexPath = %@", indexPath);
-            PNSPosterViewController *viewController = [[PNSPosterViewController alloc] initWithPoster:selectedPoster];
+            PNSPosterViewController *viewController = [[PNSPosterViewController alloc] initWithPosterID:selectedPoster.objectID];
             [self.navigationController pushViewController:viewController animated:YES];
         }];
         self.collectionView.delegate = self.delegate;

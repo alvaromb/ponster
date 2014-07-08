@@ -73,7 +73,6 @@
 {
     [super layoutSubviews];
     CGRect bounds = self.contentView.bounds;
-    NSLog(@"self.contentView.bounds = %@", NSStringFromCGRect(bounds));
     CGFloat titleHeight = [self.poster.title boundingRectWithSize:CGSizeMake(bounds.size.width, 40) options:NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName : self.posterTitleLabel.font} context:nil].size.height;
     self.posterTitleLabel.frame = CGRectMake(0, bounds.size.height - titleHeight, bounds.size.width, titleHeight);
     self.posterImageView.frame = self.contentView.bounds;
