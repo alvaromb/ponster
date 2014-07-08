@@ -24,8 +24,9 @@
 {
     if (!_posterTitleLabel) {
         _posterTitleLabel = [[UILabel alloc] init];
-        _posterTitleLabel.backgroundColor = [UIColor greenColor];
+        _posterTitleLabel.backgroundColor = [UIColor whiteColor];
         _posterTitleLabel.numberOfLines = 0;
+        _posterTitleLabel.alpha = 0.9;
     }
     return _posterTitleLabel;
 }
@@ -61,7 +62,7 @@
 - (void)commonInitializer
 {
     self.opaque = YES;
-    self.backgroundColor = [UIColor redColor];
+    self.backgroundColor = [UIColor whiteColor];
     [self.contentView addSubview:self.posterImageView];
     [self.contentView addSubview:self.posterTitleLabel];
 }
@@ -71,8 +72,10 @@
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    NSLog(@"self.contentView.bounds = %@", NSStringFromCGRect(self.contentView.bounds));
-    self.posterTitleLabel.frame = CGRectMake(5, 5, 90, 90);
+    CGRect bounds = self.contentView.bounds;
+    NSLog(@"self.contentView.bounds = %@", NSStringFromCGRect(bounds));
+    CGFloat titleHeight = [self.poster.title boundingRectWithSize:CGSizeMake(bounds.size.width, 40) options:NSStringDrawingUsesFontLeading attributes:@{NSFontAttributeName : self.posterTitleLabel.font} context:nil].size.height;
+    self.posterTitleLabel.frame = CGRectMake(0, bounds.size.height - titleHeight, bounds.size.width, titleHeight);
     self.posterImageView.frame = self.contentView.bounds;
 }
 

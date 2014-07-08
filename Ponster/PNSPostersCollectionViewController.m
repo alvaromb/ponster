@@ -33,7 +33,6 @@
         } aspectRatioBlock:^CGFloat(NSIndexPath *indexPath, id item) {
             Poster *poster = (Poster *)item;
             UIImage *posterImage = [UIImage imageNamed:poster.imageUrl];
-            NSLog(@"posterImage.size = %@", NSStringFromCGSize(posterImage.size));
             return (157/posterImage.size.width)*posterImage.size.height;
         }];
         self.collectionView.dataSource = self.dataSourceLayoutManager;
