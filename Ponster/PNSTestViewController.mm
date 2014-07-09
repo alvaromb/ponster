@@ -51,6 +51,7 @@
 
 - (instancetype)initWithImage:(UIImage *)posterImage
 {
+    NSParameterAssert(posterImage);
     if (self = [super init]) {
         self.posterImage = posterImage;
     }
@@ -60,11 +61,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    self.edgesForExtendedLayout = UIRectEdgeNone;
     [self.view addSubview:self.backgroundImageView];
     
     // Configure Pattern Detector
     UIImage *trackerImage = [UIImage imageNamed:@"target"];
-//    UIImage *posterImage = [UIImage imageNamed:@"lena.jpg"];
     _patternDetector = new PatternDetector([trackerImage toCVMat], [self.posterImage toCVMat]);
     
     self.imageCapture = [[PNSImageCapture alloc] init];
@@ -102,31 +103,9 @@
 
 - (void)frameReady:(VideoFrame)frame
 {
-//    __weak typeof(self) _weakSelf = self;
-//    dispatch_sync( dispatch_get_main_queue(), ^{
-//        // Construct CGContextRef from VideoFrame
-//        CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-//        CGContextRef newContext = CGBitmapContextCreate(frame.data,
-//                                                        frame.width,
-//                                                        frame.height,
-//                                                        8,
-//                                                        frame.bytesPerRow,
-//                                                        colorSpace,
-//                                                        kCGBitmapByteOrder32Little |
-//                                                        kCGImageAlphaPremultipliedFirst);
-//        
-//        // Construct CGImageRef from CGContextRef
-//        CGImageRef newImage = CGBitmapContextCreateImage(newContext);
-//        CGContextRelease(newContext);
-//        CGColorSpaceRelease(colorSpace);
-//        
-//        // Construct UIImage from CGImageRef
-//        UIImage *image = [UIImage imageWithCGImage:newImage];
-////        UIImage *image = [UIImage imageWithCGImage:newImage scale:1.0 orientation:UIImageOrientationRight];
-//        CGImageRelease(newImage);
-//        [[_weakSelf backgroundImageView] setImage:image];
-//    });
-    _patternDetector->scanFrame(frame);
+    dispatch_sync(dispatch_get_main_queue(), ^{
+        _patternDetector->scanFrame(frame);
+    });
 }
 
 #pragma mark - Tracking timer
