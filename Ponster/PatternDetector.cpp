@@ -59,11 +59,11 @@ void PatternDetector::scanFrame(VideoFrame frame)
     cv::cvtColor(queryImage, queryImageGray, CV_BGR2GRAY);
     cv::cvtColor(queryImage, outputImage, CV_BGR2BGRA);
     
-    float selectedScaleFactor = m_scaleFactor;
+//    float selectedScaleFactor = m_scaleFactor;
     selectedPattern = m_patternImageGrayScaled;
     PatternDetector::findPattern(queryImageGray, selectedPattern);
     if (!PatternDetector::isTracking()) {
-        selectedScaleFactor = k50ScaleFactor;
+//        selectedScaleFactor = k50ScaleFactor;
         selectedPattern = m_patternImageGrayScaled50;
         PatternDetector::findPattern(queryImageGray, selectedPattern);
     }
@@ -74,8 +74,9 @@ void PatternDetector::scanFrame(VideoFrame frame)
         
         // Overlay poster image
         cv::Rect roiRect(rescaledPoint.x, rescaledPoint.y, m_resizedPosterImage.size().width, m_resizedPosterImage.size().height);
-        printf("\n roiRect     (%d, %d, %d, %d)", roiRect.x, roiRect.y, roiRect.width, roiRect.height);
-        printf("\n outputImage (%d, %d) \n", outputImage.cols, outputImage.rows);
+//        printf("\n roiRect     (%d, %d, %d, %d)", roiRect.x, roiRect.y, roiRect.width, roiRect.height);
+//        printf("\n outputImage (%d, %d) \n", outputImage.cols, outputImage.rows);
+        // Check if the roi is inside the bounds of the outputImage
         if (((roiRect.y + roiRect.height) <= outputImage.rows) && ((roiRect.x + roiRect.width) <= outputImage.cols)) {
             cv::Mat roi(outputImage, roiRect);
             m_resizedPosterImage.copyTo(outputImage(roiRect));
@@ -148,3 +149,7 @@ const cv::Mat& PatternDetector::sampleImage()
 {
     return m_sampleImage;
 }
+
+#pragma mark - Lifecycle
+
+

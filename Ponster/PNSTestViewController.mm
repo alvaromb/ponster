@@ -88,9 +88,21 @@
     [self.trackingTimer invalidate];
 }
 
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+    // Invalidate timer and stop AVCaptureSession
+    [self.trackingTimer invalidate];
+    [self.imageCapture.captureSession stopRunning];
+}
+
 - (void)dealloc
 {
-    [self.trackingTimer invalidate];
+    NSLog(@"%@ : dealloc", [self class]);
+    delete _patternDetector;
+    _imageCapture.delegate = nil;
+    _imageCapture = nil;
+    
 }
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation

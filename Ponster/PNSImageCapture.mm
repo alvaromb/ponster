@@ -18,10 +18,9 @@
 
 #pragma mark - Lifecycle
 
-- (id)init
+- (instancetype)init
 {
-    self = [super init];
-    if (self) {
+    if (self = [super init]) {
         AVCaptureSession *captureSession = [[AVCaptureSession alloc] init];
         if ([captureSession canSetSessionPreset:AVCaptureSessionPreset640x480]) {
             [captureSession setSessionPreset:AVCaptureSessionPreset640x480];
