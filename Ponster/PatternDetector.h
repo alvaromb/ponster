@@ -41,6 +41,7 @@ private:
     cv::Mat m_patternImageGray;
     cv::Mat m_sampleImage;
     cv::Mat m_resizedPosterImage;
+    cv::Mat m_resized50PosterImage;
     
     // Scale the pattern to several sizes
     cv::Mat m_patternImageGrayScaled;

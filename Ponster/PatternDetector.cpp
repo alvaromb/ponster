@@ -19,8 +19,9 @@ PatternDetector::PatternDetector(const cv::Mat& patternImage, const cv::Mat& pos
     // (1) Save the pattern image
     m_patternImage = patternImage;
     
-    // Set the poster image
+    // Create several poster image versions for scale-invariance
     cv::resize(posterImage, m_resizedPosterImage, cv::Size(posterImage.cols/m_scaleFactor, posterImage.rows/m_scaleFactor));
+    cv::resize(posterImage, m_resized50PosterImage, cv::Size(posterImage.cols/k50ScaleFactor, posterImage.rows/k50ScaleFactor));
     printf("\n m_resizedPosterImage.size = (%d, %d) \n\n", m_resizedPosterImage.rows, m_resizedPosterImage.cols);
     
     // (2) Create a grayscale version of the pattern image
@@ -59,11 +60,11 @@ void PatternDetector::scanFrame(VideoFrame frame)
     cv::cvtColor(queryImage, queryImageGray, CV_BGR2GRAY);
     cv::cvtColor(queryImage, outputImage, CV_BGR2BGRA);
     
-//    float selectedScaleFactor = m_scaleFactor;
+    float selectedScaleFactor = m_scaleFactor;
     selectedPattern = m_patternImageGrayScaled;
     PatternDetector::findPattern(queryImageGray, selectedPattern);
     if (!PatternDetector::isTracking()) {
-//        selectedScaleFactor = k50ScaleFactor;
+        selectedScaleFactor = k50ScaleFactor;
         selectedPattern = m_patternImageGrayScaled50;
         PatternDetector::findPattern(queryImageGray, selectedPattern);
     }
@@ -72,14 +73,29 @@ void PatternDetector::scanFrame(VideoFrame frame)
         // Compute the rescaled origin of the detection
         cv::Point rescaledPoint = m_matchPoint * m_scaleFactor;
         
-        // Overlay poster image
-        cv::Rect roiRect(rescaledPoint.x, rescaledPoint.y, m_resizedPosterImage.size().width, m_resizedPosterImage.size().height);
+        // Overlay poster image depending on the size
+        cv::Rect roiRect;
+        if (selectedScaleFactor == m_scaleFactor) {
+            roiRect = cv::Rect(rescaledPoint.x, rescaledPoint.y, m_resizedPosterImage.size().width, m_resizedPosterImage.size().height);
+        }
+        else if (selectedScaleFactor == k50ScaleFactor) {
+            roiRect = cv::Rect(rescaledPoint.x, rescaledPoint.y, m_resized50PosterImage.size().width, m_resized50PosterImage.size().height);
+        }
+        
 //        printf("\n roiRect     (%d, %d, %d, %d)", roiRect.x, roiRect.y, roiRect.width, roiRect.height);
 //        printf("\n outputImage (%d, %d) \n", outputImage.cols, outputImage.rows);
+        
         // Check if the roi is inside the bounds of the outputImage
         if (((roiRect.y + roiRect.height) <= outputImage.rows) && ((roiRect.x + roiRect.width) <= outputImage.cols)) {
             cv::Mat roi(outputImage, roiRect);
-            m_resizedPosterImage.copyTo(outputImage(roiRect));
+#warning TODO fix this
+            if (selectedScaleFactor == m_scaleFactor) {
+                m_resizedPosterImage.copyTo(outputImage(roiRect));
+            }
+            else {
+                m_resized50PosterImage.copyTo(outputImage(roiRect));
+            }
+            
         }
     }
     
