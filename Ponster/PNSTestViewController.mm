@@ -28,7 +28,7 @@
 {
     if (!_backgroundImageView) {
         _backgroundImageView = [[UIImageView alloc] init];
-        _backgroundImageView.backgroundColor = [UIColor greenColor];
+        _backgroundImageView.backgroundColor = [UIColor redColor];
         _backgroundImageView.contentMode = UIViewContentModeScaleAspectFill;
         _backgroundImageView.clipsToBounds = YES;
     }

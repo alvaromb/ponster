@@ -10,6 +10,8 @@
 #define __OpenCVTutorial__PatternDetector__
 
 #include "VideoFrame.h"
+#include "opencv2/features2d/features2d.hpp"
+#include "opencv2/nonfree/features2d.hpp"
 
 class PatternDetector
 {
@@ -22,6 +24,7 @@ public:
     // (2) Scan the input video frame
     void scanFrame(VideoFrame frame);
     void findPattern(cv::Mat queryImageGray, cv::Mat scaledPattern);
+    cv::Mat surfPattern(VideoFrame frame);
     
     // (3) Match APIs
     const cv::Point& matchPoint();
@@ -38,17 +41,20 @@ public:
 private:
     // (5) Reference Marker Images
     cv::Mat m_patternImage;
-    cv::Mat m_patternImageGray;
     cv::Mat m_sampleImage;
     cv::Mat m_resizedPosterImage;
-    cv::Mat m_resized50PosterImage;
+    cv::Mat m_posterDescriptors;
+    
+    // Keypoints
+    std::vector<cv::KeyPoint> m_posterKeypoints;
+    
+    // Feature detection
+    cv::SurfFeatureDetector m_detector;
+    cv::SurfDescriptorExtractor m_extractor;
+    cv::FlannBasedMatcher m_matcher;
     
     // Scale the pattern to several sizes
     cv::Mat m_patternImageGrayScaled;
-    cv::Mat m_patternImageGrayScaled50;
-    cv::Mat m_patternImageGrayScaled25;
-    cv::Mat m_patternImageGrayScaled10;
-    cv::Mat m_patternImageGrayScaled5;
     
     // (6) Supporting Members
     cv::Point m_matchPoint;
