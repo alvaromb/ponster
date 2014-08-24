@@ -22,9 +22,13 @@
 {
     if (self = [super init]) {
         AVCaptureSession *captureSession = [[AVCaptureSession alloc] init];
-        if ([captureSession canSetSessionPreset:AVCaptureSessionPreset640x480]) {
-            [captureSession setSessionPreset:AVCaptureSessionPreset640x480];
-            NSLog(@"640x480 capture session");
+//        if ([captureSession canSetSessionPreset:AVCaptureSessionPreset640x480]) {
+//            [captureSession setSessionPreset:AVCaptureSessionPreset640x480];
+//            NSLog(@"640x480 capture session");
+//        }
+        if ([captureSession canSetSessionPreset:AVCaptureSessionPreset352x288]) {
+            [captureSession setSessionPreset:AVCaptureSessionPreset352x288];
+            NSLog(@"352x288 capture session");
         }
         else {
             NSLog(@"Error configuring capture session");
@@ -49,6 +53,12 @@
         NSLog(@"Error configuring AVCaptureDevice");
         return NO;
     }
+    
+    // Set FPS
+    [captureDevice lockForConfiguration:nil];
+    [captureDevice setActiveVideoMaxFrameDuration:CMTimeMake(1, 20)];
+    [captureDevice setActiveVideoMinFrameDuration:CMTimeMake(1, 20)];
+    [captureDevice unlockForConfiguration];
     
     // Configure capture input
     NSError *error = nil;

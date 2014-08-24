@@ -12,6 +12,15 @@
 #include "VideoFrame.h"
 #include "opencv2/features2d/features2d.hpp"
 #include "opencv2/nonfree/features2d.hpp"
+#include "opencv2/core/core.hpp"
+#include "opencv2/highgui/highgui.hpp"
+#include "opencv2/nonfree/nonfree.hpp"
+#include <opencv2/objdetect/objdetect.hpp>
+//#include "opencv2/nonfree/gpu.hpp"
+
+using namespace cv;
+using namespace std;
+using namespace gpu;
 
 class PatternDetector
 {
@@ -19,12 +28,13 @@ class PatternDetector
 #pragma mark Public Interface
 public:
     // (1) Constructor
-    PatternDetector(const cv::Mat& pattern, const cv::Mat& posterImage);
+    PatternDetector(const Mat& pattern, const Mat& posterImage);
     
     // (2) Scan the input video frame
     void scanFrame(VideoFrame frame);
-    void findPattern(cv::Mat queryImageGray, cv::Mat scaledPattern);
-    cv::Mat surfPattern(VideoFrame frame);
+    void findPattern(Mat queryImageGray, Mat scaledPattern);
+    Mat surfPattern(VideoFrame frame);
+    Mat fastDetection(VideoFrame frame);
     
     // (3) Match APIs
     const cv::Point& matchPoint();
@@ -34,7 +44,7 @@ public:
     // (4) Tracking API
     bool isTracking();
     
-    const cv::Mat& sampleImage();
+    const Mat& sampleImage();
     
 #pragma mark -
 #pragma mark Private Members
@@ -46,12 +56,18 @@ private:
     cv::Mat m_posterDescriptors;
     
     // Keypoints
-    std::vector<cv::KeyPoint> m_posterKeypoints;
+    vector<KeyPoint> m_posterKeypoints;
     
     // Feature detection
-    cv::SurfFeatureDetector m_detector;
-    cv::SurfDescriptorExtractor m_extractor;
-    cv::FlannBasedMatcher m_matcher;
+    SurfFeatureDetector m_surf_detector;
+//    SURF_GPU m_surf_gpu;
+    OrbFeatureDetector m_detector;
+//    cv::SurfDescriptorExtractor m_extractor;
+    OrbDescriptorExtractor m_extractor;
+    FREAK m_freak;
+//    cv::FastFeatureDetector m_detector;
+    FlannBasedMatcher m_matcher;
+    BFMatcher m_bfmatcher;
     
     // Scale the pattern to several sizes
     cv::Mat m_patternImageGrayScaled;

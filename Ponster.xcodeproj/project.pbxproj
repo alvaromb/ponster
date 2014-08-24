@@ -30,6 +30,8 @@
 		38CE52C51944C5B7002004E3 /* PNSCollectionViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 38CE52C41944C5B7002004E3 /* PNSCollectionViewDataSource.m */; };
 		38CE52C81944C5C6002004E3 /* PNSCollectionViewDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 38CE52C71944C5C6002004E3 /* PNSCollectionViewDelegate.m */; };
 		38CE52CC1944EAD1002004E3 /* PNSPosterCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 38CE52CB1944EAD1002004E3 /* PNSPosterCollectionViewCell.m */; };
+		38EEA94219AA4B3F00812855 /* opencv2.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38EEA94119AA4B3F00812855 /* opencv2.framework */; };
+		38EEA94419AA4B8800812855 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 38EEA94319AA4B8800812855 /* AssetsLibrary.framework */; };
 		38F2469019350F3C0064AEA9 /* lena.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 38F2468F19350F3C0064AEA9 /* lena.jpg */; };
 		38F77FD2191657F000E91D91 /* PNSImageCapture.mm in Sources */ = {isa = PBXBuildFile; fileRef = 38F77FD1191657F000E91D91 /* PNSImageCapture.mm */; };
 		9917F15D18218597002CA736 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9917F15C18218597002CA736 /* AVFoundation.framework */; };
@@ -103,6 +105,8 @@
 		38CE52C71944C5C6002004E3 /* PNSCollectionViewDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNSCollectionViewDelegate.m; sourceTree = "<group>"; };
 		38CE52CA1944EAD1002004E3 /* PNSPosterCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNSPosterCollectionViewCell.h; sourceTree = "<group>"; };
 		38CE52CB1944EAD1002004E3 /* PNSPosterCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PNSPosterCollectionViewCell.m; sourceTree = "<group>"; };
+		38EEA94119AA4B3F00812855 /* opencv2.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = opencv2.framework; path = ../../../../Downloads/opencv2.framework; sourceTree = "<group>"; };
+		38EEA94319AA4B8800812855 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		38F2468F19350F3C0064AEA9 /* lena.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = lena.jpg; sourceTree = "<group>"; };
 		38F77FD0191657F000E91D91 /* PNSImageCapture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNSImageCapture.h; sourceTree = "<group>"; };
 		38F77FD1191657F000E91D91 /* PNSImageCapture.mm */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; fileEncoding = 4; path = PNSImageCapture.mm; sourceTree = "<group>"; };
@@ -141,6 +145,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				38EEA94419AA4B8800812855 /* AssetsLibrary.framework in Frameworks */,
+				38EEA94219AA4B3F00812855 /* opencv2.framework in Frameworks */,
 				38038439193F984000818615 /* libc++.dylib in Frameworks */,
 				9917F16C1821906F002CA736 /* CoreMedia.framework in Frameworks */,
 				9917F16A18219069002CA736 /* CoreVideo.framework in Frameworks */,
@@ -302,6 +308,8 @@
 		99D3AD8F181EEC150035508B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				38EEA94319AA4B8800812855 /* AssetsLibrary.framework */,
+				38EEA94119AA4B3F00812855 /* opencv2.framework */,
 				38038438193F984000818615 /* libc++.dylib */,
 				9917F16B1821906F002CA736 /* CoreMedia.framework */,
 				9917F16918219069002CA736 /* CoreVideo.framework */,
@@ -648,8 +656,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/ricci/Downloads,
-					/Users/ricci/uib/pfc/Ponster,
+					/Users/alvaro/Downloads,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Ponster/Ponster-Prefix.pch";
@@ -671,8 +678,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
-					/Users/ricci/Downloads,
-					/Users/ricci/uib/pfc/Ponster,
+					/Users/alvaro/Downloads,
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Ponster/Ponster-Prefix.pch";

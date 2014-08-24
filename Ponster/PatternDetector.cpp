@@ -8,8 +8,6 @@
 
 #include "PatternDetector.h"
 
-using namespace cv;
-
 const float kDefaultScaleFactor     = 1.00f; //2.00f;
 //const float k50ScaleFactor          = 4.00f;
 //const float kDefaultThresholdValue  = 0.70f;
@@ -38,29 +36,71 @@ PatternDetector::PatternDetector(const cv::Mat& patternImage, const cv::Mat& pos
             break;
     }
     
-    // (4) Create several sizes to make the algorithm scale-invariant
-    float h = patternImageGray.rows / m_scaleFactor;
-    float w = patternImageGray.cols / m_scaleFactor;
-    cv::resize(patternImageGray, m_patternImageGrayScaled, cv::Size(w, h));
+    // Make binary image
+    threshold(patternImageGray, m_patternImageGrayScaled, 125, 255, CV_THRESH_BINARY_INV);
     
-    // (5) Detect keypoints using SURF
-    int minHessian = 50;
-    m_detector = cv::SurfFeatureDetector(minHessian);
+    // (5) Detect keypoints using ORB
+    double t = (double)getTickCount();
+    m_detector = OrbFeatureDetector();
     m_detector.detect(m_patternImageGrayScaled, m_posterKeypoints);
+    t = ((double)getTickCount() - t)/getTickFrequency();
+    std::cout << "orb keypoints [s]: " << t/1.0 << std::endl;
+
+    
+//    double t = (double)getTickCount();
+//    m_surf_gpu = SURF_GPU(minHessian);
+//    GpuMat gpuPattern;
+//    gpuPattern.upload(m_patternImageGrayScaled);
+//    m_surf_gpu.downloadKeypoints(gpuPattern, m_posterKeypoints);
+//    t = ((double)getTickCount() - t)/getTickFrequency();
+//    std::cout << "surf gpu keypoints [s]: " << t/1.0 << std::endl;
+    
+    
+//    double t = (double)getTickCount();
+//    m_surf_detector = SurfFeatureDetector(minHessian);//, 4);
+//    m_surf_detector.detect(m_patternImageGrayScaled, m_posterKeypoints);
+//    t = ((double)getTickCount() - t)/getTickFrequency();
+//    std::cout << "surf keypoints [s]: " << t/1.0 << std::endl;
+    
+//    m_detector = OrbFeatureDetector();
+//    m_detector.detect(m_patternImageGrayScaled, m_posterKeypoints);
     
     // (6) Calculate descriptors
-    m_extractor = cv::SurfDescriptorExtractor();
+//    m_extractor = cv::SurfDescriptorExtractor();
+//    m_extractor.compute(m_patternImageGrayScaled, m_posterKeypoints, m_posterDescriptors);
+    
+    m_extractor = OrbDescriptorExtractor();
     m_extractor.compute(m_patternImageGrayScaled, m_posterKeypoints, m_posterDescriptors);
+//    if (m_posterDescriptors.type() != CV_32F) {
+//        m_posterDescriptors.convertTo(m_posterDescriptors, CV_32F);
+//    }
+
+//    m_freak = FREAK(true, true, 22, 4, vector<int>());
+//    FREAK freak(true, true, 22, 4, vector<int>());
+//    m_freak_extractor = freak;
+//    freak.compute(m_patternImageGrayScaled, m_posterKeypoints, m_posterDescriptors);
+    
+    if (m_posterDescriptors.empty()) {
+        printf("WARNING empty descriptors \n");
+    }
     
     // (7) Initialize matcher
-    m_matcher = cv::FlannBasedMatcher();
+//    m_matcher = FlannBasedMatcher(new flann::LshIndexParams(6, 12, 1), new cv::flann::SearchParams(50));
+    m_matcher = FlannBasedMatcher(new flann::LshIndexParams(30, 12, 2), new cv::flann::SearchParams(50));
+//    FlannBasedMatcher m_matcher(new flann::LshIndexParams(30, 12, 2), new cv::flann::SearchParams(50));
+//    vector<Mat> vDescriptors;
+//    vDescriptors.push_back(m_posterDescriptors);
+//    m_matcher.add(vDescriptors);
+//    m_matcher.train();
+    m_bfmatcher = BFMatcher(NORM_HAMMING, true);
     
+//    FlannBasedMatcher macher = new FlannBasedMatcher(new flann::LshIndexParams(6, 12, 1), new cv::flann::SearchParams(50));
 //    cv::drawKeypoints(m_patternImageGrayScaled, m_posterKeypoints, m_sampleImage);
 }
 
 void PatternDetector::scanFrame(VideoFrame frame)
 {
-    cv::Mat outputImage = PatternDetector::surfPattern(frame);
+    Mat outputImage = PatternDetector::fastDetection(frame);
     outputImage.copyTo(m_sampleImage);
     
 //    float selectedScaleFactor = m_scaleFactor;
@@ -107,6 +147,144 @@ void PatternDetector::scanFrame(VideoFrame frame)
 }
 
 
+Mat PatternDetector::fastDetection(VideoFrame frame)
+{
+    // (1) Build the grayscale query image from the camera data
+    double total = 0;
+    double t = (double)getTickCount();
+    cv::Mat queryImageGray, queryImageGrayResized, outputImage;
+    cv::Mat queryImage = cv::Mat(frame.width, frame.height, CV_8UC4, frame.data, frame.bytesPerRow);
+    cv::cvtColor(queryImage, queryImageGray, CV_RGBA2GRAY);//CV_BGR2GRAY);
+//    float h = queryImageGray.rows / m_scaleFactor;
+//    float w = queryImageGray.cols / m_scaleFactor;
+//    cv::resize(queryImageGray, queryImageGrayResized, cv::Size(w, h));
+
+    // Generate binary image
+    threshold(queryImageGray, queryImageGrayResized, 125, 255, CV_THRESH_BINARY_INV);
+//    GaussianBlur( queryImageGrayResized, queryImageGrayResized, cv::Size(7, 7), 2, 2 );
+    cv::cvtColor(queryImage, outputImage, CV_BGR2BGRA);
+    t = ((double)getTickCount() - t)/getTickFrequency();
+    std::cout << "query image building  [s]: " << t/1.0 << std::endl;
+    total += t/1.0;
+    
+    // (2) Detect scene keypoints
+    t = (double)getTickCount();
+    vector<KeyPoint> sceneKeypoints;
+//    m_surf_detector.detect(queryImageGrayResized, sceneKeypoints);
+    m_detector.detect(queryImageGrayResized, sceneKeypoints);
+    t = ((double)getTickCount() - t)/getTickFrequency();
+    std::cout << "detection time        [s]: " << t/1.0 << std::endl;
+    total += t/1.0;
+    
+    if (sceneKeypoints.size() <= 1) {
+        return outputImage;
+    }
+    
+    // (3) Calculate scene descriptors
+    t = (double)getTickCount();
+    Mat sceneDescriptors;
+//    FREAK freak(true, true, 22, 4, vector<int>());
+//    freak.compute(queryImageGrayResized, sceneKeypoints, sceneDescriptors);
+    m_detector.compute(queryImageGrayResized, sceneKeypoints, sceneDescriptors);
+    t = ((double)getTickCount() - t)/getTickFrequency();
+    std::cout << "extraction time       [s]: " << t/1.0 << std::endl;
+    total += t/1.0;
+//    if (sceneDescriptors.type() != CV_32F) {
+//        sceneDescriptors.convertTo(sceneDescriptors, CV_32F);
+//    }
+    if (sceneDescriptors.empty()) {
+        printf("WARNING empty scene descriptors \n");
+        return outputImage;
+    }
+    
+    // (4) Match descriptors
+    t = (double)getTickCount();
+    vector<DMatch> matches;
+    m_matcher.match(m_posterDescriptors, sceneDescriptors, matches);
+//    m_bfmatcher.match(m_posterDescriptors, sceneDescriptors, matches);
+    printf("matches size %lu \n", matches.size());
+    t = ((double)getTickCount() - t)/getTickFrequency();
+    std::cout << "matching time         [s]: " << t/1.0 << std::endl;
+    total += t/1.0;
+
+    // (5) Compute good matches
+    t = (double)getTickCount();
+    double max_dist = 0; double min_dist = 100;
+    for (int i = 0; i < m_posterDescriptors.rows; i++) {
+        double dist = matches[i].distance;
+//        cout << "dist: " << dist << endl;
+        if (dist < min_dist) min_dist = dist;
+        if (dist > max_dist) max_dist = dist;
+    }
+//    printf("-- Max dist : %f \n", max_dist );
+//    printf("-- Min dist : %f \n", min_dist );
+    
+    // Draw only "good" matches (i.e. whose distance is less than 3*min_dist )
+    vector<cv::DMatch> good_matches;
+    for (int i = 0; i < m_posterDescriptors.rows; i++) {
+        if (matches[i].distance < 2*min_dist) { //3*min_dist
+            good_matches.push_back(matches[i]);
+        }
+    }
+//    printf("-- Matches = %lu \n", matches.size());
+    printf("Good matches            = %lu \n", good_matches.size());
+    if (good_matches.size() < 4) {
+        cout << "-- NO GOOD MATCHES" << endl;
+        return outputImage;
+    }
+    
+    // Localize the object
+    vector<cv::Point2f> obj;
+    vector<cv::Point2f> scene;
+    
+    for (int i = 0; i < good_matches.size(); i++) {
+        // Get the keypoints from the good matches
+        obj.push_back(m_posterKeypoints[good_matches[i].queryIdx].pt);
+        scene.push_back(sceneKeypoints[good_matches[i].trainIdx].pt);
+    }
+    
+    /**
+     * ERROR: OpenCV Error: Assertion failed (count >= 4) in cvFindHomography
+     * http://stackoverflow.com/questions/14430184/opencv-cv-findhomography-assertion-error-counter-4
+     */
+    if (obj.size() < 4) {
+        return outputImage;
+    }
+    Mat H = findHomography(obj, scene, CV_RANSAC);
+    
+    t = ((double)getTickCount() - t)/getTickFrequency();
+    std::cout << "good matches and homography time [s]: " << t/1.0 << std::endl;
+    total += t/1.0;
+    
+    // Get the corners from the image_1 ( the object to be "detected" )
+    std::vector<cv::Point2f> obj_corners(4);
+    obj_corners[0] = cvPoint(0, 0);
+    obj_corners[1] = cvPoint(m_patternImageGrayScaled.cols, 0);
+    obj_corners[2] = cvPoint(m_patternImageGrayScaled.cols, m_patternImageGrayScaled.rows);
+    obj_corners[3] = cvPoint(0, m_patternImageGrayScaled.rows);
+    std::vector<cv::Point2f> scene_corners(4);
+    
+    perspectiveTransform(obj_corners, scene_corners, H);
+    
+    // Draw lines between the corners (the mapped object in the scene - image_2 )
+    line(outputImage, scene_corners[0], scene_corners[1], cv::Scalar(0, 255, 0), 4);
+    line(outputImage, scene_corners[1], scene_corners[2], cv::Scalar(0, 255, 0), 4);
+    line(outputImage, scene_corners[2], scene_corners[3], cv::Scalar(0, 255, 0), 4);
+    line(outputImage, scene_corners[3], scene_corners[0], cv::Scalar(0, 255, 0), 4);
+    // r g y b
+    circle(outputImage, scene_corners[0], 15, Scalar(255, 0, 0));   // r
+    circle(outputImage, scene_corners[1], 15, Scalar(0, 255, 0));   // g
+    circle(outputImage, scene_corners[2], 15, Scalar(0, 0, 255));   // b
+    circle(outputImage, scene_corners[3], 15, Scalar(255, 255, 0)); // y
+    
+    std::cout << "total frame time      [s]: " << total << std::endl;
+    std::cout << "---------------------------" << std::endl;
+
+    
+    return outputImage;
+}
+
+
 /**
  * Taken from OpenCV docs: 
  * http://docs.opencv.org/doc/tutorials/features2d/feature_homography/feature_homography.html
@@ -133,7 +311,7 @@ cv::Mat PatternDetector::surfPattern(VideoFrame frame)
     
     // (3) Calculate scene descriptors
     cv::Mat sceneDescriptors;
-    m_extractor.compute(queryImageGrayResized, sceneKeypoints, sceneDescriptors);
+//    m_extractor.compute(queryImageGrayResized, sceneKeypoints, sceneDescriptors);
     
     // (4) Match descriptors using FLANN
 #warning TODO user nearest neighbour match
@@ -160,7 +338,7 @@ cv::Mat PatternDetector::surfPattern(VideoFrame frame)
         }
     }
     printf("-- Good matches = %lu \n", good_matches.size());
-        
+    
     //-- Localize the object
     std::vector<cv::Point2f> obj;
     std::vector<cv::Point2f> scene;
@@ -188,10 +366,6 @@ cv::Mat PatternDetector::surfPattern(VideoFrame frame)
     perspectiveTransform(obj_corners, scene_corners, H);
     
     //-- Draw lines between the corners (the mapped object in the scene - image_2 )
-//    line(outputImage, scene_corners[0] + cv::Point2f(m_patternImageGrayScaled.cols, 0), scene_corners[1] + cv::Point2f(m_patternImageGrayScaled.cols, 0), cv::Scalar(0, 255, 0), 4);
-//    line(outputImage, scene_corners[1] + cv::Point2f(m_patternImageGrayScaled.cols, 0), scene_corners[2] + cv::Point2f(m_patternImageGrayScaled.cols, 0), cv::Scalar(0, 255, 0), 4);
-//    line(outputImage, scene_corners[2] + cv::Point2f(m_patternImageGrayScaled.cols, 0), scene_corners[3] + cv::Point2f(m_patternImageGrayScaled.cols, 0), cv::Scalar(0, 255, 0), 4);
-//    line(outputImage, scene_corners[3] + cv::Point2f(m_patternImageGrayScaled.cols, 0), scene_corners[0] + cv::Point2f(m_patternImageGrayScaled.cols, 0), cv::Scalar(0, 255, 0), 4);
     line(outputImage, scene_corners[0], scene_corners[1], cv::Scalar(0, 255, 0), 4);
     line(outputImage, scene_corners[1], scene_corners[2], cv::Scalar(0, 255, 0), 4);
     line(outputImage, scene_corners[2], scene_corners[3], cv::Scalar(0, 255, 0), 4);

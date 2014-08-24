@@ -2,17 +2,14 @@ PODS:
   - MagicalRecord (2.2):
     - MagicalRecord/Core
   - MagicalRecord/Core (2.2)
-  - OpenCV (2.4.8)
   - PDKTCollectionViewWaterfallLayout (0.1)
 
 DEPENDENCIES:
   - MagicalRecord (~> 2.2)
-  - OpenCV
   - PDKTCollectionViewWaterfallLayout (~> 0.1)
 
 SPEC CHECKSUMS:
   MagicalRecord: 2b471584fc9e3137f3d0a56967917baa4979e224
-  OpenCV: 7d5de7dc31a8f3925eb643b62d16c2cafa373527
   PDKTCollectionViewWaterfallLayout: cdde9e714973c9de67f078ba495b9d9e6812082d
 
 COCOAPODS: 0.33.1
