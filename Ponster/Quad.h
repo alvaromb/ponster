@@ -15,34 +15,18 @@ and other countries. Trademarks of QUALCOMM Incorporated are used with permissio
 
 static const float quadVertices[NUM_QUAD_VERTEX * 3] =
 {
-//   -1.00f,  -1.00f, -1.00f,           //0.0f,
-//    1.00f,  -1.00f, -1.00f,           //0.0f,
-//    1.00f,  (592.0*2)/400 -1, -1.00f, //0.0f,
-//   -1.00f,  (592.0*2)/400 -1, -1.00f, //0.0f,
-    
-    -1.00f,             -1.00f,     -1.00f,             //0.0f,
-    (592.0*2)/400 -1,   -1.00f,     -1.00f,             //0.0f,
-    (592.0*2)/400 -1,   1,          -1.00f,             //0.0f,
-    -1.00f,             1,          -1.00f,             //0.0f,
-    
+    -1.00f,             -1.00f,     -1.00f,
+    (592.0*2)/400 -1,   -1.00f,     -1.00f,
+    (592.0*2)/400 -1,   1,          -1.00f,
+    -1.00f,             1,          -1.00f,
 };
 
 static const float quadTexCoords[NUM_QUAD_VERTEX * 2] =
 {
-//    0, 0,
-//    1, 0,
-//    1, 1,
-//    0, 1,
-    
     0, 1,
     0, 0,
     1, 0,
     1, 1,
-    
-//    0.0, 0.0,
-//    1, 0.0,
-//    1, 400.0/592.0,
-//    0.0, 400.0/592.0,
 };
 
 static const float quadNormals[NUM_QUAD_VERTEX * 3] =
