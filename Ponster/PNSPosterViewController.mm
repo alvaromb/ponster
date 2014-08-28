@@ -79,8 +79,12 @@
 
 - (void)tryMeAction
 {
-    PNSTestViewController *viewController = [[PNSTestViewController alloc] initWithImage:self.posterImageView.image];
-    [self.navigationController pushViewController:viewController animated:YES];
+//    PNSTestViewController *viewController = [[PNSTestViewController alloc] initWithImage:self.posterImageView.image];
+//    SampleAppAboutViewController *viewController = [[SampleAppAboutViewController alloc] initWithNibName:@"SampleAppAboutViewController" bundle:nil];
+//    viewController.appTitle = self.poster.title;
+//    viewController.appViewControllerClassName = @"UserDefinedTargetsViewController";
+    SampleAppSlidingMenuController *slidingMenuController = [[SampleAppSlidingMenuController alloc] initWithRootViewController:[[UserDefinedTargetsViewController alloc] init]];
+    [self.navigationController pushViewController:slidingMenuController animated:YES];
 }
 
 @end

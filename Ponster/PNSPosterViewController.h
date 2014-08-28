@@ -8,6 +8,9 @@
 
 #import "Poster.h"
 #import "PNSTestViewController.h"
+#import "SampleAppAboutViewController.h"
+#import "SampleAppSlidingMenuController.h"
+#import "UserDefinedTargetsViewController.h"
 
 @interface PNSPosterViewController : UIViewController
 
