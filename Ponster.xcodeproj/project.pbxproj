@@ -51,14 +51,6 @@
 		383B67F3194374CD00697BF2 /* PNSPostersViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 383B67F2194374CD00697BF2 /* PNSPostersViewController.mm */; };
 		383B67F6194374F300697BF2 /* PNSPostersCollectionViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 383B67F5194374F300697BF2 /* PNSPostersCollectionViewController.mm */; };
 		383B67F91943750200697BF2 /* PNSPosterViewController.mm in Sources */ = {isa = PBXBuildFile; fileRef = 383B67F81943750200697BF2 /* PNSPosterViewController.mm */; };
-		386B69C9194CB27D003D733B /* TheThinRedLine.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 386B69C1194CB27D003D733B /* TheThinRedLine.jpg */; };
-		386B69CA194CB27D003D733B /* TheGodfather.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 386B69C2194CB27D003D733B /* TheGodfather.jpg */; };
-		386B69CB194CB27D003D733B /* TheDarkKnightRises.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 386B69C3194CB27D003D733B /* TheDarkKnightRises.jpg */; };
-		386B69CC194CB27D003D733B /* StarWars.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 386B69C4194CB27D003D733B /* StarWars.jpg */; };
-		386B69CD194CB27D003D733B /* SavingPrivateRyan.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 386B69C5194CB27D003D733B /* SavingPrivateRyan.jpg */; };
-		386B69CE194CB27D003D733B /* Drive.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 386B69C6194CB27D003D733B /* Drive.jpg */; };
-		386B69CF194CB27D003D733B /* BackToTheFuture.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 386B69C7194CB27D003D733B /* BackToTheFuture.jpg */; };
-		386B69D0194CB27D003D733B /* Alien.jpg in Resources */ = {isa = PBXBuildFile; fileRef = 386B69C8194CB27D003D733B /* Alien.jpg */; };
 		387AB640191FDC680091BE72 /* PatternDetector.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 387AB63C191FDC680091BE72 /* PatternDetector.cpp */; };
 		387AB641191FDC680091BE72 /* UIImage+OpenCV.mm in Sources */ = {isa = PBXBuildFile; fileRef = 387AB63F191FDC680091BE72 /* UIImage+OpenCV.mm */; };
 		389088FF19B1E29C00B860D7 /* a.png in Resources */ = {isa = PBXBuildFile; fileRef = 389088F719B1E29C00B860D7 /* a.png */; };
@@ -226,14 +218,6 @@
 		383B67F5194374F300697BF2 /* PNSPostersCollectionViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PNSPostersCollectionViewController.mm; sourceTree = "<group>"; };
 		383B67F71943750200697BF2 /* PNSPosterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PNSPosterViewController.h; sourceTree = "<group>"; };
 		383B67F81943750200697BF2 /* PNSPosterViewController.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = PNSPosterViewController.mm; sourceTree = "<group>"; };
-		386B69C1194CB27D003D733B /* TheThinRedLine.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = TheThinRedLine.jpg; sourceTree = "<group>"; };
-		386B69C2194CB27D003D733B /* TheGodfather.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = TheGodfather.jpg; sourceTree = "<group>"; };
-		386B69C3194CB27D003D733B /* TheDarkKnightRises.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = TheDarkKnightRises.jpg; sourceTree = "<group>"; };
-		386B69C4194CB27D003D733B /* StarWars.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = StarWars.jpg; sourceTree = "<group>"; };
-		386B69C5194CB27D003D733B /* SavingPrivateRyan.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = SavingPrivateRyan.jpg; sourceTree = "<group>"; };
-		386B69C6194CB27D003D733B /* Drive.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Drive.jpg; sourceTree = "<group>"; };
-		386B69C7194CB27D003D733B /* BackToTheFuture.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = BackToTheFuture.jpg; sourceTree = "<group>"; };
-		386B69C8194CB27D003D733B /* Alien.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = Alien.jpg; sourceTree = "<group>"; };
 		387AB63C191FDC680091BE72 /* PatternDetector.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = PatternDetector.cpp; sourceTree = "<group>"; };
 		387AB63D191FDC680091BE72 /* PatternDetector.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PatternDetector.h; sourceTree = "<group>"; };
 		387AB63E191FDC680091BE72 /* UIImage+OpenCV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+OpenCV.h"; sourceTree = "<group>"; };
@@ -557,14 +541,6 @@
 				389088FC19B1E29C00B860D7 /* tdkr.png */,
 				389088FD19B1E29C00B860D7 /* tg.png */,
 				389088FE19B1E29C00B860D7 /* ttrl.png */,
-				386B69C1194CB27D003D733B /* TheThinRedLine.jpg */,
-				386B69C2194CB27D003D733B /* TheGodfather.jpg */,
-				386B69C3194CB27D003D733B /* TheDarkKnightRises.jpg */,
-				386B69C4194CB27D003D733B /* StarWars.jpg */,
-				386B69C5194CB27D003D733B /* SavingPrivateRyan.jpg */,
-				386B69C6194CB27D003D733B /* Drive.jpg */,
-				386B69C7194CB27D003D733B /* BackToTheFuture.jpg */,
-				386B69C8194CB27D003D733B /* Alien.jpg */,
 			);
 			name = "Test posters";
 			sourceTree = "<group>";
@@ -826,35 +802,27 @@
 			files = (
 				3890890219B1E29C00B860D7 /* spr.png in Resources */,
 				3890890619B1E29C00B860D7 /* ttrl.png in Resources */,
-				386B69CF194CB27D003D733B /* BackToTheFuture.jpg in Resources */,
 				383640A419AF229E00CB359E /* SampleAppSelectorViewController.xib in Resources */,
 				3890890319B1E29C00B860D7 /* sw.png in Resources */,
 				383640CE19AF2D2400CB359E /* button_main@2x.png in Resources */,
 				383640D219AF2D2400CB359E /* icon_camera@2x.png in Resources */,
-				386B69CC194CB27D003D733B /* StarWars.jpg in Resources */,
 				3836408A19AF1FC900CB359E /* Simple.fragsh in Resources */,
-				386B69CB194CB27D003D733B /* TheDarkKnightRises.jpg in Resources */,
 				383640D019AF2D2400CB359E /* custom_toolbar_texture@2x.png in Resources */,
 				3890890519B1E29C00B860D7 /* tg.png in Resources */,
-				386B69CE194CB27D003D733B /* Drive.jpg in Resources */,
 				9917F16818218E55002CA736 /* lena_full.jpg in Resources */,
-				386B69D0194CB27D003D733B /* Alien.jpg in Resources */,
 				3890890019B1E29C00B860D7 /* bttf.png in Resources */,
 				3890890119B1E29C00B860D7 /* d.png in Resources */,
 				383640CC19AF2D2400CB359E /* button_cancel@2x.png in Resources */,
 				3836408B19AF1FC900CB359E /* Simple.vertsh in Resources */,
 				383640CF19AF2D2400CB359E /* custom_toolbar_texture.png in Resources */,
 				38F2469019350F3C0064AEA9 /* lena.jpg in Resources */,
-				386B69CA194CB27D003D733B /* TheGodfather.jpg in Resources */,
 				383640CD19AF2D2400CB359E /* button_main.png in Resources */,
 				389088FF19B1E29C00B860D7 /* a.png in Resources */,
 				99D3AD9D181EEC150035508B /* InfoPlist.strings in Resources */,
 				3890890419B1E29C00B860D7 /* tdkr.png in Resources */,
 				383640A719AF229E00CB359E /* SampleAppAboutViewController.xib in Resources */,
-				386B69C9194CB27D003D733B /* TheThinRedLine.jpg in Resources */,
 				383640CA19AF2D2400CB359E /* button_cancel_pressed@2x.png in Resources */,
 				383640D119AF2D2400CB359E /* icon_camera.png in Resources */,
-				386B69CD194CB27D003D733B /* SavingPrivateRyan.jpg in Resources */,
 				99D3ADA8181EEC150035508B /* Images.xcassets in Resources */,
 				383640CB19AF2D2400CB359E /* button_cancel.png in Resources */,
 				383640C819AF2D2400CB359E /* UD_about.html in Resources */,
