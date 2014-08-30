@@ -83,7 +83,9 @@
 //    SampleAppAboutViewController *viewController = [[SampleAppAboutViewController alloc] initWithNibName:@"SampleAppAboutViewController" bundle:nil];
 //    viewController.appTitle = self.poster.title;
 //    viewController.appViewControllerClassName = @"UserDefinedTargetsViewController";
-    SampleAppSlidingMenuController *slidingMenuController = [[SampleAppSlidingMenuController alloc] initWithRootViewController:[[UserDefinedTargetsViewController alloc] init]];
+    
+    UserDefinedTargetsViewController *viewController = [[UserDefinedTargetsViewController alloc] initWithPosterImage:self.poster.imageUrl];
+    SampleAppSlidingMenuController *slidingMenuController = [[SampleAppSlidingMenuController alloc] initWithRootViewController:viewController];
     [self.navigationController pushViewController:slidingMenuController animated:YES];
 }
 

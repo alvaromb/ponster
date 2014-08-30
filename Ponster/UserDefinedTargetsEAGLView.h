@@ -13,6 +13,9 @@ and other countries. Trademarks of QUALCOMM Incorporated are used with permissio
 #import "SampleApplicationSession.h"
 #import "RefFreeFrame.h"
 
+#import <array>
+#import <algorithm>
+
 #define NUM_AUGMENTATION_TEXTURES 1
 
 
@@ -44,9 +47,14 @@ and other countries. Trademarks of QUALCOMM Incorporated are used with permissio
     BOOL offTargetTrackingEnabled;
 
     SampleApplicationSession * vapp;
+    
+    std::array<float, 12> m_vertices;
+    float m_quadVertices[12];
 }
 
-- (id)initWithFrame:(CGRect)frame appSession:(SampleApplicationSession *) app;
+- (id)initWithFrame:(CGRect)frame
+         appSession:(SampleApplicationSession *)app
+        posterImage:(NSString *)posterImage;
 
 - (void) setRefFreeFrame: (RefFreeFrame *) refFreeFrame;
 

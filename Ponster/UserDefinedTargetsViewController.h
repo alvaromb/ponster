@@ -26,4 +26,6 @@ and other countries. Trademarks of QUALCOMM Incorporated are used with permissio
     BOOL extendedTrackingIsOn;
 }
 
+- (id)initWithPosterImage:(NSString *)posterImage;
+
 @end

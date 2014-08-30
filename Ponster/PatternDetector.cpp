@@ -314,9 +314,6 @@ cv::Mat PatternDetector::surfPattern(VideoFrame frame)
 //    m_extractor.compute(queryImageGrayResized, sceneKeypoints, sceneDescriptors);
     
     // (4) Match descriptors using FLANN
-#warning TODO user nearest neighbour match
-//    std::vector<std::vector<cv::DMatch>> matches;
-//    m_matcher.knnMatch(m_posterDescriptors, sceneDescriptors, matches, 2);
     std::vector<cv::DMatch> matches;
     m_matcher.match(m_posterDescriptors, sceneDescriptors, matches);
     

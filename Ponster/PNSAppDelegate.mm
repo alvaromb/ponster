@@ -60,49 +60,49 @@
     [Poster MR_truncateAllInContext:[NSManagedObjectContext MR_defaultContext]];
     Poster *poster = [Poster MR_createInContext:[NSManagedObjectContext MR_defaultContext]];
     poster.title = @"Back to the future";
-    poster.imageUrl = @"BackToTheFuture.jpg";
+    poster.imageUrl = @"bttf.png";
     poster.desc = @"";
     [[NSManagedObjectContext MR_defaultContext] save:NULL];
     
     poster = [Poster MR_createInContext:[NSManagedObjectContext MR_defaultContext]];
     poster.title = @"Alien";
-    poster.imageUrl = @"Alien.jpg";
+    poster.imageUrl = @"a.png";
     poster.desc = @"";
     [[NSManagedObjectContext MR_defaultContext] save:NULL];
     
     poster = [Poster MR_createInContext:[NSManagedObjectContext MR_defaultContext]];
     poster.title = @"Drive";
-    poster.imageUrl = @"Drive.jpg";
+    poster.imageUrl = @"d.png";
     poster.desc = @"";
     [[NSManagedObjectContext MR_defaultContext] save:NULL];
     
     poster = [Poster MR_createInContext:[NSManagedObjectContext MR_defaultContext]];
     poster.title = @"Saving Private Ryan";
-    poster.imageUrl = @"SavingPrivateRyan.jpg";
+    poster.imageUrl = @"spr.png";
     poster.desc = @"";
     [[NSManagedObjectContext MR_defaultContext] save:NULL];
     
     poster = [Poster MR_createInContext:[NSManagedObjectContext MR_defaultContext]];
     poster.title = @"The Dark Knight";
-    poster.imageUrl = @"TheDarkKnightRises.jpg";
+    poster.imageUrl = @"tdkr.png";
     poster.desc = @"";
     [[NSManagedObjectContext MR_defaultContext] save:NULL];
     
     poster = [Poster MR_createInContext:[NSManagedObjectContext MR_defaultContext]];
     poster.title = @"The Godfather";
-    poster.imageUrl = @"TheGodfather.jpg";
+    poster.imageUrl = @"tg.png";
     poster.desc = @"";
     [[NSManagedObjectContext MR_defaultContext] save:NULL];
     
     poster = [Poster MR_createInContext:[NSManagedObjectContext MR_defaultContext]];
     poster.title = @"The Thin Red Line";
-    poster.imageUrl = @"TheThinRedLine.jpg";
+    poster.imageUrl = @"ttrl.png";
     poster.desc = @"";
     [[NSManagedObjectContext MR_defaultContext] save:NULL];
     
     poster = [Poster MR_createInContext:[NSManagedObjectContext MR_defaultContext]];
     poster.title = @"Star Wars";
-    poster.imageUrl = @"StarWars.jpg";
+    poster.imageUrl = @"sw.png";
     poster.desc = @"";
     [[NSManagedObjectContext MR_defaultContext] save:NULL];
 }

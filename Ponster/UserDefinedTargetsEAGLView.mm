@@ -48,14 +48,14 @@ namespace {
     // --- Data private to this unit ---
 
     // Teapot texture filenames
-    const char* textureFilenames[] = {
+//    const char* textureFilenames[] = {
 //         "TextureTeapotBlue2.png",
-        "drive.png",
+//        "drive.png",
 //        "85468.png",
-    };
+//    };
     
     // Model scale factor
-    const float kObjectScale = 60.0f;
+    const float kObjectScale = 75.0f;//60.0f;
 }
 
 
@@ -85,6 +85,7 @@ namespace {
 
 - (id)initWithFrame:(CGRect)frame
          appSession:(SampleApplicationSession *)app
+        posterImage:(NSString *)posterImage
 {
     self = [super initWithFrame:frame];
     
@@ -94,10 +95,23 @@ namespace {
         if (YES == [vapp isRetinaDisplay]) {
             [self setContentScaleFactor:2.0f];
         }
+        self.backgroundColor = [UIColor blackColor];
         
         // Load the augmentation textures
         for (int i = 0; i < NUM_AUGMENTATION_TEXTURES; ++i) {
-            augmentationTexture[i] = [[Texture alloc] initWithImageFile:[NSString stringWithCString:textureFilenames[i] encoding:NSASCIIStringEncoding]];
+            augmentationTexture[i] = [[Texture alloc] initWithImageFile:posterImage];
+        }
+        
+        // Get the vertices of the image
+        m_vertices =
+        {
+            -1.00f, -1.00f, -1.00f,
+            ([augmentationTexture[0] height]*2.00f)/[augmentationTexture[0] width] -1.00f, -1.00f, -1.00f,
+            ([augmentationTexture[0] height]*2.00f)/[augmentationTexture[0] width] -1.00f,  1.00f, -1.00f,
+            -1.00f,  1.00f, -1.00f,
+        };
+        for (int i = 0; i < m_vertices.size(); i++) {
+            m_quadVertices[i] = m_vertices[i];
         }
 
         // Create the OpenGL ES context
@@ -239,9 +253,9 @@ namespace {
         
         glUseProgram(shaderProgramID);
         
-        glVertexAttribPointer(vertexHandle, 3, GL_FLOAT, GL_FALSE, 0, (const GLvoid*)quadVertices);//teapotVertices);
-        glVertexAttribPointer(normalHandle, 3, GL_FLOAT, GL_FALSE, 0, (const GLvoid*)quadNormals);//teapotNormals);
-        glVertexAttribPointer(textureCoordHandle, 2, GL_FLOAT, GL_FALSE, 0, (const GLvoid*)quadTexCoords);//teapotTexCoords);
+        glVertexAttribPointer(vertexHandle, 3, GL_FLOAT, GL_FALSE, 0, (const GLvoid*)m_quadVertices);
+        glVertexAttribPointer(normalHandle, 3, GL_FLOAT, GL_FALSE, 0, (const GLvoid*)quadNormals);
+        glVertexAttribPointer(textureCoordHandle, 2, GL_FLOAT, GL_FALSE, 0, (const GLvoid*)quadTexCoords);
         
         glEnableVertexAttribArray(vertexHandle);
         glEnableVertexAttribArray(normalHandle);
@@ -249,13 +263,11 @@ namespace {
         
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, augmentationTexture[0].textureID);
-//        glBindTexture(GL_TEXTURE_RECTANGLE, augmentationTexture[0].textureID);
         glUniformMatrix4fv(mvpMatrixHandle, 1, GL_FALSE, (const GLfloat*)&modelViewProjection.data[0]);
         glUniform1i(texSampler2DHandle, 0 /*GL_TEXTURE0*/);
         glDrawElements(GL_TRIANGLES, NUM_QUAD_INDEX/*NUM_TEAPOT_OBJECT_INDEX*/, GL_UNSIGNED_SHORT, (const GLvoid*)quadIndices);//teapotIndices);
         
         SampleApplicationUtils::checkGlError("EAGLView renderFrameQCAR");
-        
     }
     
     glDisable(GL_DEPTH_TEST);

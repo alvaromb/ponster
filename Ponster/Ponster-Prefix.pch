@@ -19,4 +19,6 @@
     #import <Foundation/Foundation.h>
     #import <CoreData/CoreData.h>
     #import "CoreData+MagicalRecord.h"
+    #import <OpenGLES/ES3/gl.h>
+    #import <OpenGLES/ES3/glext.h>
 #endif

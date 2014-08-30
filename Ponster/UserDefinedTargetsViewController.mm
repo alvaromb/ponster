@@ -18,9 +18,19 @@ and other countries. Trademarks of QUALCOMM Incorporated are used with permissio
 
 @interface UserDefinedTargetsViewController ()
 
+@property (retain, nonatomic) NSString *posterImage;
+
 @end
 
 @implementation UserDefinedTargetsViewController
+
+- (id)initWithPosterImage:(NSString *)posterImage
+{
+    if (self = [self initWithNibName:nil bundle:nil]) {
+        self.posterImage = posterImage;
+    }
+    return self;
+}
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -73,7 +83,7 @@ and other countries. Trademarks of QUALCOMM Incorporated are used with permissio
     [super dealloc];
 }
 
--(void) addToolbar
+- (void)addToolbar
 {
     //  Init Toolbar
     CGRect toolbarFrame = CGRectMake(0,
@@ -89,7 +99,8 @@ and other countries. Trademarks of QUALCOMM Incorporated are used with permissio
     [self.view addSubview:toolbar];
 }
 
-- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch {
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
+{
     if ([touch.view.superview isKindOfClass:[CustomToolbar class]]) return FALSE;
     return YES;
 }
@@ -97,7 +108,7 @@ and other countries. Trademarks of QUALCOMM Incorporated are used with permissio
 - (void)loadView
 {
     // Create the EAGLView
-    eaglView = [[UserDefinedTargetsEAGLView alloc] initWithFrame:viewFrame appSession:vapp];
+    eaglView = [[UserDefinedTargetsEAGLView alloc] initWithFrame:viewFrame appSession:vapp posterImage:self.posterImage];
     [eaglView setRefFreeFrame: refFreeFrame];
     [self setView:eaglView];
     
