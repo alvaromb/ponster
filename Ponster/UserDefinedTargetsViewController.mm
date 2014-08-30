@@ -83,6 +83,11 @@ and other countries. Trademarks of QUALCOMM Incorporated are used with permissio
     [super dealloc];
 }
 
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
+
 - (void)addToolbar
 {
     //  Init Toolbar

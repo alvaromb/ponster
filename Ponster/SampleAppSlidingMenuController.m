@@ -84,6 +84,11 @@ and other countries. Trademarks of QUALCOMM Incorporated are used with permissio
     return ([[UIDevice currentDevice] userInterfaceIdiom] == UIUserInterfaceIdiomPad);
 }
 
+- (BOOL)prefersStatusBarHidden
+{
+    return YES;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
 
