@@ -11,7 +11,7 @@ and other countries. Trademarks of QUALCOMM Incorporated are used with permissio
 
 #define CANCELBUTTON_LEFTMARGIN 10
 #define CANCELBUTTON_HEIGHT 32
-#define CANCELBUTTON_WIDTH 62
+#define CANCELBUTTON_WIDTH 75
 
 #define ACTIONBUTTON_HEIGHT 42
 #define ACTIONBUTTON_WIDTH 100
@@ -22,7 +22,7 @@ and other countries. Trademarks of QUALCOMM Incorporated are used with permissio
 
 #pragma mark - Private
 
--(void)addBackground
+- (void)addBackground
 {
     UIImage *backgroundImage = [UIImage imageNamed:@"custom_toolbar_texture.png"];
     backgroundImage = [backgroundImage stretchableImageWithLeftCapWidth:0 topCapHeight:0];
@@ -36,7 +36,7 @@ and other countries. Trademarks of QUALCOMM Incorporated are used with permissio
     [self addSubview:backgroundImageView];
 }
 
--(void)addCancelButton
+- (void)addCancelButton
 {
     CGRect cancelButtonFrame = CGRectMake(CANCELBUTTON_LEFTMARGIN,
                                           (self.frame.size.height - CANCELBUTTON_HEIGHT)/2,
@@ -72,7 +72,20 @@ and other countries. Trademarks of QUALCOMM Incorporated are used with permissio
     [self addSubview:cancelButton];
 }
 
--(void)addActionButton
+- (void)addSnapshotButton
+{
+    snapshotButton = [UIButton buttonWithType:UIButtonTypeCustom];
+    snapshotButton.frame = CGRectMake(CANCELBUTTON_LEFTMARGIN,
+                                      (self.frame.size.height - CANCELBUTTON_HEIGHT)/2,
+                                      CANCELBUTTON_WIDTH,
+                                      CANCELBUTTON_HEIGHT);
+    [snapshotButton setTitle:@"Capture" forState:UIControlStateNormal];
+    [snapshotButton setTitle:@"Capture" forState:UIControlStateHighlighted];
+    [snapshotButton addTarget:self action:@selector(snapshotButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+    [self addSubview:snapshotButton];
+}
+
+- (void)addActionButton
 {
     CGRect actionButtonFrame = CGRectMake((self.frame.size.width - ACTIONBUTTON_WIDTH)/2,
                                           (self.frame.size.height - ACTIONBUTTON_HEIGHT)/2,
@@ -95,7 +108,7 @@ and other countries. Trademarks of QUALCOMM Incorporated are used with permissio
 
 #pragma mark - Notifications
 
--(void)orientationDidChange:(NSNotification *)aNotification
+- (void)orientationDidChange:(NSNotification *)aNotification
 {
     //  It only rotates if you set shouldRotateActionButton property to YES
     if (shouldRotateActionButton)
@@ -135,16 +148,24 @@ and other countries. Trademarks of QUALCOMM Incorporated are used with permissio
 
 #pragma mark - Actions
 
--(void)cancelButtonPressed:(id)sender
+- (void)cancelButtonPressed:(id)sender
 {
     NSLog(@"#DEBUG cancelButtonPressed");
     [delegate cancelButtonWasPressed];
 }
 
--(void)actionButtonPressed:(id)sender
+- (void)actionButtonPressed:(id)sender
 {
     NSLog(@"#DEBUG actionButtonPressed");
     [delegate actionButtonWasPressed];
+}
+
+- (void)snapshotButtonPressed:(id)sender
+{
+    NSLog(@"#DEBUG snapshotButtonPressed");
+    if ([delegate respondsToSelector:@selector(snapshotButtonPressed)]) {
+        [delegate snapshotButtonPressed];
+    }
 }
 
 #pragma mark - Public

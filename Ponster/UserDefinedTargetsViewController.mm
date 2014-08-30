@@ -97,6 +97,7 @@ and other countries. Trademarks of QUALCOMM Incorporated are used with permissio
                                      TOOLBAR_HEIGHT);
     
     toolbar = [[CustomToolbar alloc] initWithFrame:toolbarFrame];
+    [toolbar addSnapshotButton];
     toolbar.delegate = self;
     toolbar.autoresizingMask = UIViewAutoresizingFlexibleTopMargin;// | UIViewAutoresizingFlexibleWidth;
     
@@ -167,14 +168,16 @@ and other countries. Trademarks of QUALCOMM Incorporated are used with permissio
     [vapp initAR:QCAR::GL_20 ARViewBoundsSize:viewFrame.size orientation:UIInterfaceOrientationPortrait];
 }
 
-- (void) pauseAR {
+- (void)pauseAR
+{
     NSError * error = nil;
     if (![vapp pauseAR:&error]) {
         NSLog(@"Error pausing AR:%@", [error description]);
     }
 }
 
-- (void) resumeAR {
+- (void)resumeAR
+{
     NSError * error = nil;
     if(! [vapp resumeAR:&error]) {
         NSLog(@"Error resuming AR:%@", [error description]);
@@ -217,7 +220,6 @@ and other countries. Trademarks of QUALCOMM Incorporated are used with permissio
     [eaglView finishOpenGLESCommands];
 }
 
-
 - (void)freeOpenGLESResources
 {
     // Called in response to applicationDidEnterBackground.  Inform the EAGLView
@@ -231,13 +233,13 @@ and other countries. Trademarks of QUALCOMM Incorporated are used with permissio
 }
 
 // Not using iOS6 specific enums in order to compile on iOS5 and lower versions
--(NSUInteger)supportedInterfaceOrientations
+- (NSUInteger)supportedInterfaceOrientations
 {
     // Portrait only
     return (1 << UIInterfaceOrientationPortrait);
 }
 
--(void)setCameraMode
+- (void)setCameraMode
 {
     refFreeFrame->startImageTargetBuilder();
     
@@ -265,7 +267,7 @@ and other countries. Trademarks of QUALCOMM Incorporated are used with permissio
 
 #pragma mark - CustomToolbarDelegateProtocol
 
--(void)actionButtonWasPressed
+- (void)actionButtonWasPressed
 {
     //  Camera button was pressed
     if (refFreeFrame->isImageTargetBuilderRunning() == YES)
@@ -274,17 +276,28 @@ and other countries. Trademarks of QUALCOMM Incorporated are used with permissio
     }
 }
 
--(void)cancelButtonWasPressed
+- (void)cancelButtonWasPressed
 {
     // No cancel button
 }
 
-
+- (void)snapshotButtonPressed
+{
+    UIWindow *keyWindow = [[UIApplication sharedApplication] keyWindow];
+    CGRect rect = [keyWindow bounds];
+    UIGraphicsBeginImageContextWithOptions(rect.size, NO, [UIScreen mainScreen].scale);
+    [eaglView drawViewHierarchyInRect:rect afterScreenUpdates:YES];
+    
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    UIImageWriteToSavedPhotosAlbum(image, nil, nil, nil);
+}
 
 #pragma mark - SampleApplicationControl
 
 // Initialize the application trackers        
-- (bool) doInitTrackers {
+- (bool)doInitTrackers
+{
     // Initialize the image tracker
     QCAR::TrackerManager& trackerManager = QCAR::TrackerManager::getInstance();
     QCAR::Tracker* trackerBase = trackerManager.initTracker(QCAR::ImageTracker::getClassType());
@@ -301,14 +314,11 @@ and other countries. Trademarks of QUALCOMM Incorporated are used with permissio
     // Get the image tracker:
     QCAR::TrackerManager& trackerManager = QCAR::TrackerManager::getInstance();
     QCAR::ImageTracker* imageTracker = static_cast<QCAR::ImageTracker*>(trackerManager.getTracker(QCAR::ImageTracker::getClassType()));
-    if (imageTracker != nil)
-    {
+    if (imageTracker != nil) {
         // Create the data set:
         dataSetUserDef = imageTracker->createDataSet();
-        if (dataSetUserDef != nil)
-        {
-            if (!imageTracker->activateDataSet(dataSetUserDef))
-            {
+        if (dataSetUserDef != nil) {
+            if (!imageTracker->activateDataSet(dataSetUserDef)) {
                 NSLog(@"Failed to activate data set.");
                 return false;
             }
@@ -318,10 +328,11 @@ and other countries. Trademarks of QUALCOMM Incorporated are used with permissio
 }
 
 // start the application trackers
-- (bool) doStartTrackers {
+- (bool)doStartTrackers
+{
     QCAR::TrackerManager& trackerManager = QCAR::TrackerManager::getInstance();
     QCAR::Tracker* tracker = trackerManager.getTracker(QCAR::ImageTracker::getClassType());
-    if(tracker == 0) {
+    if (tracker == 0) {
         return false;
     }
     
@@ -330,7 +341,8 @@ and other countries. Trademarks of QUALCOMM Incorporated are used with permissio
 }
 
 // callback called when the initailization of the AR is done
-- (void) onInitARDone:(NSError *)initError {
+- (void)onInitARDone:(NSError *)initError
+{
     UIActivityIndicatorView *loadingIndicator = (UIActivityIndicatorView *)[eaglView viewWithTag:1];
     [loadingIndicator removeFromSuperview];
     
@@ -353,12 +365,12 @@ and other countries. Trademarks of QUALCOMM Incorporated are used with permissio
 }
 
 // update from the QCAR loop
-- (void) onQCARUpdate: (QCAR::State *) state {
+- (void)onQCARUpdate:(QCAR::State *)state
+{
     QCAR::TrackerManager& trackerManager = QCAR::TrackerManager::getInstance();
     QCAR::ImageTracker* imageTracker = static_cast<QCAR::ImageTracker*>(trackerManager.getTracker(QCAR::ImageTracker::getClassType()));
     
-    if(refFreeFrame->hasNewTrackableSource())
-    {
+    if(refFreeFrame->hasNewTrackableSource()) {
         QCAR::Trackable * lastCreated;
         
         NSLog(@"Attempting to transfer the trackable source to the dataset");
@@ -369,8 +381,9 @@ and other countries. Trademarks of QUALCOMM Incorporated are used with permissio
         // Clear the oldest target if the dataset is full or the dataset
         // already contains five user-defined targets.
         if (dataSetUserDef->hasReachedTrackableLimit()
-            || dataSetUserDef->getNumTrackables() >= 5)
+            || dataSetUserDef->getNumTrackables() >= 5) {
             dataSetUserDef->destroy(dataSetUserDef->getTrackable(0));
+        }
         
         // if extended tracking is on, we need to stop the extended tracking on the
         // last trackable first as extended tracking should only be enable on one trackable
@@ -387,17 +400,15 @@ and other countries. Trademarks of QUALCOMM Incorporated are used with permissio
             lastCreated->startExtendedTracking();
         }
         
-        
         // Reactivate current dataset
         imageTracker->activateDataSet(dataSetUserDef);
-
     }
-    
-
 }
 
+
 // stop your trackerts
-- (bool) doStopTrackers {
+- (bool)doStopTrackers
+{
     QCAR::TrackerManager& trackerManager = QCAR::TrackerManager::getInstance();
     QCAR::Tracker* tracker = trackerManager.getTracker(QCAR::ImageTracker::getClassType());
     
@@ -410,24 +421,21 @@ and other countries. Trademarks of QUALCOMM Incorporated are used with permissio
 }
 
 // unload the data associated to your trackers
-- (bool) doUnloadTrackersData {
+- (bool)doUnloadTrackersData
+{
     QCAR::TrackerManager& trackerManager = QCAR::TrackerManager::getInstance();
     QCAR::ImageTracker* imageTracker = static_cast<QCAR::ImageTracker*>(trackerManager.getTracker(QCAR::ImageTracker::getClassType()));
-    if (imageTracker == NULL)
-    {
+    if (imageTracker == NULL) {
         NSLog(@"Failed to destroy the tracking data set because the ImageTracker has not been initialized.");
         return false;
     }
     
-    if (dataSetUserDef != nil)
-    {
-        if (imageTracker->getActiveDataSet() && !imageTracker->deactivateDataSet(dataSetUserDef))
-        {
+    if (dataSetUserDef != nil) {
+        if (imageTracker->getActiveDataSet() && !imageTracker->deactivateDataSet(dataSetUserDef)) {
             NSLog(@"Failed to destroy the tracking data set because the data set could not be deactivated.");
             return false;
         }
-        if (!imageTracker->destroyDataSet(dataSetUserDef))
-        {
+        if (!imageTracker->destroyDataSet(dataSetUserDef)) {
             NSLog(@"Failed to destroy the tracking data set.");
             return false;
         }
@@ -438,7 +446,8 @@ and other countries. Trademarks of QUALCOMM Incorporated are used with permissio
 }
 
 // deinitialize your trackers
-- (bool) doDeinitTrackers {
+- (bool)doDeinitTrackers
+{
     QCAR::TrackerManager& trackerManager = QCAR::TrackerManager::getInstance();
     trackerManager.deinitTracker(QCAR::ImageTracker::getClassType());
     return true;
@@ -454,7 +463,9 @@ and other countries. Trademarks of QUALCOMM Incorporated are used with permissio
     QCAR::CameraDevice::getInstance().setFocusMode(QCAR::CameraDevice::FOCUS_MODE_TRIGGERAUTO);
 }
 
-- (BOOL) setExtendedTrackingForDataSet:(QCAR::DataSet *)theDataSet start:(BOOL) start {
+- (BOOL)setExtendedTrackingForDataSet:(QCAR::DataSet *)theDataSet
+                                start:(BOOL)start
+{
     BOOL result = YES;
     
     if (dataSetUserDef->getNumTrackables() > 0) {
@@ -465,8 +476,7 @@ and other countries. Trademarks of QUALCOMM Incorporated are used with permissio
                 result = false;
             }
         } else {
-            if (!trackable->stopExtendedTracking())
-            {
+            if (!trackable->stopExtendedTracking()) {
                 NSLog(@"Failed to stop extended tracking on: %s", trackable->getName());
                 result = false;
             }
@@ -474,8 +484,6 @@ and other countries. Trademarks of QUALCOMM Incorporated are used with permissio
     }
     return result;
 }
-    
-    
 
 #pragma mark - left menu
 
@@ -487,8 +495,8 @@ typedef enum {
     C_CAMERA_REAR
 } MENU_COMMAND;
 
-- (void) prepareMenu {
-    
+- (void)prepareMenu
+{
     SampleAppMenu * menu = [SampleAppMenu prepareWithCommandProtocol:self title:@"User Defined Targets"];
     SampleAppMenuGroup * group;
     
@@ -505,7 +513,8 @@ typedef enum {
     [group addSelectionItem:@"Rear" command:C_CAMERA_REAR isSelected:YES];
 }
 
-- (bool) menuProcess:(SampleAppMenu *) menu command:(int) command value:(bool) value{
+- (bool)menuProcess:(SampleAppMenu *)menu command:(int)command value:(bool)value
+{
     bool result = true;
     NSError * error = nil;
 
@@ -524,7 +533,6 @@ typedef enum {
                 extendedTrackingIsOn = value;
             }
         break;
-        
         
         case C_CAMERA_FRONT:
         case C_CAMERA_REAR: {

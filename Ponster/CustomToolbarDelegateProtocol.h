@@ -10,7 +10,8 @@ and other countries. Trademarks of QUALCOMM Incorporated are used with permissio
 
 @protocol CustomToolbarDelegateProtocol <NSObject>
 
--(void)cancelButtonWasPressed;
--(void)actionButtonWasPressed;
+- (void)cancelButtonWasPressed;
+- (void)actionButtonWasPressed;
+- (void)snapshotButtonPressed;
 
 @end

@@ -18,6 +18,7 @@ and other countries. Trademarks of QUALCOMM Incorporated are used with permissio
 @interface CustomToolbar : UIView
 {
     UIButton *cancelButton;
+    UIButton *snapshotButton;
     CustomButton *actionButton;
     UIImage *actionImage;
     UIImageView *backgroundImageView;
@@ -31,5 +32,7 @@ and other countries. Trademarks of QUALCOMM Incorporated are used with permissio
 @property (assign) id <CustomToolbarDelegateProtocol> delegate;
 @property (assign) BOOL isCancelButtonHidden;
 @property (assign) BOOL shouldRotateActionButton;
+
+- (void)addSnapshotButton;
 
 @end
