@@ -16,7 +16,50 @@ expensive operation in terms of computational cost. This is one of the reasons w
 cost-efficient computer vision algorithms and techniques have emerged in the past
 years. 
 
-In this chapter we are going to review several technologies that can bring augmented
-reality to mobile or desktop apps.
+Most of the augmented reality apps follow this behaviour:
+\begin{itemize}
+\item Get the input from the camera or a video.
+\item Search for an object of interest.
+\item Introduce our object into the scene, considering the camera or the input position.
+\end{itemize}
 
-\section{Computer vision}
+In this chapter we are going to describe which are the different techniques
+that enables us to do them. 
+
+%% In this chapter we are going to review several technologies that can bring augmented
+%% reality to mobile or desktop apps. 
+
+% Esto más bien en un glosario
+%% \section{Computer vision}
+%% Computer Vision is the field of computer science that allows to process and
+%% analyze images. It's very related to machine vision and image processing. 
+
+\section{Object recognition}
+In order to provide an augmented reality experience, we have to know first
+which is the real world element that we are going to use as a reference to mix
+the real world input with our virtual elements. This reference can be from an
+image from the smartphone camera to the user location. Ponster searches a
+particular image inside the camera input in order to draw the poster image. In
+computer vision, this is usually referred as object tracking. 
+
+In computer vision there are a lot of object recognition techniques. In the
+development of Ponster, two of these techniques have been tested: template
+matching and feature-based detection.
+
+\subsection{Template matching}
+%ref to
+%http://docs.opencv.org/doc/tutorials/imgproc/histograms/template_matching/template_matching.html
+Template matching consists of finding areas of an image that are similar to a
+provided template image.
+
+\subsection{Feature detection}
+\subsubsection{Speeded-Up Robust Features - SURF}
+\subsubsection{Features from Accelerated Segment Test - FAST}
+\subsubsection{Oriented FAST and Rotated BRIEF - ORB}
+
+\subsection{Descriptor extraction}
+\subsection{Descriptor matching}
+\subsubsection{Brute-Force Matcher}
+\subsubsection{Fast Library for Approximate Nearest Neighbors - FLANN}
+
+\section{Tracking}
