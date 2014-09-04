@@ -49,10 +49,39 @@ matching and feature-based detection.
 \subsection{Template matching}
 %ref to
 %http://docs.opencv.org/doc/tutorials/imgproc/histograms/template_matching/template_matching.html
+% http://maxwellsci.com/print/rjaset/v4-5469-5473.pdf
 Template matching consists of finding areas of an image that are similar to a
-provided template image.
+provided template image. We have to provide a template image (the image that we want
+to look for) and compare it with the source image (the image in which we want to
+search). Template matching is also called area-based approach.
+%http://maxwellsci.com/print/rjaset/v4-5469-5473.pdf
+
+OpenCV provides a method to perform template matching with several methods, such as
+\texttt{SQDIFF} or \texttt{CCORR}. With the latest, \texttt{CCORR}, we use a
+correlation formula to check if the template is inside the image. Instead of
+applying a yes/no approximation, we can bring a positive match with certain
+threshold. 
+
+% Insert a match template image
+
+% citar el ppt aquel
+Performing a template matching operation using OpenCV on mobile devices is fast
+enough to deliver a smooth 30fps-like detection. However, match template does not
+take account of scale, rotation and perspective invariance by itself. There are
+several approaches to bring invariation to match template. For instance, image
+pyramids are used to make match template scale and rotation
+invariant, but it is not part of the OpenCV match template function, although it
+provides some methods to implement image pyramids. 
+%http://ieeexplore.ieee.org/xpl/login.jsp?tp=&arnumber=4368176&url=http%3A%2F%2Fieeexplore.ieee.org%2Fxpls%2Fabs_all.jsp%3Farnumber%3D4368176
+%http://docs.opencv.org/doc/tutorials/imgproc/pyramids/pyramids.html
+
+Match template has been tested during the development of Ponster. Also, a basic
+image pyramid system has been developed for scale-invariance, but match template has
+been discarded in favor of feature detection algorithms.
 
 \subsection{Feature detection}
+Feature-based approach
+
 \subsubsection{Speeded-Up Robust Features - SURF}
 \subsubsection{Features from Accelerated Segment Test - FAST}
 \subsubsection{Oriented FAST and Rotated BRIEF - ORB}
