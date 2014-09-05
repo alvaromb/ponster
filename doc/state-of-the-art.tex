@@ -59,7 +59,7 @@ search). Template matching is also called area-based approach.
 OpenCV provides a method to perform template matching with several methods, such as
 \texttt{SQDIFF} or \texttt{CCORR}. With the latest, \texttt{CCORR}, we use a
 correlation formula to check if the template is inside the image. Instead of
-applying a yes/no approximation, we can bring a positive match with certain
+applying a yes/no approximation, we can bring a positive match with a certain
 threshold. 
 
 % Insert a match template image
@@ -80,9 +80,32 @@ image pyramid system has been developed for scale-invariance, but match template
 been discarded in favor of feature detection algorithms.
 
 \subsection{Feature detection}
-Feature-based approach
+% http://www.comp.nus.edu.sg/~cs4243/lecture/feature.pdf [1]
+% very good slides
+Feature-based approach consists of detecting keypoints[1] in the source image
+and in the input image, provided by the camera in this case. Then, we have to
+match these two sets of keypoints in order to know if the source image is
+present. Source images with enough keypoints are easier to detect than more
+uniform images. This is why it's better to select a good source image with many
+features and good contrast. Usually, feature detection algorithms use corners,
+blobs or T-junctions [2]in the image as keypoints candidates.
+
+As we've said before, in order to deliver a good augmented reality experience,
+we need to make our detection algorithm scale, rotation and perspective
+invariant. Feature detection techniques can be scaled invariant by extracting
+features that are invariant to scale, such as feature vectors computed from
+interest point neighbourhoods. For rotation invariance, algorithms can
+estimate the orientation of the keypoint. % and for perspective 
+
+%TODO introduce following chapters
 
 \subsubsection{Speeded-Up Robust Features - SURF}
+% super good paper
+% http://www.vision.ee.ethz.ch/~surf/eccv06.pdf [2]
+Speeded-Up Robuts Features, also know as SURF, is a variant of Scale-Invariant
+Feature Transform, SIFT. % Esto no se si es cierto
+SURF is actually 
+
 \subsubsection{Features from Accelerated Segment Test - FAST}
 \subsubsection{Oriented FAST and Rotated BRIEF - ORB}
 
