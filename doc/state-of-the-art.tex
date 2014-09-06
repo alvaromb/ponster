@@ -77,7 +77,8 @@ provides some methods to implement image pyramids.
 
 Match template has been tested during the development of Ponster. Also, a basic
 image pyramid system has been developed for scale-invariance, but match template has
-been discarded in favor of feature detection algorithms.
+been discarded in favor of feature detection algorithms because rotation and scale
+invariance and perspective warp are required features.
 
 \subsection{Feature detection}
 % http://www.comp.nus.edu.sg/~cs4243/lecture/feature.pdf [1]
@@ -98,6 +99,13 @@ interest point neighbourhoods. For rotation invariance, algorithms can
 estimate the orientation of the keypoint. % and for perspective 
 
 %TODO introduce following chapters
+There are plenty of feature-detection based algorithms, many of them based on
+Scale-Invariant Feature Transform, or SIFT. Cost efficiency is one of the most
+important features of these algorithms, as every new technique introduced tries to
+mantain robustness and reducing computation time. Robustness it's also very
+important, but less robust algorithms are also been developed in favour of reducing
+computation time. One good example is FAST[orb paper] keypoint detector, which is
+not rotation invariant. %citation needed
 
 \subsubsection{Speeded-Up Robust Features - SURF}
 % super good paper
