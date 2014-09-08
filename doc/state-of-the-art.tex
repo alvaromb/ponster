@@ -39,12 +39,15 @@ In order to provide an augmented reality experience, we have to know first
 which is the real world element that we are going to use as a reference to mix
 the real world input with our virtual elements. This reference can be from an
 image from the smartphone camera to the user location. Ponster searches a
-particular image inside the camera input in order to draw the poster image. In
-computer vision, this is usually referred as object tracking. 
+particular image inside the camera input in order to draw the poster image above. In
+computer vision, this technique of searching an image and follow it along it's
+movement is usually referred as object tracking. 
 
 In computer vision there are a lot of object recognition techniques. In the
 development of Ponster, two of these techniques have been tested: template
-matching and feature-based detection.
+matching and feature-based detection. Detecting the image in a continuous input from
+the smartphone camera, taking account of scale, rotation and perspective
+differences, becomes an object tracking technique. 
 
 \subsection{Template matching}
 %ref to
@@ -66,7 +69,7 @@ threshold.
 
 % citar el ppt aquel
 Performing a template matching operation using OpenCV on mobile devices is fast
-enough to deliver a smooth 30fps-like detection. However, match template does not
+enough to deliver a smooth 25/30fps-like detection. However, match template does not
 take account of scale, rotation and perspective invariance by itself. There are
 several approaches to bring invariation to match template. For instance, image
 pyramids are used to make match template scale and rotation
@@ -83,14 +86,29 @@ invariance and perspective warp are required features.
 \subsection{Feature detection}
 % http://www.comp.nus.edu.sg/~cs4243/lecture/feature.pdf [1]
 % very good slides
-Feature-based approach consists of detecting keypoints[1] in the source image
-and in the input image, provided by the camera in this case. Then, we have to
-match these two sets of keypoints in order to know if the source image is
-present. Source images with enough keypoints are easier to detect than more
-uniform images. This is why it's better to select a good source image with many
-features and good contrast. Usually, feature detection algorithms use corners,
-blobs or T-junctions [2]in the image as keypoints candidates.
+%% Feature-based approach consists of detecting keypoints[1] in the source image
+%% and in the input image, provided by the camera in this case. Then, we have to
+%% match these two sets of keypoints in order to know if the source image is
+%% present. 
 
+A feature-based approach can be presented as a three step method[2]. First of all, we
+have to detect keypoints[1] (also called interest points) in the image. Usually,
+interest points are corners, blobs or T-junctions[2]. A good keypoint is a
+\emph{repeatable} keypoint; if we can find the same keypoint under different
+conditions such as light difference or rotation, it's considered as a quality
+keypoint. The second step is to compute \emph{descriptors} or feature
+vectors. These descriptors are represented as neighbourhoods of interest
+points. Assuming that feature
+detection makes sense when we have two images to compare, these two steps have to be
+performed on both images. Once we've done that, we have a group of descriptors for
+each image, and we have to compare them in order to \emph{match} features. If the
+features of the source image are present in the input image, we can assume that the
+object has been detected. The matching is based on the distance between the feature
+vectors. 
+
+Usually, source images with enough keypoints are easier to detect than more
+uniform images. This is why it's better to select a good source image with many
+features and good contrast. 
 As we've said before, in order to deliver a good augmented reality experience,
 we need to make our detection algorithm scale, rotation and perspective
 invariant. Feature detection techniques can be scaled invariant by extracting
@@ -106,19 +124,47 @@ mantain robustness and reducing computation time. Robustness it's also very
 important, but less robust algorithms are also been developed in favour of reducing
 computation time. One good example is FAST[orb paper] keypoint detector, which is
 not rotation invariant. %citation needed
+Next, we are going to describe the feature-detection algorithms tested on Ponster:
+SURF, FREAK and ORB.
 
 \subsubsection{Speeded-Up Robust Features - SURF}
 % super good paper
 % http://www.vision.ee.ethz.ch/~surf/eccv06.pdf [2]
-Speeded-Up Robuts Features, also know as SURF, is a variant of Scale-Invariant
-Feature Transform, SIFT. % Esto no se si es cierto
-SURF is actually 
+Speeded-Up Robust Features, also know as SURF, is a group of detector and descriptor
+introduced by Herbert Bay et al. SURF is faster and more robust than other
+alternatives like SIFT[2]. It's descriptors are rotation and scale invariant.
+Perspective transformations are also considered, but in lower order. 
+
+The keypoint detection in SURF uses a Hessian-matrix approximation. This use of
+integral images reduces computational cost in comparison with another interest point
+detection techniques such as Harris corner detection. Scale invariance is achieved
+by calculating integral image pyramids, but instead of reducing the image size,
+integral images allow SURF to upscale and build the pyramids more efficiently. 
+
+The SURF descriptor calculation is slightly based on SIFT. SURF descriptor describes
+the distribution of the intensity content within the interest point neighbourhood,
+which is similar to the gradient information used by SIFT. It is done in two steps,
+fixing a reproducible orientation based on information from a circular region around
+the keypoint, and then building a square region aligned to the calculated
+orientation. Once we have the descriptors, the last step is to perform the
+matching. Descriptors are compared only if they have the same type of contrast,
+allowing to perform a faster matching. In Ponster, two different matching algorithms
+have been tested, Brute-force Matcher and FLANN-based matching.
+
+SURF is as robust as other alternatives such as SIFT, but it's faster to compute due
+to the use of integral images. It is rotational and scale-invariant, which is better
+than the template matching technique described before, but it's performance running
+on the device (iPhone 5, iOS 7.1.2) is not good enough to deliver a decent user
+experience, taking between 0.7 and 1 second to compute each image. Also, SURF is a
+patented algorithm and it's not intended to use it in commercial applications. 
 
 \subsubsection{Features from Accelerated Segment Test - FAST}
+FAST is a keypoint detector 
+
 \subsubsection{Oriented FAST and Rotated BRIEF - ORB}
 
-\subsection{Descriptor extraction}
-\subsection{Descriptor matching}
+%\subsection{Descriptor extraction}
+%\subsection{Descriptor matching}
 \subsubsection{Brute-Force Matcher}
 \subsubsection{Fast Library for Approximate Nearest Neighbors - FLANN}
 
