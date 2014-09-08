@@ -49,7 +49,7 @@ matching and feature-based detection. Detecting the image in a continuous input 
 the smartphone camera, taking account of scale, rotation and perspective
 differences, becomes an object tracking technique. 
 
-\subsection{Template matching}
+\section{Template matching}
 %ref to
 %http://docs.opencv.org/doc/tutorials/imgproc/histograms/template_matching/template_matching.html
 % http://maxwellsci.com/print/rjaset/v4-5469-5473.pdf
@@ -83,7 +83,7 @@ image pyramid system has been developed for scale-invariance, but match template
 been discarded in favor of feature detection algorithms because rotation and scale
 invariance and perspective warp are required features.
 
-\subsection{Feature detection}
+\section{Feature detection}
 % http://www.comp.nus.edu.sg/~cs4243/lecture/feature.pdf [1]
 % very good slides
 %% Feature-based approach consists of detecting keypoints[1] in the source image
@@ -127,7 +127,7 @@ not rotation invariant. %citation needed
 Next, we are going to describe the feature-detection algorithms tested on Ponster:
 SURF, FREAK and ORB.
 
-\subsubsection{Speeded-Up Robust Features - SURF}
+\subsection{Speeded-Up Robust Features - SURF}
 % super good paper
 % http://www.vision.ee.ethz.ch/~surf/eccv06.pdf [2]
 Speeded-Up Robust Features, also know as SURF, is a group of detector and descriptor
@@ -158,14 +158,53 @@ on the device (iPhone 5, iOS 7.1.2) is not good enough to deliver a decent user
 experience, taking between 0.7 and 1 second to compute each image. Also, SURF is a
 patented algorithm and it's not intended to use it in commercial applications. 
 
-\subsubsection{Features from Accelerated Segment Test - FAST}
-FAST is a keypoint detector 
+\subsection{Features from Accelerated Segment Test - FAST}
+% http://www.edwardrosten.com/work/rosten_2006_machine.pdf [3]
+FAST is a keypoint detector based on corner detection. It was introduced by
+Edward Rosten and Tom Drummond[3] and it's primary purpose was to bring a real
+time interest point detector. FAST considers a circle of sixteen pixels around
+each corner candidate, and detects a candidate as a corner if there are $n$
+contiguos pixels in that circle with brighter intensity than the candidate
+pixel. % introduce Figure 1 of paper [3]
 
-\subsubsection{Oriented FAST and Rotated BRIEF - ORB}
+This technique is faster than others for corner detection, but FAST is not
+scale and rotation invariant. Also, it does not perform very well under high
+noise images. Many other techniques uses FAST as a starting point of a
+detector, bringing scale and rotation invariance and a corresponding
+extractor. One example of this is ORB, tested in the development of Ponster.
 
-%\subsection{Descriptor extraction}
-%\subsection{Descriptor matching}
-\subsubsection{Brute-Force Matcher}
-\subsubsection{Fast Library for Approximate Nearest Neighbors - FLANN}
+\subsection{Oriented FAST and Rotated BRIEF - ORB}
+% paper: ORB: an efficient alternative to SIFT or SURF
+As we have said before, real time performance has been a very popular topic in
+object detection during the last years. The main characteristic of ORB is to
+perform as good as SIFT, but doing it twice as fast. ORB uses a variant of FAST
+as the interest point detector, and BRIEF as the descriptor extractor. 
 
-\section{Tracking}
+FAST does not have rotation invariance. This is why ORB uses oFAST (FAST
+keypoint orientation), which is a variant of FAST that computes orientation by
+intensity centroid. This technique assumes that a corner's intensity is offset
+from it's center, and this vector may be used to impute an orientation
+[paper]. To bring scale invariance, ORB employs a scale pyramid of the image
+and computes FAST on each level of the pyramid.
+
+ORB also uses a variant of BRIEF called rBRIEF, or Rotation-aware BRIEF. The
+BRIEF descriptor, unlike SURF, is a binary descriptor. rBRIEF is based on
+steered BRIEF, which uses the keypoint orientation; in addition to steered
+BRIEF, a learning method for choosing good binary features is applied,
+resulting into rBRIEF.
+
+In Ponster, ORB has been tested with better results than the other previous
+techniques, but again with poor performance in the device. Only a 15 fps
+processing have been achieved, with slightly worst detection than with SURF.
+
+\section{Matching}
+Once we have calculated the interest points and computed the descriptors in the
+two images that we want to compare, we have to perform a match between this two 
+
+\subsection{Brute-Force Matcher}
+\subsection{Fast Library for Approximate Nearest Neighbors - FLANN}
+
+\section{Natural feature tracking}
+% neumann paper
+
+%\section{Tracking}
