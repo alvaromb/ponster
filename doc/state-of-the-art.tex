@@ -199,9 +199,25 @@ processing have been achieved, with slightly worst detection than with SURF.
 
 \section{Matching}
 Once we have calculated the interest points and computed the descriptors in the
-two images that we want to compare, we have to perform a match between this two 
+two images that we want to compare, we have to perform a match between this two
+sources. Depending on the descriptor extraction method, one or another matcher
+must be used. ORB uses binary descriptors, but SURF does not, so the matching
+is performed in a different way.
+
+We will discuss two of this methods, both used in the development of Ponster,
+Brute-force matcher and Fast Library for Approximate Nearest Neighbors. 
 
 \subsection{Brute-Force Matcher}
+%features.ppt hay una buena imagen
+% mirar Fast Matching of Binary Features
+Brute-Force Matcher, as it's name states, will compare each of the descriptors
+found in the images. Althought it may seem that this approach is not very
+efficient, BF-matcher performs really well on binary descriptors like ORB.
+
+The comparison is done by a distance function. There are many functions in
+BF-matcher (poner aquí la lista de funciones). In Ponster, Hamming distance has
+been tested for ORB and L2 normalization with SURF.
+
 \subsection{Fast Library for Approximate Nearest Neighbors - FLANN}
 
 \section{Natural feature tracking}
