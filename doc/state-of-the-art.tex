@@ -236,9 +236,31 @@ kind of searches with several algorithms. Two have been tested in Ponster,
 randomized KD-tree search for SURF and Locality-Sensitive Hashing for ORB.
 
 \subsubsection{Randomized KD-tree}
+Basic KD-tree search performs well for small datasets, but quickly degrades
+its performance when the dimensionality increases. Several KD-tree algorithm
+variants have been introduced, such as approximate nearest neighbour, in order
+to reduce the computational cost of KD-tree searches with large datasets. 
 
+This algorithm creates multiple randomized KD-trees, built by choosing the
+split dimension randomly from the first $5$ dimensions on which data has the
+greatest variance. Then, a priority queue is created while searching all the
+trees, so the search can be ordered by increasing distance to each bin
+boundary. 
+
+Using this approximation techniques can boost performance by reducing the
+precision of the matching, although the loss is usually small enough to mantain
+a $95\%$ precision. 
 
 \subsubsection{Locality-Sensitive Hashing}
+% http://www.mit.edu/~andoni/LSH/
+Locality-Sensitive Hashing is a matching algorithm to solve the nearest
+neighbour search in high datasets. LSH is used with binary descriptors like the
+ones computed with ORB. The main idea of LSH is to hash the points with
+functions that ensure that close points will be more likely to key collision,
+thus allowing to get the nearest neighbours of each point querying the other
+points in it's bucket.
+
+
 
 \section{Natural feature tracking}
 % neumann paper
