@@ -211,14 +211,34 @@ Brute-force matcher and Fast Library for Approximate Nearest Neighbors.
 %features.ppt hay una buena imagen
 % mirar Fast Matching of Binary Features
 Brute-Force Matcher, as it's name states, will compare each of the descriptors
-found in the images. Althought it may seem that this approach is not very
+found in the images performing a linear search. Althought it may seem that this approach is not very
 efficient, BF-matcher performs really well on binary descriptors like ORB.
 
 The comparison is done by a distance function. There are many functions in
-BF-matcher (poner aquí la lista de funciones). In Ponster, Hamming distance has
-been tested for ORB and L2 normalization with SURF.
+BF-matcher:
+\begin{itemize}
+\item \texttt{NORM\_L1} better with SURF/SIFT.
+\item \texttt{NORM\_L2} better with SURF/SIFT.
+\item \texttt{NORM\_HAMMING} better with ORB.
+\item \texttt{NORM\_HAMMING2} better with ORB.
+\end{itemize}
+Hamming distance can be computed with bit manipulation operations, which are
+very quickly. In Ponster, Hamming distance has been tested for ORB and L2
+normalization with SURF. 
 
 \subsection{Fast Library for Approximate Nearest Neighbors - FLANN}
+% FAST APPROXIMATE NEAREST NEIGHBORS WITH AUTOMATIC ALGORITHM CONFIGURATION flann_visapp09.pdf
+Instead of performing a linear search for matching descriptors, we can use a
+nearest neighbour matching technique. The nearest neighbour search tries to
+find, given a set of points $P$ in a vector space $X$, all the points that are 
+close to a given point $q$. FLANN is a library that enables us to perform this
+kind of searches with several algorithms. Two have been tested in Ponster,
+randomized KD-tree search for SURF and Locality-Sensitive Hashing for ORB.
+
+\subsubsection{Randomized KD-tree}
+
+
+\subsubsection{Locality-Sensitive Hashing}
 
 \section{Natural feature tracking}
 % neumann paper
