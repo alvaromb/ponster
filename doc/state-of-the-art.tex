@@ -253,6 +253,7 @@ a $95\%$ precision.
 
 \subsubsection{Locality-Sensitive Hashing}
 % http://www.mit.edu/~andoni/LSH/
+% LSH ---> communications200801-dl.pdf
 Locality-Sensitive Hashing is a matching algorithm to solve the nearest
 neighbour search in high datasets. LSH is used with binary descriptors like the
 ones computed with ORB. The main idea of LSH is to hash the points with
@@ -260,7 +261,10 @@ functions that ensure that close points will be more likely to key collision,
 thus allowing to get the nearest neighbours of each point querying the other
 points in it's bucket.
 
-
+The LSH parameters defines the hash functions \emph{amplification}. This means that
+the hash functions must be \emph{amplified} enough to ensure hash collision;
+otherwise, the algorithm would be useless. The effect of this parameters and a more
+in-depth explaination of LSH can be found in this[PDF] paper.
 
 \section{Natural feature tracking}
 % neumann paper
