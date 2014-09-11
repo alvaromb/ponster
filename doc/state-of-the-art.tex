@@ -50,14 +50,10 @@ the smartphone camera, taking account of scale, rotation and perspective
 differences, becomes an object tracking technique. 
 
 \section{Template matching}
-%ref to
-%http://docs.opencv.org/doc/tutorials/imgproc/histograms/template_matching/template_matching.html
-% http://maxwellsci.com/print/rjaset/v4-5469-5473.pdf
-Template matching consists of finding areas of an image that are similar to a
+Template matching\cite{ocv01} consists of finding areas of an image that are similar to a
 provided template image. We have to provide a template image (the image that we want
 to look for) and compare it with the source image (the image in which we want to
-search). Template matching is also called area-based approach.
-%http://maxwellsci.com/print/rjaset/v4-5469-5473.pdf
+search)\cite{tmatch01}. Template matching is also called area-based approach.
 
 OpenCV provides a method to perform template matching with several methods, such as
 \texttt{SQDIFF} or \texttt{CCORR}. With the latest, \texttt{CCORR}, we use a
@@ -73,10 +69,8 @@ enough to deliver a smooth 25/30fps-like detection. However, match template does
 take account of scale, rotation and perspective invariance by itself. There are
 several approaches to bring invariation to match template. For instance, image
 pyramids are used to make match template scale and rotation
-invariant, but it is not part of the OpenCV match template function, although it
-provides some methods to implement image pyramids. 
-%http://ieeexplore.ieee.org/xpl/login.jsp?tp=&arnumber=4368176&url=http%3A%2F%2Fieeexplore.ieee.org%2Fxpls%2Fabs_all.jsp%3Farnumber%3D4368176
-%http://docs.opencv.org/doc/tutorials/imgproc/pyramids/pyramids.html
+invariant\cite{4368176}, but it is not part of the OpenCV match template function, although it
+provides some methods to implement image pyramids\cite{ocv02}. 
 
 Match template has been tested during the development of Ponster. Also, a basic
 image pyramid system has been developed for scale-invariance, but match template has
@@ -84,16 +78,9 @@ been discarded in favor of feature detection algorithms because rotation and sca
 invariance and perspective warp are required features.
 
 \section{Feature detection}
-% http://www.comp.nus.edu.sg/~cs4243/lecture/feature.pdf [1]
-% very good slides
-%% Feature-based approach consists of detecting keypoints[1] in the source image
-%% and in the input image, provided by the camera in this case. Then, we have to
-%% match these two sets of keypoints in order to know if the source image is
-%% present. 
-
-A feature-based approach can be presented as a three step method[2]. First of all, we
-have to detect keypoints[1] (also called interest points) in the image. Usually,
-interest points are corners, blobs or T-junctions[2]. A good keypoint is a
+A feature-based approach can be presented as a three step method. First of all, we
+have to detect keypoints\cite{feature} (also called interest points) in the image. Usually,
+interest points are corners, blobs or T-junctions. A good keypoint is a
 \emph{repeatable} keypoint; if we can find the same keypoint under different
 conditions such as light difference or rotation, it's considered as a quality
 keypoint. The second step is to compute \emph{descriptors} or feature
@@ -122,17 +109,15 @@ Scale-Invariant Feature Transform, or SIFT. Cost efficiency is one of the most
 important features of these algorithms, as every new technique introduced tries to
 mantain robustness and reducing computation time. Robustness it's also very
 important, but less robust algorithms are also been developed in favour of reducing
-computation time. One good example is FAST[orb paper] keypoint detector, which is
+computation time. One good example is FAST\cite{6126544} keypoint detector, which is
 not rotation invariant. %citation needed
 Next, we are going to describe the feature-detection algorithms tested on Ponster:
 SURF, FREAK and ORB.
 
 \subsection{Speeded-Up Robust Features - SURF}
-% super good paper
-% http://www.vision.ee.ethz.ch/~surf/eccv06.pdf [2]
 Speeded-Up Robust Features, also know as SURF, is a group of detector and descriptor
 introduced by Herbert Bay et al. SURF is faster and more robust than other
-alternatives like SIFT[2]. It's descriptors are rotation and scale invariant.
+alternatives like SIFT\cite{Bay:2008:SRF:1370312.1370556}. It's descriptors are rotation and scale invariant.
 Perspective transformations are also considered, but in lower order. 
 
 The keypoint detection in SURF uses a Hessian-matrix approximation. This use of
@@ -159,9 +144,8 @@ experience, taking between 0.7 and 1 second to compute each image. Also, SURF is
 patented algorithm and it's not intended to use it in commercial applications. 
 
 \subsection{Features from Accelerated Segment Test - FAST}
-% http://www.edwardrosten.com/work/rosten_2006_machine.pdf [3]
 FAST is a keypoint detector based on corner detection. It was introduced by
-Edward Rosten and Tom Drummond[3] and it's primary purpose was to bring a real
+Edward Rosten and Tom Drummond\cite{Rosten:2006:MLH:2094437.2094478} and it's primary purpose was to bring a real
 time interest point detector. FAST considers a circle of sixteen pixels around
 each corner candidate, and detects a candidate as a corner if there are $n$
 contiguos pixels in that circle with brighter intensity than the candidate
@@ -183,8 +167,8 @@ as the interest point detector, and BRIEF as the descriptor extractor.
 FAST does not have rotation invariance. This is why ORB uses oFAST (FAST
 keypoint orientation), which is a variant of FAST that computes orientation by
 intensity centroid. This technique assumes that a corner's intensity is offset
-from it's center, and this vector may be used to impute an orientation
-[paper]. To bring scale invariance, ORB employs a scale pyramid of the image
+from it's center, and this vector may be used to impute an
+orientation\cite{6126544}. To bring scale invariance, ORB employs a scale pyramid of the image
 and computes FAST on each level of the pyramid.
 
 ORB also uses a variant of BRIEF called rBRIEF, or Rotation-aware BRIEF. The
@@ -227,11 +211,11 @@ very quickly. In Ponster, Hamming distance has been tested for ORB and L2
 normalization with SURF. 
 
 \subsection{Fast Library for Approximate Nearest Neighbors - FLANN}
-% FAST APPROXIMATE NEAREST NEIGHBORS WITH AUTOMATIC ALGORITHM CONFIGURATION flann_visapp09.pdf
 Instead of performing a linear search for matching descriptors, we can use a
 nearest neighbour matching technique. The nearest neighbour search tries to
 find, given a set of points $P$ in a vector space $X$, all the points that are 
-close to a given point $q$. FLANN is a library that enables us to perform this
+close to a given point $q$. FLANN\cite{muja:fast}
+is a library that enables us to perform this
 kind of searches with several algorithms. Two have been tested in Ponster,
 randomized KD-tree search for SURF and Locality-Sensitive Hashing for ORB.
 
@@ -252,14 +236,12 @@ precision of the matching, although the loss is usually small enough to mantain
 a $95\%$ precision. 
 
 \subsubsection{Locality-Sensitive Hashing}
-% http://www.mit.edu/~andoni/LSH/
-% LSH ---> communications200801-dl.pdf
 Locality-Sensitive Hashing is a matching algorithm to solve the nearest
 neighbour search in high datasets. LSH is used with binary descriptors like the
 ones computed with ORB. The main idea of LSH is to hash the points with
 functions that ensure that close points will be more likely to key collision,
 thus allowing to get the nearest neighbours of each point querying the other
-points in it's bucket.
+points in it's bucket\cite{Andoni:2008:NHA:1327452.1327494}.
 
 The LSH parameters defines the hash functions \emph{amplification}. This means that
 the hash functions must be \emph{amplified} enough to ensure hash collision;
@@ -275,8 +257,9 @@ to be successfull to deliver both high performance in mobile devices and robust
 object tracking.
 
 Natural feature tracking consists of computing the motion of a feature in the
-scene[cita aqui]. We call nature feature to any point or region candidate to be
-detected and selected as a reference. Usually this follows the next steps:
+scene\cite{neumann}. We call nature feature to any point or
+region candidate to be detected and selected as a reference. Usually this
+follows the next steps: 
 \begin{itemize}
 \item Natural feature detection and selection.
 \item Motion estimation based on detected features.
@@ -284,7 +267,8 @@ detected and selected as a reference. Usually this follows the next steps:
 \end{itemize}
 The feature detection consists in selecting points and regions in the image
 with specific characteristics that are easy and robust to track. The motion
-estimation can be executed by several ways. For example, in [paper], optical
+estimation can be executed by several ways. For example, in the Neumann
+article\cite{neumann}, optical  
 flux is presented to estimate the camera movement. In our mobile environment,
 we can also use the gyroscope. The evaluation feedback provides a way to reject
 detected features that do not specifically match with the plane that should be

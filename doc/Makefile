@@ -14,7 +14,7 @@ latex:
 	$B document
 	$P document
 	$P document
-	$O document
+	$O document.pdf
 
 spell:
 	$S intro.tex
