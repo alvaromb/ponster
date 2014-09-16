@@ -237,6 +237,12 @@ session. Vuforia enables developers to use pre-defined targets also.
 \caption{\label{fig:vuforiasdk}Vuforia SDK architecture.}
 \end{figure} 
 
+One of the main advantages of Vuforia SDK is that it is optimized to run in
+ARM-based devices. In the tests performed during the development of Ponster, Vuforia
+has shown a clear advantage in terms of frames per second processed in comparison
+with OpenCV. While SURF performed roughly at 1 or 2 fps, Vuforia has a constant fps
+rate of 30 to 29 frames.
+
 \subsubsection{Extended tracking}
 Although we don't know exactly how Vuforia tracking algorithms internally work, some
 parts of the API architecture are explained in the Vuforia developer website. In the
@@ -249,6 +255,18 @@ The extended tracking enables augmented reality applications to maintain the obj
 detection even if the whole pattern is not visible. With iOS, Vuforia can bring this
 using CoreMotion framework. It is not defined how exactly Vuforia makes extended
 tracking possible under iOS applications, but it is sure that they use the
-accelerometer and the gyroscope to keep the object visible in the scene.
+accelerometer and the gyroscope to keep the object visible in the scene while the
+user moves the smartphone camera changing the scene.
 
 \subsubsection{FastCV}
+Vuforia is based on FastCV, which is a library developed by Qualcomm that brings
+computer vision algorithms optimized for mobile architectures. FastCV has the main
+computer vision features\cite{fastcv}:
+\begin{itemize}
+\item Gesture recognition algorithms.
+\item Face detection, tracking and pattern recognition.
+\item Augmented reality.
+\end{itemize}
+
+When running on ARM devices, FastCV is CPU-optimized. Due to the fact that Qualcomm
+builds the Snapdragon ARM microchip, FastCV is finely tuned for that artchitecture. 
