@@ -1,4 +1,54 @@
 \chapter{Development}
 \section{Application Architecture}
 \label{sec:architecture}
+All the iOS applications follow the model view controller architecture. This
+artchitecture separates the data model --inside the \emph{model}--, the presentation
+of the data --the \emph{view}-- and the interaction and logic between them --the
+\emph{controller}--. 
+
+First of all we're going to discuss how Ponster applies the MVC
+architecture; then we will introduce the selected persistency layer with CoreData
+and finally how the augmented reality fits into the app.
+
+\subsection{Model View Controller}
+Each of the main components of Ponster is represented by a subclass of UIKit's
+controller, the \texttt{UIViewController}. When developing complex applications is
+frequent to have a base view controller with shared functionality. Then, the rest of
+the view controllers inherit from them. In Ponster, the main view controller from
+where our controllers inherit from are the ones presented by UIKit, without any
+other feature added. 
+
+We can separate the view controllers in our app with the following list:
+\begin{itemize}
+\item Main screen view controller.
+\begin{itemize}
+\item Collection view controller.
+\end{itemize}
+\item Poster view controller
+\item Augmented reality view controller.
+\end{itemize}
+
+There is one view controller that is built from two view controllers, the main
+screen. It is common in iOS to represent tables or collection views using the UIKit
+view controller that is ready for those tasks, \texttt{UITableViewController} or
+\texttt{UICollectionViewController}. Usually this is done because both view
+controllers have built-in methods --like the refresh control-- that are easier and
+more correct to use when subclassing from those UIKit view controllers. In order to
+customize the rest of the view controller and to keep responsability separated --one
+view manages the collection, the other the whole screen and the navigation-- we use
+view controller containment to embed the collection VC inside the main screen view
+controller. 
+
+\subsection{Persistency layer architecture}
+
+\subsection{Augmented reality}
+
 \section{Features}
+The Ponster app has three main features: list posters, try how they look wherever
+the user wants and capture an screenshot of the poster in the scene.
+
+\begin{description}
+\item [List posters] \hfill \\
+\item [Augmented reality] \hfill \\
+\item [Screenshot] \hfill \\
+\end{description}
