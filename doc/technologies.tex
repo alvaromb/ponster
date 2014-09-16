@@ -145,7 +145,7 @@ manager \textbf{CocoaPods}.
 
 \begin{description}
 \item [MagicalRecord] \hfill \\
-MagicalRecord\ref{gh:mr} is a library written by Saul Mora that makes easy to use
+MagicalRecord\cite{gh:mr} is a library written by Saul Mora that makes easy to use
 CoreData. It acts as a wrapper for most of the CoreData's actions and makes possible
 to perform any action with less lines. Also, MagicalRecord helps us to create new
 contexts, which is very important in our application architecture.
@@ -181,14 +181,14 @@ Two computer vision libraries have been used, OpenCV in the first stages of
 development, and later Vuforia, which is made by Qualcomm\textregistered. 
 
 \subsection{OpenCV}
-OpenCV is an open source computer vision library\ref{opencv}. The library has
+OpenCV is an open source computer vision library\cite{opencv}. The library has
 more than 2,500 computer vision and machine learning algorithms. It has been
 released as a BSD-licensed source, so it can be used for commercial and
 non-commercial applications.
 
 The OpenCV library can be used in Windows, GNU/Linux and OS X platforms. The
 latest OpenCV library available for iOS platforms is the 2.4.9
-build\ref{opencvpod}. Some of the algorithms used in Ponster --like SURF or SIFT--
+build\cite{opencvpod}. Some of the algorithms used in Ponster --like SURF or SIFT--
 are patented, so they are available in the \texttt{nonfree} headers. These
 algorithms cannot be used in commercial applications, but they are included in
 the library with educational purposes. 
@@ -200,6 +200,55 @@ very good performance in most platforms, the Vuforia alternative performed much
 faster and with a constant 30 fps frame rate.
 
 \subsection{Vuforia}
+Vuforia is an augmented reality SDK developed by the American chip company
+Qualcomm. The Vuforia API supports C++, Objective-C, Java and .NET --with the Unity
+game engine--. Currently, Vuforia is at it's 3.0 version. 
 
+The SDK consists of several core components\cite{vuforiasdk01}: 
+\begin{description}
+\item [Camera] \hfill \\
+Delivers the image frame with a custom data structure, independent from the
+platform.
+\item [Image Converter] \hfill \\
+This downsamples the image for a better performance and converts the image format to
+a suitable OpenGL ES format.
+\item [Tracker] \hfill \\
+The tracker performs the computer vision algorithms and stores the result in a
+shared object used by the background renderer. The tracker has many different
+detection algorithms that can be used depending on the camera image.
+\item [Video Background Renderer] \hfill \\
+This is the responsible of rendering the video image into the screen. It's optimized
+for the different platforms that Vuforia works with.
+\item [Application Code] \hfill \\
+For each processed frame, we have to perform three main steps: query the state
+object for newly detected targets or updated states, update the application with the
+new information received and render the graphics. This scheme is almost identical to
+the first custom scheme used when testing OpenCV feature detection methods.
+\item [User-defined Targets] \hfill \\
+In Ponster, users can define a tracking object by taking a picture of the scene,
+thus enabling to use any image as a placeholder of the poster. This works by
+processing the captured frame and caching it's result for the augmented reality
+session. Vuforia enables developers to use pre-defined targets also.
+\end{description}
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.45]{img/vuforiasdk.png}
+\caption{\label{fig:vuforiasdk}Vuforia SDK architecture.}
+\end{figure} 
+
+\subsubsection{Extended tracking}
+Although we don't know exactly how Vuforia tracking algorithms internally work, some
+parts of the API architecture are explained in the Vuforia developer website. In the
+chapter~\ref{chap:sota} we have explained how the tracking algorithm uses natural
+feature detection. It is worth to mention how the extended tracking works and what
+it represents when the features detected are not good enough because it does not
+appear entirely on the screen.
+
+The extended tracking enables augmented reality applications to maintain the object
+detection even if the whole pattern is not visible. With iOS, Vuforia can bring this
+using CoreMotion framework. It is not defined how exactly Vuforia makes extended
+tracking possible under iOS applications, but it is sure that they use the
+accelerometer and the gyroscope to keep the object visible in the scene.
 
 \subsubsection{FastCV}

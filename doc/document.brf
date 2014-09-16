@@ -13,3 +13,8 @@
 \backcite {neumann}{{12}{4.5}{section.4.5}}
 \backcite {vuforia}{{13}{5}{chapter.5}}
 \backcite {uikit}{{13}{5.1.1}{subsection.5.1.1}}
+\backcite {gh:mr}{{16}{5.1.4}{subsection.5.1.4}}
+\backcite {cocoapods}{{17}{5.1.4}{section*.4}}
+\backcite {opencv}{{17}{5.2.1}{subsection.5.2.1}}
+\backcite {opencvpod}{{17}{5.2.1}{subsection.5.2.1}}
+\backcite {vuforiasdk01}{{18}{5.2.2}{subsection.5.2.2}}
