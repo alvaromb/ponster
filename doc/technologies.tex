@@ -16,7 +16,7 @@ enable us to show the posters with a waterfall layout, fetch the data of the pos
 from the local database and to get input from the camera of the device.
 
 The most important frameworks used are described in the next sections, and include
-UIKit, CoreData and other third party libraries.
+UIKit, CoreData and third party libraries.
 
 \subsection{UIKit}
 UIKit\cite{uikit} is Apple's framework to build iOS interfaces both in iPad and
@@ -25,14 +25,14 @@ called \texttt{NSObject}. This framework provides classes to manage gestures, fo
 navigation bars, tab bars, text inputs, images, tables, buttons and many more
 elements. Almost every iOS application uses UIKit in one way or another. Only some
 videogames do not make extensive use of the framework due to the specific user
-interfaces and game engines that most of them use. 
+interfaces and game engines that most of them are based on.
 
 Most of the Apple's frameworks naming convention date back from the NeXTStep era. They're written in
 Objective-C and they use the two-letter class prefix in all of them, making easy to
 identify to which framework belongs each class. For instance, all the UIKit classes
-have the \texttt{UI} class prefix. \texttt{UITextField} or \texttt{UIView} both
+have the \texttt{UI} class prefix, so \texttt{UITextField} or \texttt{UIView} both
 belong to UIKit. In other hand, \texttt{NSObject}, which belongs to Foundation
-framework, has the NeXTStep NS prefix.
+framework, has the NeXTStep \texttt{NS} prefix.
 
 In Ponster several UIKit features have been used. For the main user interface, a
 navigation-based UI is provided by \texttt{UINavigationController}. The main screen
@@ -60,12 +60,12 @@ bring augmented reality to display posters in any surface the user wants
 to. However, Ponster app has been developed with the addition of more features in
 mind. One of this features is data persistency.
 
-In order to mantain a list of all the posters included in the app --they are bundled
-inside the app in this version--, we have several methods to include and display
-this information. The simplest option is to save the data in the preferences
-\texttt{.plist} file and then read all the values. Also, we could use
+In order to mantain a list of all the posters included in the app ---they are bundled
+inside the app in this version---, we have several methods to include and display
+this information. The simplest option would have been to save the data in the preferences
+\texttt{.plist} file and then read all the values. Also, we could have used
 \texttt{NSKeyedArchiver} to save data from our object model into the application
-sandbox. But, the best way to maintain data and to
+sandbox. But the best way to maintain data and to
 query it from our application is to use a real SQL database. CoreData integrates
 the SQLite database with a class-based model approach that enables us to save and
 retrieve information easily.
@@ -73,10 +73,10 @@ retrieve information easily.
 With the CoreData framework, we design an object model (figure~\ref{fig:coredata}) and then we
 generate the model classes. Each class is a subclass of \texttt{NSManagedObject}
 that has all the attributes that we've added in our model. Inside the application,
-we can query or model by class, and then retrieve the objects as an array. Each
+we can query our model by class, and then retrieve the objects as an array. Each
 model object is like any other object, and we can access to it's properties using
 the common dot notation. For example, we can access to the \texttt{imageUrl}
-property in the following way:
+property of a \texttt{Poster} entity in the following way:
 
 \begin{verbatim}
 Poster *poster = (Poster *)item;
@@ -94,7 +94,7 @@ UIImage *posterImage = [UIImage imageNamed:poster.imageUrl];
 
 CoreData's stack enables us to perform queries and to save information in the SQLite
 store. Due to the fact that iOS applications use a maximum-priority thread for the
-UI calculations, and several other threads with lower priority to perform other
+UI calculations and several other threads with lower priority to perform other
 tasks, it's fundamental to understand how CoreData performs it's operations and how
 can we use it efficiently. In the section~\ref{sec:architecture}, our CoreData
 architecture is presented.
@@ -123,9 +123,9 @@ entityForName:entityName inManagedObjectContext:context];
 
 Finally, CoreData works very well with another important class,
 \texttt{NSFetchedResultsController}. This class allows us to watch for changes in
-any class in our model, with any predicate we want, thus performing an automatic
+any class in our model, with any predicate we want, and then perform an automatic
 refresh of our data every time some change in our model has been done in the
-monitorized classes. The fetched results controller is the class that comunicates
+observed classes. Thus, the fetched results controller is the class that comunicates
 our view controllers with the data model.
 
 \subsection{AVFoundation}
@@ -147,7 +147,7 @@ manager \textbf{CocoaPods}.
 \item [MagicalRecord] \hfill \\
 MagicalRecord\cite{gh:mr} is a library written by Saul Mora that makes easy to use
 CoreData. It acts as a wrapper for most of the CoreData's actions and makes possible
-to perform any action with less lines. Also, MagicalRecord helps us to create new
+to perform any action with less lines of code. Also, MagicalRecord helps us to create new
 contexts, which is very important in our application architecture.
 \item [PDKTCollectionViewWaterfallLayout] \hfill \\
 PDKTCollectionViewWaterfallLayout is a \texttt{UICollectionViewLayout} that enables
@@ -162,11 +162,11 @@ Ponster by using CocoaPods. CocoaPods is the dependency manager for Objective-C
 projects\cite{cocoapods}. It is an open-source project sponsored by several
 companies that it's becoming very popular among iOS and Mac developers.
 
-With CocoaPods it is easy for developers to generate a \texttt{Podspec} for their
+With CocoaPods it is easy for developers to generate a \emph{Podspec} for their
 projects and share them with the community. For instance, an iOS OpenCV compilation
-is maintained by several developers and they have recently added a Podspec --a small
+is maintained by several developers and they have recently added a Podspec ---a small
 file with the description of the version of the project, the repository of the
-source code and their dependencies-- to make easier to integrate OpenCV in iOS
+source code and their dependencies--- to make easier to integrate OpenCV in iOS
 projects. With CocoaPods we just have to create a \texttt{Podfile} with all the
 dependencies we want to install, and then by just entering \texttt{pod install} in
 the project directory, all the dependencies are installed and linked as a
@@ -183,15 +183,15 @@ development, and later Vuforia, which is made by Qualcomm\textregistered.
 \subsection{OpenCV}
 OpenCV is an open source computer vision library\cite{opencv}. The library has
 more than 2,500 computer vision and machine learning algorithms. It has been
-released as a BSD-licensed source, so it can be used for commercial and
-non-commercial applications.
+released as a BSD-licensed source, so most of the code it contains can be used for
+commercial and non-commercial applications.
 
 The OpenCV library can be used in Windows, GNU/Linux and OS X platforms. The
 latest OpenCV library available for iOS platforms is the 2.4.9
 build\cite{opencvpod}. Some of the algorithms used in Ponster --like SURF or SIFT--
 are patented, so they are available in the \texttt{nonfree} headers. These
-algorithms cannot be used in commercial applications, but they are included in
-the library with educational purposes. 
+algorithms cannot be used in commercial applications, but an implementatios is
+included in the library with educational purposes. 
 
 There are a lot of applications that use OpenCV. C++ and Python programming
 languages are supported, among others. The C++ version is the one that has been
@@ -201,8 +201,8 @@ faster and with a constant 30 fps frame rate.
 
 \subsection{Vuforia}
 Vuforia is an augmented reality SDK developed by the American chip company
-Qualcomm. The Vuforia API supports C++, Objective-C, Java and .NET --with the Unity
-game engine--. Currently, Vuforia is at it's 3.0 version. 
+Qualcomm\textregistered. The Vuforia API supports C++, Objective-C, Java and .NET
+---with the Unity game engine---. Currently, Vuforia is at it's 3.0 version. 
 
 The SDK consists of several core components\cite{vuforiasdk01}: 
 \begin{description}
@@ -259,9 +259,10 @@ accelerometer and the gyroscope to keep the object visible in the scene while th
 user moves the smartphone camera changing the scene.
 
 \subsubsection{FastCV}
-Vuforia is based on FastCV, which is a library developed by Qualcomm that brings
-computer vision algorithms optimized for mobile architectures. FastCV has the main
-computer vision features\cite{fastcv}:
+Vuforia is based on FastCV, which is another library developed by
+Qualcomm\textregistered that brings computer vision algorithms optimized for mobile
+architectures. FastCV has the main computer vision features\cite{fastcv}:
+
 \begin{itemize}
 \item Gesture recognition algorithms.
 \item Face detection, tracking and pattern recognition.

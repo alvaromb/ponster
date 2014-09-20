@@ -25,7 +25,7 @@ Most of the augmented reality apps follow this behaviour:
 \end{itemize}
 
 In this chapter we are going to describe which are the different techniques
-that enables us to do them. 
+that enables us to do this kind of processing.
 
 %% In this chapter we are going to review several technologies that can bring augmented
 %% reality to mobile or desktop apps. 
@@ -39,9 +39,10 @@ that enables us to do them.
 In order to provide an augmented reality experience, we have to know first
 which is the real world element that we are going to use as a reference to mix
 the real world input with our virtual elements. This reference can be from an
-image from the smartphone camera to the user location. Ponster searches a
-particular image inside the camera input in order to draw the poster image above. In
-computer vision, this technique of searching an image and follow it along it's
+image from the smartphone camera to the user location. Our application, which is
+called Ponster, searches a
+particular image inside the camera input in order to draw the poster image
+above. This technique of searching an image and follow it along it's 
 movement is usually referred as object tracking. 
 
 In computer vision there are a lot of object recognition techniques. In the
@@ -52,11 +53,11 @@ differences, becomes an object tracking technique.
 
 \section{Template matching}
 Template matching\cite{ocv01} consists of finding areas of an image that are similar to a
-provided template image. We have to provide a template image (the image that we want
+provided template image. We have to set as the input of the algorithm a template image (the image that we want
 to look for) and compare it with the source image (the image in which we want to
 search)\cite{tmatch01}. Template matching is also called area-based approach.
 
-OpenCV provides a method to perform template matching with several methods, such as
+OpenCV provides a way to perform template matching with several methods, such as
 \texttt{SQDIFF} or \texttt{CCORR}. With the latest, \texttt{CCORR}, we use a
 correlation formula to check if the template is inside the image. Instead of
 applying a yes/no approximation, we can bring a positive match with a certain
@@ -75,8 +76,8 @@ provides some methods to implement image pyramids\cite{ocv02}.
 
 Match template has been tested during the development of Ponster. Also, a basic
 image pyramid system has been developed for scale-invariance, but match template has
-been discarded in favor of feature detection algorithms because rotation and scale
-invariance and perspective warp are required features.
+been discarded in favor of feature detection algorithms because they bring rotation
+and scale invariance and perspective warp, and this are required features.
 
 \section{Feature detection}
 A feature-based approach can be presented as a three step method. First of all, we
@@ -108,15 +109,16 @@ estimate the orientation of the keypoint. % and for perspective
 There are plenty of feature-detection based algorithms, many of them based on
 Scale-Invariant Feature Transform, or SIFT. Cost efficiency is one of the most
 important features of these algorithms, as every new technique introduced tries to
-mantain robustness and reducing computation time. Robustness it's also very
-important, but less robust algorithms are also been developed in favour of reducing
-computation time. One good example is FAST\cite{6126544} keypoint detector, which is
-not rotation invariant. %citation needed
-Next, we are going to describe the feature-detection algorithms tested on Ponster:
-SURF, FREAK and ORB.
+mantain robustness while reducing computation time. Robustness it's also very
+important, but less robust algorithms are also been developed in favour of more
+efficient techniques. One good example is FAST\cite{6126544} keypoint detector, which is
+not rotation invariant but it's faster to compute.
+
+Next, we are going to describe the feature-detection algorithms tested during the
+development of Ponster: SURF, FREAK and ORB.
 
 \subsection{Speeded-Up Robust Features - SURF}
-Speeded-Up Robust Features, also know as SURF, is a group of detector and descriptor
+Speeded-Up Robust Features ---also know as SURF--- is a group of detector and descriptor
 introduced by Herbert Bay et al. SURF is faster and more robust than other
 alternatives like SIFT\cite{Bay:2008:SRF:1370312.1370556}. It's descriptors are rotation and scale invariant.
 Perspective transformations are also considered, but in lower order. 
@@ -143,6 +145,9 @@ than the template matching technique described before, but it's performance runn
 on the device (iPhone 5, iOS 7.1.2) is not good enough to deliver a decent user
 experience, taking between 0.7 and 1 second to compute each image. Also, SURF is a
 patented algorithm and it's not intended to use it in commercial applications. 
+
+\subsection{FREAK}
+% TODO
 
 \subsection{Features from Accelerated Segment Test - FAST}
 FAST is a keypoint detector based on corner detection. It was introduced by
@@ -196,8 +201,9 @@ Brute-force matcher and Fast Library for Approximate Nearest Neighbors.
 %features.ppt hay una buena imagen
 % mirar Fast Matching of Binary Features
 Brute-Force Matcher, as it's name states, will compare each of the descriptors
-found in the images performing a linear search. Althought it may seem that this approach is not very
-efficient, BF-matcher performs really well on binary descriptors like ORB.
+found in the images, thus performing a linear search. Althought it may seem that
+this approach is not very efficient, BF-matcher performs really well on binary
+descriptors like ORB. 
 
 The comparison is done by a distance function. There are many functions in
 BF-matcher:
@@ -208,7 +214,7 @@ BF-matcher:
 \item \texttt{NORM\_HAMMING2} better with ORB.
 \end{itemize}
 Hamming distance can be computed with bit manipulation operations, which are
-very quickly. In Ponster, Hamming distance has been tested for ORB and L2
+very quick. In Ponster, Hamming distance has been tested for ORB and L2
 normalization with SURF. 
 
 \subsection{Fast Library for Approximate Nearest Neighbors - FLANN}
@@ -222,9 +228,10 @@ randomized KD-tree search for SURF and Locality-Sensitive Hashing for ORB.
 
 \subsubsection{Randomized KD-tree}
 Basic KD-tree search performs well for small datasets, but quickly degrades
-its performance when the dimensionality increases. Several KD-tree algorithm
-variants have been introduced, such as approximate nearest neighbour, in order
-to reduce the computational cost of KD-tree searches with large datasets. 
+its performance when the dimensionality increases. In order
+to reduce the computational cost of KD-tree searches with large datasets, several
+KD-tree algorithm variants have been introduced, such as approximate nearest
+neighbour. 
 
 This algorithm creates multiple randomized KD-trees, built by choosing the
 split dimension randomly from the first $5$ dimensions on which data has the
@@ -247,13 +254,14 @@ points in it's bucket\cite{Andoni:2008:NHA:1327452.1327494}.
 The LSH parameters defines the hash functions \emph{amplification}. This means that
 the hash functions must be \emph{amplified} enough to ensure hash collision;
 otherwise, the algorithm would be useless. The effect of this parameters and a more
-in-depth explaination of LSH can be found in this[PDF] paper.
+in-depth explaination of LSH can be found in
+this~\cite{Andoni:2008:NHA:1327452.1327494} paper. 
 
 \section{Natural feature tracking}
 % neumann paper
 Although the technologies explained in previous sections are robust and reliable,
 and have been successfully tested, they have not been used in the last version of
-Ponster due to it's performance on mobile devices. Another technique has been proven
+Ponster due to it's poor performance on mobile devices. Another technique has been proven
 to be successfull to deliver both high performance in mobile devices and robust
 object tracking.
 
@@ -268,10 +276,10 @@ follows the next steps:
 \end{itemize}
 The feature detection consists in selecting points and regions in the image
 with specific characteristics that are easy and robust to track. The motion
-estimation can be executed by several ways. For example, in the Neumann
-article\cite{neumann}, optical  
+estimation can be executed by several ways. For example, in Neumann's
+paper~\cite{neumann}, optical  
 flux is presented to estimate the camera movement. In our mobile environment,
-we can also use the gyroscope. The evaluation feedback provides a way to reject
+we can also use the built-in gyroscope of the iPhone 5. The evaluation feedback provides a way to reject
 detected features that do not specifically match with the plane that should be
 representing, thus allowing the algorithm to avoid false positives and do not
 corrupt the tracking output.
