@@ -148,6 +148,26 @@ patented algorithm and it's not intended to use it in commercial applications.
 
 \subsection{FREAK}
 % TODO
+FREAK stands for Fast Retina Keypoint\cite{Ortiz:2012:FFR:2354409.2354903}. As we
+have stated before, the trend is to make descriptors faster to compute while
+remaining robust and scale, rotation invariant. FREAK uses a keypoint descriptor
+designed like the human retina with this goal in mind.
+
+Fast Retina Keypoint proposes to use a retinal sampling grid, that takes account of
+the higher density points near the center of the sample points. This is exacly how
+the human retina works, and the FREAK sampling pattern imitates this natural
+behaviour~\ref{fig:freak}. With FREAK, every keypoint gets this retina sampling
+pattern to compute its descriptors. Then, the algorithm compares pairs of image
+intensities obtained by this pattern.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.55]{img/freak.png}
+\caption{\label{fig:freak}FREAK sampling pattern with it's equivalent in the human
+  retina.} 
+\end{figure} 
+
+The use of FREAK in Ponster has led to a very similar performance than ORB. 
 
 \subsection{Features from Accelerated Segment Test - FAST}
 FAST is a keypoint detector based on corner detection. It was introduced by
