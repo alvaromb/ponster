@@ -14,6 +14,7 @@
 @property (strong, nonatomic) Poster *poster;
 @property (strong, nonatomic) UIImageView *posterImageView;
 @property (strong, nonatomic) UIButton *tryMeButton;
+@property (strong, nonatomic) UIButton *openCVButton;
 
 @end
 
@@ -41,6 +42,17 @@
     return _tryMeButton;
 }
 
+- (UIButton *)openCVButton
+{
+    if (!_openCVButton) {
+        _openCVButton = [[UIButton alloc] init];
+        [_openCVButton setTitle:@"OpenCV" forState:UIControlStateNormal];
+        [_openCVButton setTitleColor:self.navigationController.navigationBar.tintColor forState:UIControlStateNormal];
+        [_openCVButton addTarget:self action:@selector(openCVAction) forControlEvents:UIControlEventTouchUpInside];
+    }
+    return _openCVButton;
+}
+
 #pragma mark - Lifecycle
 
 - (instancetype)initWithPosterID:(NSManagedObjectID *)posterObjectID
@@ -61,6 +73,7 @@
     self.view.backgroundColor = [UIColor whiteColor];
     [self.view addSubview:self.posterImageView];
     [self.view addSubview:self.tryMeButton];
+    [self.view addSubview:self.openCVButton];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -73,20 +86,22 @@
     self.posterImageView.frame = CGRectMake(ceilf((bounds.size.width - imageWidth)/2), 0, imageWidth, 300);
     // Try me button
     self.tryMeButton.frame = CGRectMake(40, 310, bounds.size.width - 80, 50);
+    self.openCVButton.frame = CGRectMake(40, 400, bounds.size.width - 80, 50);
 }
 
 #pragma mark - Actions
 
 - (void)tryMeAction
 {
-//    PNSTestViewController *viewController = [[PNSTestViewController alloc] initWithImage:self.posterImageView.image];
-//    SampleAppAboutViewController *viewController = [[SampleAppAboutViewController alloc] initWithNibName:@"SampleAppAboutViewController" bundle:nil];
-//    viewController.appTitle = self.poster.title;
-//    viewController.appViewControllerClassName = @"UserDefinedTargetsViewController";
-    
     UserDefinedTargetsViewController *viewController = [[UserDefinedTargetsViewController alloc] initWithPosterImage:self.poster.imageUrl];
     SampleAppSlidingMenuController *slidingMenuController = [[SampleAppSlidingMenuController alloc] initWithRootViewController:viewController];
     [self.navigationController pushViewController:slidingMenuController animated:YES];
+}
+
+- (void)openCVAction
+{
+    PNSTestViewController *viewController = [[PNSTestViewController alloc] initWithImage:self.posterImageView.image];
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 @end

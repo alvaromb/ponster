@@ -548,8 +548,8 @@
 		387AB63B191FDC4B0091BE72 /* Pattern detector */ = {
 			isa = PBXGroup;
 			children = (
-				387AB63C191FDC680091BE72 /* PatternDetector.cpp */,
 				387AB63D191FDC680091BE72 /* PatternDetector.h */,
+				387AB63C191FDC680091BE72 /* PatternDetector.cpp */,
 				387AB63E191FDC680091BE72 /* UIImage+OpenCV.h */,
 				387AB63F191FDC680091BE72 /* UIImage+OpenCV.mm */,
 			);

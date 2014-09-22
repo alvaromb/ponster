@@ -10,8 +10,17 @@
 
 @implementation PNSAppDelegate
 
+- (void)redirectConsoleLogToDocumentFolder
+{
+    NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
+    NSString *documentsDirectory = [paths objectAtIndex:0];
+    NSString *logPath = [documentsDirectory stringByAppendingPathComponent:@"console.log"];
+    freopen([logPath fileSystemRepresentation],"a+",stderr);
+}
+
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
+//    [self redirectConsoleLogToDocumentFolder];
     [MagicalRecord setupCoreDataStackWithAutoMigratingSqliteStoreNamed:@"Ponster.sqlite"];
     [self mockPosterData];
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];

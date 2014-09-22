@@ -102,7 +102,6 @@
     delete _patternDetector;
     _imageCapture.delegate = nil;
     _imageCapture = nil;
-    
 }
 
 - (void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation

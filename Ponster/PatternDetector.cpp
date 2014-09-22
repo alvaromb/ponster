@@ -39,7 +39,19 @@ PatternDetector::PatternDetector(const cv::Mat& patternImage, const cv::Mat& pos
     // Make binary image
     threshold(patternImageGray, m_patternImageGrayScaled, 125, 255, CV_THRESH_BINARY_INV);
     
-    // (5) Detect keypoints using ORB
+    // SURF
+//    double t = (double)getTickCount();
+//    m_detector = SurfFeatureDetector(4);
+//    m_detector.detect(m_patternImageGrayScaled, m_posterKeypoints);
+//    t = ((double)getTickCount() - t)/getTickFrequency();
+//    std::cout << "surf keypoints [s]: " << t/1.0 << std::endl;
+    
+    // SURF descriptors
+//    m_extractor = cv::SurfDescriptorExtractor();
+//    m_extractor.compute(m_patternImageGrayScaled, m_posterKeypoints, m_posterDescriptors);
+//    cout << "surf descriptors [d]: " << m_posterDescriptors.size() << endl;
+    
+//    // (5) Detect keypoints using ORB
     double t = (double)getTickCount();
     m_detector = OrbFeatureDetector();
     m_detector.detect(m_patternImageGrayScaled, m_posterKeypoints);
@@ -56,18 +68,12 @@ PatternDetector::PatternDetector(const cv::Mat& patternImage, const cv::Mat& pos
 //    std::cout << "surf gpu keypoints [s]: " << t/1.0 << std::endl;
     
     
-//    double t = (double)getTickCount();
-//    m_surf_detector = SurfFeatureDetector(minHessian);//, 4);
-//    m_surf_detector.detect(m_patternImageGrayScaled, m_posterKeypoints);
-//    t = ((double)getTickCount() - t)/getTickFrequency();
-//    std::cout << "surf keypoints [s]: " << t/1.0 << std::endl;
+    
     
 //    m_detector = OrbFeatureDetector();
 //    m_detector.detect(m_patternImageGrayScaled, m_posterKeypoints);
     
-    // (6) Calculate descriptors
-//    m_extractor = cv::SurfDescriptorExtractor();
-//    m_extractor.compute(m_patternImageGrayScaled, m_posterKeypoints, m_posterDescriptors);
+    
     
     m_extractor = OrbDescriptorExtractor();
     m_extractor.compute(m_patternImageGrayScaled, m_posterKeypoints, m_posterDescriptors);
@@ -92,10 +98,12 @@ PatternDetector::PatternDetector(const cv::Mat& patternImage, const cv::Mat& pos
 //    vDescriptors.push_back(m_posterDescriptors);
 //    m_matcher.add(vDescriptors);
 //    m_matcher.train();
-    m_bfmatcher = BFMatcher(NORM_HAMMING, true);
+//    m_bfmatcher = BFMatcher(NORM_HAMMING, true);
     
 //    FlannBasedMatcher macher = new FlannBasedMatcher(new flann::LshIndexParams(6, 12, 1), new cv::flann::SearchParams(50));
 //    cv::drawKeypoints(m_patternImageGrayScaled, m_posterKeypoints, m_sampleImage);
+    
+//    m_matcher = FlannBasedMatcher();
 }
 
 void PatternDetector::scanFrame(VideoFrame frame)
@@ -164,7 +172,7 @@ Mat PatternDetector::fastDetection(VideoFrame frame)
 //    GaussianBlur( queryImageGrayResized, queryImageGrayResized, cv::Size(7, 7), 2, 2 );
     cv::cvtColor(queryImage, outputImage, CV_BGR2BGRA);
     t = ((double)getTickCount() - t)/getTickFrequency();
-    std::cout << "query image building  [s]: " << t/1.0 << std::endl;
+//    std::cout << "query image building  [s]: " << t/1.0 << std::endl;
     total += t/1.0;
     
     // (2) Detect scene keypoints
@@ -173,7 +181,7 @@ Mat PatternDetector::fastDetection(VideoFrame frame)
 //    m_surf_detector.detect(queryImageGrayResized, sceneKeypoints);
     m_detector.detect(queryImageGrayResized, sceneKeypoints);
     t = ((double)getTickCount() - t)/getTickFrequency();
-    std::cout << "detection time        [s]: " << t/1.0 << std::endl;
+//    std::cout << "detection time        [s]: " << t/1.0 << std::endl;
     total += t/1.0;
     
     if (sceneKeypoints.size() <= 1) {
@@ -183,17 +191,18 @@ Mat PatternDetector::fastDetection(VideoFrame frame)
     // (3) Calculate scene descriptors
     t = (double)getTickCount();
     Mat sceneDescriptors;
-//    FREAK freak(true, true, 22, 4, vector<int>());
+    FREAK freak(true, true, 22, 4, vector<int>());
 //    freak.compute(queryImageGrayResized, sceneKeypoints, sceneDescriptors);
-    m_detector.compute(queryImageGrayResized, sceneKeypoints, sceneDescriptors);
+//    m_detector.compute(queryImageGrayResized, sceneKeypoints, sceneDescriptors);
+    m_extractor.compute(queryImageGrayResized, sceneKeypoints, sceneDescriptors);
     t = ((double)getTickCount() - t)/getTickFrequency();
-    std::cout << "extraction time       [s]: " << t/1.0 << std::endl;
+//    std::cout << "extraction time       [s]: " << t/1.0 << std::endl;
     total += t/1.0;
 //    if (sceneDescriptors.type() != CV_32F) {
 //        sceneDescriptors.convertTo(sceneDescriptors, CV_32F);
 //    }
     if (sceneDescriptors.empty()) {
-        printf("WARNING empty scene descriptors \n");
+//        printf("WARNING empty scene descriptors \n");
         return outputImage;
     }
     
@@ -202,9 +211,9 @@ Mat PatternDetector::fastDetection(VideoFrame frame)
     vector<DMatch> matches;
     m_matcher.match(m_posterDescriptors, sceneDescriptors, matches);
 //    m_bfmatcher.match(m_posterDescriptors, sceneDescriptors, matches);
-    printf("matches size %lu \n", matches.size());
+//    printf("matches size %lu \n", matches.size());
     t = ((double)getTickCount() - t)/getTickFrequency();
-    std::cout << "matching time         [s]: " << t/1.0 << std::endl;
+//    std::cout << "matching time         [s]: " << t/1.0 << std::endl;
     total += t/1.0;
 
     // (5) Compute good matches
@@ -212,7 +221,6 @@ Mat PatternDetector::fastDetection(VideoFrame frame)
     double max_dist = 0; double min_dist = 100;
     for (int i = 0; i < m_posterDescriptors.rows; i++) {
         double dist = matches[i].distance;
-//        cout << "dist: " << dist << endl;
         if (dist < min_dist) min_dist = dist;
         if (dist > max_dist) max_dist = dist;
     }
@@ -227,9 +235,9 @@ Mat PatternDetector::fastDetection(VideoFrame frame)
         }
     }
 //    printf("-- Matches = %lu \n", matches.size());
-    printf("Good matches            = %lu \n", good_matches.size());
+//    printf("Good matches            = %lu \n", good_matches.size());
     if (good_matches.size() < 4) {
-        cout << "-- NO GOOD MATCHES" << endl;
+//        cout << "-- NO GOOD MATCHES" << endl;
         return outputImage;
     }
     
@@ -253,7 +261,7 @@ Mat PatternDetector::fastDetection(VideoFrame frame)
     Mat H = findHomography(obj, scene, CV_RANSAC);
     
     t = ((double)getTickCount() - t)/getTickFrequency();
-    std::cout << "good matches and homography time [s]: " << t/1.0 << std::endl;
+//    std::cout << "good matches and homography time [s]: " << t/1.0 << std::endl;
     total += t/1.0;
     
     // Get the corners from the image_1 ( the object to be "detected" )
@@ -278,12 +286,10 @@ Mat PatternDetector::fastDetection(VideoFrame frame)
     circle(outputImage, scene_corners[3], 15, Scalar(255, 255, 0)); // y
     
     std::cout << "total frame time      [s]: " << total << std::endl;
-    std::cout << "---------------------------" << std::endl;
-
+//    std::cout << "---------------------------" << std::endl;
     
     return outputImage;
 }
-
 
 /**
  * Taken from OpenCV docs: 
@@ -438,7 +444,3 @@ const cv::Mat& PatternDetector::sampleImage()
 {
     return m_sampleImage;
 }
-
-#pragma mark - Lifecycle
-
-
