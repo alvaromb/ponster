@@ -77,7 +77,8 @@ contexts to perform saves.
 \begin{figure}
 \centering
 \includegraphics[scale=0.55]{img/coredataarch.png}
-\caption{\label{fig:coredataarch}CoreData context architecture. Taken from~\cite{coredataarch}}
+\caption{\label{fig:coredataarch}CoreData context architecture. Taken
+  from~\cite{coredataarch}} 
 \end{figure} 
 
 The context attached to the persistent store saves all the data on disk, but on a
@@ -87,7 +88,13 @@ have saved any info. This architecture is often known as \emph{child-context},
 because there is a parent-child relationship between all the
 contexts~\ref{fig:coredataarch}. 
 
-\subsection{Augmented reality}
+\subsection{Augmented reality performance}
+During the development of Ponster, both OpenCV and Vuforia have been tested. Due to
+the low performance of OpenCV on mobile devices, Vuforia has been the chosen library
+to bring the augmented reality to our app. In the [] chart we can find the average
+time to perform each frame with the different technologies tested.
+
+
 
 \section{Features}
 The Ponster app has three main features: list posters, try how they look wherever
