@@ -88,13 +88,94 @@ have saved any info. This architecture is often known as \emph{child-context},
 because there is a parent-child relationship between all the
 contexts~\ref{fig:coredataarch}. 
 
-\subsection{Augmented reality performance}
+\section{Augmented reality performance}
 During the development of Ponster, both OpenCV and Vuforia have been tested. Due to
-the low performance of OpenCV on mobile devices, Vuforia has been the chosen library
-to bring the augmented reality to our app. In the [] chart we can find the average
-time to perform each frame with the different technologies tested.
+the low performance of OpenCV on the mobile device, Vuforia has been the chosen library
+to bring the augmented reality to our app. In the performance
+chart~\ref{fig:performance} we can find the average time to analyze each frame with
+the different technologies tested. 
 
+All of these tests have been executed with the iPhone 5 mobile device using iOS
+8. The selected pattern to test the matching is the famous image of Lena Söderberg,
+which is widely used when testing computer vision algorithms. The test consists on
+running the algorithm against the Lena image while moving and rotating the camera
+for a minute.
 
+\begin{figure}
+\centering
+\includegraphics[scale=0.75]{performance/plot.pdf}
+\caption{\label{fig:performance} Mean time spent for processing each frame with the
+  different algorithms tested.}
+\end{figure} 
+
+As we can see, SURF is, by far, the most expensive technique tested on the device. This is the
+expected behaviour, as it's stated in the cited articles in
+section~\ref{chap:sota}. FREAK uses SURF to compute 
+the keypoints, so the performance boost happens on the descriptor calculation
+only. Between all the OpenCV algorithms tested, ORB is the one that performs better
+while providing almost the same robustness as the other two algorithms tested.
+However, the only technique that led to a real-time performance has been the Vuforia
+SDK. The average frames per second of the processing with Vuforia is between 29 and
+30 FPS, while maintaining the best robustness and tracking of all the above
+algorithms tested. This is due to the natural feature~\ref{sec:naturalfeature}
+approximation of Vuforia.
+
+The reason behind testing only SURF, FREAK and ORB under OpenCV is that they
+represent different approaches to the same problem of object tracking. Analyzing
+each part of the feature detection process can bring some light to know which step
+is the most expensive in terms of computational cost. In the
+figure~\ref{fig:kpperformance} we can see the average time spent in each frame when
+computing the keypoints with SURF and ORB detectors. FREAK has been tested with SURF
+keypoint detection, so we can clearly see that the descriptor extraction by FREAK is
+much more efficient than the SURF extraction.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.75]{performance/keypoints.pdf}
+\caption{\label{fig:kpperformance} Mean time spent for detecting each frame
+  keypoints with SURF and ORB.}
+\end{figure} 
+
+The number of keypoints detected between SURF and ORB is also quite different. In
+the figure~\ref{fig:numberkp} we can see the average number of keypoint detected for
+each frame. It is interesting to see that while ORB detects around 60\% of the
+keypoints detected by SURF, it performs almost as good as SURF in terms of
+robustness when detecting the selected pattern. However, while executing both
+algorithms in the app, the detection of the pattern is less prone to error with
+blurred or translated image using the SURF keypoint and descriptor combination. 
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.75]{performance/keypoints-number.pdf}
+\caption{\label{fig:numberkp} Average number of keypoints detected using SURF and
+  ORB keypoint detection algorithms.}
+\end{figure} 
+
+Finally, when we have extracted the descriptors of the image from the camera, we
+have to match them with the descriptors obtained from the pattern image. Once the
+match is performed, we have to calculate the homography to locate the object in the
+image. Then, we can get the corners of the pattern and calculate the perspective
+transform in order to draw the poster above the detected image. 
+
+In the figure~\ref{fig:goodmatches} we can see that the SURF and Flann-based matcher
+combination is the one that produces more matches, but it's also the more expensive
+in terms of computational cost. SURF keypoint detector with FREAK descriptors
+perform faster than the SURF approximation, but it also has lower precision when
+detecting the pattern. Finally, ORB and Flann with Locality-Sensitive Hashing
+parameters for the matching is the one that outperforms the previous techniques and
+delivers an average number of matches similar to SURF.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.75]{performance/goodmatches.pdf}
+\caption{\label{fig:goodmatches} Average number of good matches detected using the
+  different algorithm and matcher combinations.}
+\end{figure} 
+
+As we have stated before, Vuforia is a propietary SDK based on natural feature
+detection, and we do not have access to how it detects the pattern. This is the
+reason why it is only shown in the figure~\ref{fig:performance}, because we can
+estimate the time spent processing for each frame delivered by the camera.
 
 \section{Features}
 The Ponster app has three main features: list posters, try how they look wherever

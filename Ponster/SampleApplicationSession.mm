@@ -45,6 +45,8 @@ namespace {
 @property (nonatomic, readwrite) BOOL mIsActivityInPortraitMode;
 @property (nonatomic, readwrite) BOOL cameraIsActive;
 
+@property (strong, nonatomic) NSDate *frameLoop;
+
 // SampleApplicationControl delegate (receives callbacks in response to particular
 // events, such as completion of Vuforia initialisation)
 @property (nonatomic, assign) id delegate;
@@ -139,6 +141,8 @@ namespace {
             [self.delegate onInitARDone:[self NSErrorWithCode:E_INITIALIZING_QCAR]];
         }
     }
+    
+    self.frameLoop = [NSDate date];
 }
 
 // Resume QCAR
@@ -189,6 +193,10 @@ namespace {
     if ((self.delegate != nil) && [self.delegate respondsToSelector:@selector(onQCARUpdate:)]) {
         [self.delegate onQCARUpdate:state];
     }
+    
+    NSDate *now = [NSDate date];
+    NSLog(@"frame seconds %f", [now timeIntervalSinceDate:self.frameLoop]);
+    self.frameLoop = [NSDate date];
 }
 
 - (void) prepareAR  {

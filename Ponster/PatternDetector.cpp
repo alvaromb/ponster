@@ -37,27 +37,24 @@ PatternDetector::PatternDetector(const cv::Mat& patternImage, const cv::Mat& pos
     }
     
     // Make binary image
-    threshold(patternImageGray, m_patternImageGrayScaled, 125, 255, CV_THRESH_BINARY_INV);
+//    threshold(patternImageGray, m_patternImageGrayScaled, 125, 255, CV_THRESH_BINARY_INV);
+    m_patternImageGrayScaled = patternImageGray;
     
     // SURF
-//    double t = (double)getTickCount();
-//    m_detector = SurfFeatureDetector(4);
-//    m_detector.detect(m_patternImageGrayScaled, m_posterKeypoints);
-//    t = ((double)getTickCount() - t)/getTickFrequency();
-//    std::cout << "surf keypoints [s]: " << t/1.0 << std::endl;
-    
-    // SURF descriptors
-//    m_extractor = cv::SurfDescriptorExtractor();
-//    m_extractor.compute(m_patternImageGrayScaled, m_posterKeypoints, m_posterDescriptors);
-//    cout << "surf descriptors [d]: " << m_posterDescriptors.size() << endl;
-    
-//    // (5) Detect keypoints using ORB
     double t = (double)getTickCount();
-    m_detector = OrbFeatureDetector();
+    m_detector = SurfFeatureDetector(4);
     m_detector.detect(m_patternImageGrayScaled, m_posterKeypoints);
     t = ((double)getTickCount() - t)/getTickFrequency();
-    std::cout << "orb keypoints [s]: " << t/1.0 << std::endl;
-
+    std::cout << "surf keypoints [s]: " << t/1.0 << std::endl;
+    
+    // SURF descriptors
+    m_extractor = cv::SurfDescriptorExtractor();
+    m_extractor.compute(m_patternImageGrayScaled, m_posterKeypoints, m_posterDescriptors);
+    cout << "surf descriptors [d]: " << m_posterDescriptors.size() << endl;
+    
+//    // FREAK descriptors
+//    FREAK m_freak;
+//    m_freak.compute(m_patternImageGrayScaled, m_posterKeypoints, m_posterDescriptors);
     
 //    double t = (double)getTickCount();
 //    m_surf_gpu = SURF_GPU(minHessian);
@@ -69,22 +66,27 @@ PatternDetector::PatternDetector(const cv::Mat& patternImage, const cv::Mat& pos
     
     
     
-    
+//    // (5) Detect keypoints using ORB
+//    double t = (double)getTickCount();
+//    m_detector = OrbFeatureDetector();
+//    m_detector.detect(m_patternImageGrayScaled, m_posterKeypoints);
+//    t = ((double)getTickCount() - t)/getTickFrequency();
+//    std::cout << "orb keypoints [s]: " << t/1.0 << std::endl;
+
 //    m_detector = OrbFeatureDetector();
 //    m_detector.detect(m_patternImageGrayScaled, m_posterKeypoints);
     
     
     
-    m_extractor = OrbDescriptorExtractor();
-    m_extractor.compute(m_patternImageGrayScaled, m_posterKeypoints, m_posterDescriptors);
+//    m_extractor = OrbDescriptorExtractor();
+//    m_extractor.compute(m_patternImageGrayScaled, m_posterKeypoints, m_posterDescriptors);
 //    if (m_posterDescriptors.type() != CV_32F) {
 //        m_posterDescriptors.convertTo(m_posterDescriptors, CV_32F);
 //    }
 
 //    m_freak = FREAK(true, true, 22, 4, vector<int>());
 //    FREAK freak(true, true, 22, 4, vector<int>());
-//    m_freak_extractor = freak;
-//    freak.compute(m_patternImageGrayScaled, m_posterKeypoints, m_posterDescriptors);
+    
     
     if (m_posterDescriptors.empty()) {
         printf("WARNING empty descriptors \n");
@@ -92,18 +94,18 @@ PatternDetector::PatternDetector(const cv::Mat& patternImage, const cv::Mat& pos
     
     // (7) Initialize matcher
 //    m_matcher = FlannBasedMatcher(new flann::LshIndexParams(6, 12, 1), new cv::flann::SearchParams(50));
-    m_matcher = FlannBasedMatcher(new flann::LshIndexParams(30, 12, 2), new cv::flann::SearchParams(50));
+//    m_matcher = FlannBasedMatcher(new flann::LshIndexParams(30, 12, 2), new cv::flann::SearchParams(50));
 //    FlannBasedMatcher m_matcher(new flann::LshIndexParams(30, 12, 2), new cv::flann::SearchParams(50));
 //    vector<Mat> vDescriptors;
 //    vDescriptors.push_back(m_posterDescriptors);
 //    m_matcher.add(vDescriptors);
 //    m_matcher.train();
-//    m_bfmatcher = BFMatcher(NORM_HAMMING, true);
+    m_bfmatcher = BFMatcher(NORM_HAMMING, true);
     
 //    FlannBasedMatcher macher = new FlannBasedMatcher(new flann::LshIndexParams(6, 12, 1), new cv::flann::SearchParams(50));
 //    cv::drawKeypoints(m_patternImageGrayScaled, m_posterKeypoints, m_sampleImage);
     
-//    m_matcher = FlannBasedMatcher();
+    m_matcher = FlannBasedMatcher();
 }
 
 void PatternDetector::scanFrame(VideoFrame frame)
@@ -168,7 +170,8 @@ Mat PatternDetector::fastDetection(VideoFrame frame)
 //    cv::resize(queryImageGray, queryImageGrayResized, cv::Size(w, h));
 
     // Generate binary image
-    threshold(queryImageGray, queryImageGrayResized, 125, 255, CV_THRESH_BINARY_INV);
+//    threshold(queryImageGray, queryImageGrayResized, 125, 255, CV_THRESH_BINARY_INV);
+    queryImageGrayResized = queryImageGray;
 //    GaussianBlur( queryImageGrayResized, queryImageGrayResized, cv::Size(7, 7), 2, 2 );
     cv::cvtColor(queryImage, outputImage, CV_BGR2BGRA);
     t = ((double)getTickCount() - t)/getTickFrequency();
@@ -188,11 +191,13 @@ Mat PatternDetector::fastDetection(VideoFrame frame)
         return outputImage;
     }
     
+//    cout << "keypoints detected " << sceneKeypoints.size() << endl;
+    
     // (3) Calculate scene descriptors
     t = (double)getTickCount();
     Mat sceneDescriptors;
-    FREAK freak(true, true, 22, 4, vector<int>());
-//    freak.compute(queryImageGrayResized, sceneKeypoints, sceneDescriptors);
+//    FREAK freak(true, true, 22, 4, vector<int>());
+//    m_freak.compute(queryImageGrayResized, sceneKeypoints, sceneDescriptors);
 //    m_detector.compute(queryImageGrayResized, sceneKeypoints, sceneDescriptors);
     m_extractor.compute(queryImageGrayResized, sceneKeypoints, sceneDescriptors);
     t = ((double)getTickCount() - t)/getTickFrequency();
@@ -205,6 +210,8 @@ Mat PatternDetector::fastDetection(VideoFrame frame)
 //        printf("WARNING empty scene descriptors \n");
         return outputImage;
     }
+    
+//    cout << "computed descriptors " << sceneDescriptors.size() << endl;
     
     // (4) Match descriptors
     t = (double)getTickCount();
@@ -235,7 +242,7 @@ Mat PatternDetector::fastDetection(VideoFrame frame)
         }
     }
 //    printf("-- Matches = %lu \n", matches.size());
-//    printf("Good matches            = %lu \n", good_matches.size());
+    printf("Good matches            = %lu \n", good_matches.size());
     if (good_matches.size() < 4) {
 //        cout << "-- NO GOOD MATCHES" << endl;
         return outputImage;
@@ -285,7 +292,7 @@ Mat PatternDetector::fastDetection(VideoFrame frame)
     circle(outputImage, scene_corners[2], 15, Scalar(0, 0, 255));   // b
     circle(outputImage, scene_corners[3], 15, Scalar(255, 255, 0)); // y
     
-    std::cout << "total frame time      [s]: " << total << std::endl;
+//    std::cout << "total frame time      [s]: " << total << std::endl;
 //    std::cout << "---------------------------" << std::endl;
     
     return outputImage;

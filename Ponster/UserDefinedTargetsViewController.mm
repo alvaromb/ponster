@@ -251,12 +251,12 @@ and other countries. Trademarks of QUALCOMM Incorporated are used with permissio
 #pragma mark - Notifications
 - (void)goodFrameQuality:(NSNotification *)aNotification
 {
-    NSLog(@">> goodFrameQuality");
+//    NSLog(@">> goodFrameQuality");
 }
 
 - (void)badFrameQuality:(NSNotification *)aNotification
 {
-    NSLog(@">> badFrameQuality");
+//    NSLog(@">> badFrameQuality");
 }
 
 - (void)trackableCreated:(NSNotification *)aNotification
