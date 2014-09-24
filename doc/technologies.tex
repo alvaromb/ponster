@@ -85,7 +85,7 @@ UIImage *posterImage = [UIImage imageNamed:poster.imageUrl];
 
 \begin{figure}
 \centering
-\includegraphics[scale=0.65]{img/coredata.png}
+\includegraphics[scale=0.85]{img/coredata.png}
 \caption{\label{fig:coredata}Basic data model of Ponster. The CoreData model editor
   enables us to design the model and then generate all the object classes. The
   double arrow represents a to-many relationship and the white arrow represents
@@ -122,7 +122,7 @@ entityForName:entityName inManagedObjectContext:context];
 \end{verbatim}
 
 Finally, CoreData works very well with another important class,
-\texttt{NSFetchedResultsController}. This class allows us to watch for changes in
+\texttt{NSFetched\-Results\-Controller}. This class allows us to watch for changes in
 any class in our model, with any predicate we want, and then perform an automatic
 refresh of our data every time some change in our model has been done in the
 observed classes. Thus, the fetched results controller is the class that comunicates
@@ -133,7 +133,7 @@ AVFoundation is used in Ponster to get the images from the camera of the device.
 \texttt{AVCaptureVideoDataOutput} can be configured to get the frames of the
 camera. This output can be configured to deliver an specific amount of frames per
 second, the pixel format of the output or the orientation of the camera. Each of the
-frames delivered by the \texttt{AVCaptureVideoDataOutputSampleBufferDelegate} is
+frames delivered by the \texttt{AVCaptureVideoDataOutputSample\-Buffer\-Delegate} is
 sent to the augmented reality algorithm to perform the matching.
 
 \subsection{Third-party libraries}
@@ -200,6 +200,7 @@ very good performance in most platforms, the Vuforia alternative performed much
 faster and with a constant 30 fps frame rate.
 
 \subsection{Vuforia}
+\label{sec:vuforia}
 Vuforia is an augmented reality SDK developed by the American chip company
 Qualcomm\textregistered. The Vuforia API supports C++, Objective-C, Java and .NET
 ---with the Unity game engine---. Currently, Vuforia is at it's 3.0 version. 

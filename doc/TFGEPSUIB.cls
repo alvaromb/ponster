@@ -85,7 +85,7 @@
 % Es carrega amb 'a4paper' i '11pt' perque per
 % defecte usa 'letter' i '10pt'.
 %
-\LoadClass[a4paper,11pt]{memoir}
+\LoadClass[a4paper,12pt]{memoir}
 
 % El paquet xcolor es necessari per definir els
 % colors de la memoria

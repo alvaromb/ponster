@@ -41,7 +41,7 @@ controller. This allows us to keep the single responsibility principle and to ha
 lighter view controllers.
 
 Apart of the view controllers, all the data model is separated into
-\texttt{NSManagedObject} subclasses. Each of that subclass represent an entity in
+\texttt{NSManaged\-Object} subclasses. Each of that subclass represent an entity in
 our model. Business logic is usually implemented as a category of each of the model
 subclass. Categories in Objective-C are capable of adding methods to any object
 without having to change it's implementations. This logic is usually added as a
@@ -51,7 +51,7 @@ again and this would erase all the logic that we could have built inside.
 
 We do not have a lot of custom views in Ponster, but we do have cell subclasses to
 represent each poster in the main screen view controller. The
-\texttt{UICollectionViewCell} subclass called \texttt{PNSPosterCollectionViewCell}
+\texttt{UI\-Collection\-View\-Cell} subclass called \texttt{PNSPoster\-Collection\-View\-Cell}
 encapsulates all the views that are needed to display the poster image and it's
 title. We just need to provide the \texttt{Poster} entity and this subclass manages
 to draw the entire view.
@@ -66,7 +66,7 @@ experience. To solve this potential issue, we have to send all the possible
 operations to another threads.
 
 When using a CoreData model, it is a good idea to create different
-\texttt{NSManagedObjectContext}s in order to have contexts using background threads
+\texttt{NSManaged\-Object\-Context}s in order to have contexts using background threads
 and one context tied to the UI code to provide the views with the database
 objects. If we send all the saves to the background queue, the risk of blocking the
 Main Thread is reduced. Our proposed CoreData architecture~\cite{coredataarch} has
@@ -76,7 +76,7 @@ contexts to perform saves.
 
 \begin{figure}
 \centering
-\includegraphics[scale=0.55]{img/coredataarch.png}
+\includegraphics[scale=0.75]{img/coredataarch.png}
 \caption{\label{fig:coredataarch}CoreData context architecture. Taken
   from~\cite{coredataarch}} 
 \end{figure} 
@@ -89,6 +89,7 @@ because there is a parent-child relationship between all the
 contexts~\ref{fig:coredataarch}. 
 
 \section{Augmented reality performance}
+\label{sec:arperf}
 During the development of Ponster, both OpenCV and Vuforia have been tested. Due to
 the low performance of OpenCV on the mobile device, Vuforia has been the chosen library
 to bring the augmented reality to our app. In the performance
@@ -179,10 +180,51 @@ estimate the time spent processing for each frame delivered by the camera.
 
 \section{Features}
 The Ponster app has three main features: list posters, try how they look wherever
-the user wants and capture an screenshot of the poster in the scene.
+the user wants and capture an screenshot of the poster in the scene. 
 
-\begin{description}
-\item [List posters] \hfill \\
-\item [Augmented reality] \hfill \\
-\item [Screenshot] \hfill \\
-\end{description}
+\subsection*{List posters}
+The main screen of Ponster shows a complete list of the images available to
+test. In the figure~\ref{fig:iosapp01} we can see how this screen is. Each of
+the images represented come from a \texttt{Poster} entity from the
+database. This posters are queried inmediately using a special class called
+\texttt{NS\-Fetched\-Results\-Controller}. 
+
+This screen is ready for reading data from an API, because the way it has been
+implemented enables to parse a JSON into a \texttt{Poster} entity and
+automatically update the collection view of all the posters. 
+
+The user can scroll the screen to see all the posters and when tapping on one,
+a new view is presented with more information about the poster and the ability
+to test the augmented reality using both the OpenCV approximation and the
+Vuforia SDK~\ref{fig:posterview}.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.55]{img/posterview.png}
+\caption{\label{fig:posterview} The poster view of Ponster app.}
+\end{figure} 
+
+\subsection*{Augmented reality}
+The main feature of Ponster is to show the posters where the user wants to try
+them, using augmented reality techniques. Tapping on the \textbf{Try Me} button
+opens the Vuforia window with the camera output. Once there, we present two
+buttons, one for the Screenshot~\ref{sub:screenshot} feature and another one
+for the selection of the pattern to track. 
+
+When we tap the camera button, we capture an image from the video output and
+use it as our pattern to track. Then, every time the Vuforia SDK detects the
+pattern, the selected poster is presented. The extended tracking is also
+enabled, so the user can still see the poster even if the pattern is not
+anymore present in the video output.
+
+For testing purposes, we also bring the oportunity to test the augmented
+reality using OpenCV algorithms. This feature has been used to run the speed
+and robustness tests presented in the performance section~\ref{sec:arperf}.
+
+\subsection*{Screenshot}
+\label{sub:screenshot}
+The screenshot feature enables the user to take a picture of what's seen on the
+video output. This is very useful when it is combined with the augmented
+reality tracking, and allows the user to keep a still picture in the camera
+roll with the poster located in the scene. With this, the tested posters in the
+scene can be shared.

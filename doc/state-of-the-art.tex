@@ -14,7 +14,7 @@ Augmented reality in mobile devices is slightly different from what can be seen 
 desktop environments. Although every year we have more powerful mobile smartphones
 (citation needed), processing and drawing into the device's screen is still an
 expensive operation in terms of computational cost. This is one of the reasons why
-cost-efficient computer vision algorithms and techniques have emerged in the past
+cost-efficient computer vision algorithms and techniques have emerged in the recent
 years. 
 
 Most of the augmented reality apps follow this behaviour:
@@ -42,9 +42,15 @@ the real world input with our virtual elements. This reference can be from an
 image from the smartphone camera to the user location. Our application, which is
 called Ponster, searches a
 particular image inside the camera input in order to draw the poster image
-above. This technique of searching an image and follow it along it's 
-movement is usually referred as object tracking. 
+above. Many other augmented reality mobile apps do not necessarily use image
+processing techniques to mix real world elements with virtual ones. For
+instance, there are applications that helps the user to identify constellations
+with the mobile phone. These applications only use GPS location and digital
+compass orientation to enable the user to see which constellations are they
+pointing their device to.
 
+This technique of searching an image and follow it along it's 
+movement is usually referred as object tracking. 
 In computer vision there are a lot of object recognition techniques. In the
 development of Ponster, two of these techniques have been tested: template
 matching and feature-based detection. Detecting the image in a continuous input from
@@ -63,7 +69,13 @@ correlation formula to check if the template is inside the image. Instead of
 applying a yes/no approximation, we can bring a positive match with a certain
 threshold. 
 
-% Insert a match template image
+\begin{figure}
+\centering
+\includegraphics[scale=0.55]{img/templatematch.png}
+\caption{\label{fig:templatematch}How the template matching algorithm works in
+  OpenCV. Taken from
+  \url{http://docs.opencv.org/doc/tutorials/imgproc/histograms/template_matching/template_matching.html}} 
+\end{figure} 
 
 % citar el ppt aquel
 Performing a template matching operation using OpenCV on mobile devices is fast
@@ -74,6 +86,15 @@ pyramids are used to make match template scale and rotation
 invariant\cite{4368176}, but it is not part of the OpenCV match template function, although it
 provides some methods to implement image pyramids\cite{ocv02}. 
 
+In the testing of template matching in Ponster, a basic image pyramid algorithm
+has been tested. Our simple image pyramid algorithm consists of building
+several sizes of the pattern image provided to the app. We generate four
+smaller versions of the image and then we try to match them in each frame of
+the camera loop. If any of the images are detected, we take account of the
+image scale to draw the poster above the detected pattern. In our tests this
+worked really well, but more scale images were needed to bring a better scale
+invariance template matching algorithm.
+
 Match template has been tested during the development of Ponster. Also, a basic
 image pyramid system has been developed for scale-invariance, but match template has
 been discarded in favor of feature detection algorithms because they bring rotation
@@ -82,7 +103,9 @@ and scale invariance and perspective warp, and this are required features.
 \section{Feature detection}
 A feature-based approach can be presented as a three step method. First of all, we
 have to detect keypoints\cite{feature} (also called interest points) in the image. Usually,
-interest points are corners, blobs or T-junctions. A good keypoint is a
+interest points are corners, blobs\footnote{Regions and points that have
+  different brightness, color or contrast compared with their neighbour
+  region.} or junctions ---see figure~\ref{fig:junctions}---. A good keypoint is a 
 \emph{repeatable} keypoint; if we can find the same keypoint under different
 conditions such as light difference or rotation, it's considered as a quality
 keypoint. The second step is to compute \emph{descriptors} or feature
@@ -94,6 +117,13 @@ each image, and we have to compare them in order to \emph{match} features. If th
 features of the source image are present in the input image, we can assume that the
 object has been detected. The matching is based on the distance between the feature
 vectors. 
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.25]{img/junction.png}
+\caption{\label{fig:junctions}Different types of junctions, taken
+  from~\cite{junction}.} 
+\end{figure} 
 
 Usually, source images with enough keypoints are easier to detect than more
 uniform images. This is why it's better to select a good source image with many
@@ -142,12 +172,11 @@ have been tested, Brute-force Matcher and FLANN-based matching.
 SURF is as robust as other alternatives such as SIFT, but it's faster to compute due
 to the use of integral images. It is rotational and scale-invariant, which is better
 than the template matching technique described before, but it's performance running
-on the device (iPhone 5, iOS 7.1.2) is not good enough to deliver a decent user
-experience, taking between 0.7 and 1 second to compute each image. Also, SURF is a
-patented algorithm and it's not intended to use it in commercial applications. 
+on the device (iPhone 5, iOS 7.1.2 and iOS 8) is not good enough to deliver a decent user
+experience, taking between 0.7 and 1 second to compute each image~\ref{sec:arperf}. Also, SURF is a
+patented algorithm and it's not allowed its use in commercial applications. 
 
-\subsection{FREAK}
-% TODO
+\subsection{Fast Retina Keypoint - FREAK}
 FREAK stands for Fast Retina Keypoint\cite{Ortiz:2012:FFR:2354409.2354903}. As we
 have stated before, the trend is to make descriptors faster to compute while
 remaining robust and scale, rotation invariant. FREAK uses a keypoint descriptor
@@ -167,14 +196,40 @@ intensities obtained by this pattern.
   retina.} 
 \end{figure} 
 
-The use of FREAK in Ponster has led to a very similar performance than ORB. 
+One of the main reasons of choosing FREAK to test as a descriptor combined with
+SURF is that it has more robustness in term of rotation and scale
+invariance than the SURF keypoint detector and descriptor extractor. The
+comparison of SURF with different descriptor 
+extractor\cite{rotationscaleinv} shown in the figures~\ref{fig:surfrotation}
+and~\ref{fig:surfscale}
+shows that the robustness of the detection in both parameters is increased when
+using FREAK. 
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.75]{img/rotation.png}
+\caption{\label{fig:surfrotation} Rotation invariance comparison between different descriptor
+  extractors combined with SURF. Source~\cite{rotationscaleinv}.}
+\end{figure} 
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.75]{img/scale.png}
+\caption{\label{fig:surfscale}Scale invariance comparison between different descriptor
+  extractors combined with SURF. Source~\cite{rotationscaleinv}.}
+\end{figure} 
+
+In the section~\ref{sec:arperf} we present a comparison between the three
+approaches chosen for the object detection. We can clearly see that using FREAK
+as the descriptor extractor can boost the performance from SURF descriptors,
+but it also delivers less matches.
 
 \subsection{Features from Accelerated Segment Test - FAST}
 FAST is a keypoint detector based on corner detection. It was introduced by
 Edward Rosten and Tom Drummond\cite{Rosten:2006:MLH:2094437.2094478} and it's primary purpose was to bring a real
 time interest point detector. FAST considers a circle of sixteen pixels around
 each corner candidate, and detects a candidate as a corner if there are $n$
-contiguos pixels in that circle with brighter intensity than the candidate
+contiguous pixels in that circle with brighter intensity than the candidate
 pixel. % introduce Figure 1 of paper [3]
 
 This technique is faster than others for corner detection, but FAST is not
@@ -204,8 +259,13 @@ BRIEF, a learning method for choosing good binary features is applied,
 resulting into rBRIEF.
 
 In Ponster, ORB has been tested with better results than the other previous
-techniques, but again with poor performance in the device. Only a 15 fps
-processing have been achieved, with slightly worst detection than with SURF.
+techniques, but again with poor performance in the device\footnote{We can
+  consider poor performance a FPS under 20.}. Only a 15 FPS
+processing has been achieved, with slightly the same detection quality as
+SURF. It is interesting to note that, althought each of the algorithms tested
+are scale invariant, they tend to lose the tracked image when the scale of the object
+represented in the camera feed is 50\% smaller than the original. This is also
+happening with SURF-SURF and SURF-FREAK combinations~\ref{fig:surfscale}.
 
 \section{Matching}
 Once we have calculated the interest points and computed the descriptors in the
@@ -282,7 +342,7 @@ this~\cite{Andoni:2008:NHA:1327452.1327494} paper.
 Although the technologies explained in previous sections are robust and reliable,
 and have been successfully tested, they have not been used in the last version of
 Ponster due to it's poor performance on mobile devices. Another technique has been proven
-to be successfull to deliver both high performance in mobile devices and robust
+to be successful to deliver both high performance in mobile devices and robust
 object tracking.
 
 Natural feature tracking consists of computing the motion of a feature in the
@@ -305,4 +365,7 @@ representing, thus allowing the algorithm to avoid false positives and do not
 corrupt the tracking output.
 
 The technology used in Ponster to perform the augmented reality is called
-Vuforia and uses Natural feature tracking to track the object in the scene. 
+Vuforia and uses Natural feature tracking to track the object in the scene. In
+the section~\ref{sec:vuforia} we describe how Vuforia works, although it is a
+propietary solution and thus we cannot have detailed information about how
+internally does the tracking. 
