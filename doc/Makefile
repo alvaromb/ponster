@@ -1,5 +1,5 @@
 S=hunspell -d en_US
-P=pdflatex -halt-on-error -interaction batchmode
+P=pdflatex -halt-on-error -interaction batchmode --shell-escape 
 B=bibtex
 O=open
 all: latex

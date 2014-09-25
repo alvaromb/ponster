@@ -78,10 +78,14 @@ model object is like any other object, and we can access to it's properties usin
 the common dot notation. For example, we can access to the \texttt{imageUrl}
 property of a \texttt{Poster} entity in the following way:
 
-\begin{verbatim}
+%\begin{verbatim}
+%\begin{lstlisting}
+\begin{minted}{objectivec}
 Poster *poster = (Poster *)item;
 UIImage *posterImage = [UIImage imageNamed:poster.imageUrl];
-\end{verbatim}
+\end{minted}
+%\end{lstlisting}
+%\end{verbatim}
 
 \begin{figure}
 \centering

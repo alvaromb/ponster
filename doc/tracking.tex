@@ -1,8 +1,296 @@
 \chapter{Tracking}
-General algorithm information.
-\begin{itemize}
-\item First attempt with OpenCV
-\item How we have done the algorithm
-\item With Vuforia
-\item How we introduce the element into the detected feature
-\end{itemize}
+In this chapter we are going to review our basic object tracking algorithm with
+OpenCV, and we will also explain where the Vuforia SDK gets the detected object
+for each frame and draws the poster.
+
+\section{OpenCV algorithm}
+The OpenCV based tracking algorithm consists on two parts, the video source and
+the tracking algorithm. With the video source we can get the frames from the
+camera with the selected quality, and with the tracking algorithm we use that
+frames to find the chosen pattern. 
+
+\subsection{Video feed}
+To recive the images from the camera, we have created an Objective-C++ class
+called \texttt{PNS\-Image\-Capture}. In this class, we use
+\texttt{AV\-Capture\-Video} to get the video frames, and then we send each
+frame as a parameter to the \texttt{PNS\-Image\-Capture\-Delegate}. Our class
+just uses \texttt{AV\-Capture\-Video} API to instantiate the camera objet, so
+the main functionality comes from the delegate:
+
+\subsubsection*{\texttt{PNSImageCaptureDelegate.h}}
+\begin{minted}[linenos=true]{objectivec++}
+#import <AVFoundation/AVFoundation.h>
+#import <VideoFrame.h>
+
+#pragma mark - PNSImageCaptureProtocol
+
+@protocol PNSImageCaptureDelegate <NSObject>
+
+@required
+- (void)frameReady:(VideoFrame)frame;
+
+@end
+
+#pragma mark - PNSImageCapture interface
+
+@interface PNSImageCapture : NSObject
+<AVCaptureVideoDataOutputSampleBufferDelegate>
+
+@property (strong, nonatomic) AVCaptureSession *captureSession;
+@property (weak, nonatomic) id<PNSImageCaptureDelegate> delegate;
+
+- (BOOL)startWithDevicePosition:(AVCaptureDevicePosition)devicePosition;
+
+@end
+\end{minted}
+
+The required delegate \texttt{frameReady:} is used to deliver the
+\texttt{VideoFrame} to whatever class that needs to get the video image. This
+class must implement
+\texttt{AV\-Capture\-Video\-Data\-Output\-Sample\-Buffer\-Delegate} in order to
+get the data from the camera. The delegate method implementation of this class
+is the next one.
+
+\subsubsection*{AVCaptureVideoDataOutputSampleBufferDelegate}
+\begin{minted}[linenos=true]{objectivec++}
+- (void)captureOutput:(AVCaptureOutput *)captureOutput
+didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
+       fromConnection:(AVCaptureConnection *)connection
+{
+    CVImageBufferRef imageBuffer = 
+    CMSampleBufferGetImageBuffer(sampleBuffer);
+    
+    CVPixelBufferLockBaseAddress(imageBuffer, 
+    kCVPixelBufferLock_ReadOnly);
+    
+    // Dispatch VideoFrame to VideoSource delegate
+    if ([self.delegate respondsToSelector:@selector(frameReady:)]) {
+        // Construct VideoFrame struct
+        uint8_t *baseAddress =
+        (uint8_t*)CVPixelBufferGetBaseAddress(imageBuffer);
+        size_t width = CVPixelBufferGetWidth(imageBuffer);
+        size_t height = CVPixelBufferGetHeight(imageBuffer);
+        size_t stride = CVPixelBufferGetBytesPerRow(imageBuffer);
+        VideoFrame frame = {width, height, stride, baseAddress};
+        [self.delegate frameReady:frame];
+    }
+
+    CVPixelBufferUnlockBaseAddress(imageBuffer, 0);
+}
+\end{minted}
+
+\subsection{Tracking algorithm}
+Our tracking algorithm is presented in the \texttt{PatternDetector.cpp} file
+and \texttt{PatternDetector.h} header file. In this class, the first thing we
+do in the constructor is pass a pattern image to track and the poster image to
+draw on it.
+
+Here is a shortened version of the \texttt{PatternDetector} class constructor.
+
+\begin{minted}[linenos=true]{c++}
+PatternDetector::PatternDetector(const Mat& patternImage, const Mat&
+posterImage)
+{
+    m_scaleFactor = kDefaultScaleFactor;
+    
+    // Save the pattern image
+    m_patternImage = patternImage;
+    
+    // Create a resized grayscale version of the pattern image
+    resize(posterImage, m_resizedPosterImage,
+    Size(posterImage.cols/m_scaleFactor, posterImage.rows/m_scaleFactor));
+    
+    Mat patternImageGray;
+    switch (patternImage.channels())
+    {
+        case 4: /* 3 color channels + 1 alpha */
+            cvtColor(m_patternImage, m_patternImageGray, CV_RGBA2GRAY);
+            break;
+        case 3: /* 3 color channels */
+            cvtColor(m_patternImage, m_patternImageGray, CV_RGB2GRAY);
+            break;
+        case 1: /* 1 color channel, grayscale */
+            m_patternImageGray = m_patternImage;
+            break;
+    }
+        
+    // SURF
+    m_detector = SurfFeatureDetector(4);
+    m_detector.detect(m_patternImageGray, m_posterKeypoints);
+        
+    // SURF descriptors
+    m_extractor = SurfDescriptorExtractor();
+    m_extractor.compute(m_patternImageGray, m_posterKeypoints, 
+    m_posterDescriptors);    
+    if (m_posterDescriptors.empty()) {
+        printf(``WARNING empty descriptors \n'');
+    }
+    
+    // FlannBasedMatcher macher    
+    m_matcher = FlannBasedMatcher();
+}
+\end{minted}
+
+Then, every time the video frame delegate send us a new frame from the camera,
+the tracking algorithm is executed. Here we have a basic example of how this
+algorithm works.
+
+\begin{minted}[linenos=true]{c++}
+Mat PatternDetector::fastDetection(VideoFrame frame)
+{
+    // (1) Build the grayscale query image from the camera data
+    Mat queryImageGray, queryImageGrayResized, outputImage;
+    Mat queryImage = Mat(frame.width, frame.height, CV_8UC4,
+    frame.data, frame.bytesPerRow);
+    cvtColor(queryImage, queryImageGray, CV_RGBA2GRAY);
+
+    // Apply filter to reduce noise
+    GaussianBlur(queryImageGrayResized, queryImageGrayResized, 
+    Size(7, 7), 2, 2 );
+    cvtColor(queryImage, outputImage, CV_BGR2BGRA);
+    
+    // (2) Detect scene keypoints
+    vector<KeyPoint> sceneKeypoints;
+    m_detector.detect(queryImageGrayResized, sceneKeypoints);
+    if (sceneKeypoints.size() <= 1) {
+        return outputImage;
+    }
+    
+    // (3) Calculate scene descriptors
+    Mat sceneDescriptors;
+    m_extractor.compute(queryImageGrayResized, sceneKeypoints,
+    sceneDescriptors);
+    if (sceneDescriptors.empty()) {
+        return outputImage;
+    }
+    
+    // Match descriptors
+    t = (double)getTickCount();
+    vector<DMatch> matches;
+    m_matcher.match(m_posterDescriptors, sceneDescriptors, matches);
+
+    // (5) Compute good matches
+    for (int i = 0; i < m_posterDescriptors.rows; i++) {
+        double dist = matches[i].distance;
+        if (dist < min_dist) min_dist = dist;
+        if (dist > max_dist) max_dist = dist;
+    }
+    
+    // Draw only ``good'' matches
+    vector<DMatch> good_matches;
+    for (int i = 0; i < m_posterDescriptors.rows; i++) {
+        if (matches[i].distance < 3*min_dist) {
+            good_matches.push_back(matches[i]);
+        }
+    }
+    if (good_matches.size() < 4) {
+        return outputImage;
+    }
+    
+    // Localize the object
+    vector<Point2f> obj;
+    vector<Point2f> scene;
+    
+    for (int i = 0; i < good_matches.size(); i++) {
+        // Get the keypoints from the good matches
+        obj.push_back(m_posterKeypoints[good_matches[i].queryIdx].pt);
+        scene.push_back(sceneKeypoints[good_matches[i].trainIdx].pt);
+    }
+    
+    Mat H = findHomography(obj, scene, CV_RANSAC);
+    
+    // Get the corners from the image
+    vector<Point2f> obj_corners(4);
+    obj_corners[0] = cvPoint(0, 0);
+    obj_corners[1] = cvPoint(m_patternImageGray.cols, 0);
+    obj_corners[2] = cvPoint(m_patternImageGray.cols,
+    m_patternImageGray.rows);
+    obj_corners[3] = cvPoint(0, m_patternImageGray.rows);
+    vector<Point2f> scene_corners(4);
+    
+    perspectiveTransform(obj_corners, scene_corners, H);
+
+    // Draw lines between the corners
+    Scalar green = Scalar(0, 255, 0);
+    line(outputImage, scene_corners[0], scene_corners[1], green, 4);
+    line(outputImage, scene_corners[1], scene_corners[2], green, 4);
+    line(outputImage, scene_corners[2], scene_corners[3], green, 4);
+    line(outputImage, scene_corners[3], scene_corners[0], green, 4);    
+
+    circle(outputImage, scene_corners[0], 15, Scalar(255, 0, 0));
+    circle(outputImage, scene_corners[1], 15, Scalar(0, 255, 0));
+    circle(outputImage, scene_corners[2], 15, Scalar(0, 0, 255));
+    circle(outputImage, scene_corners[3], 15, Scalar(255, 255, 0));
+    
+    return outputImage;
+}
+\end{minted}
+
+In this algorithm we perform exactly the same keypoint and descriptor
+calculation, and then we use this data with the descriptors obtained from the
+pattern image in the constructor to perform the match. In this example, a
+Flann-based matcher using a randomized KD-tree is used to perform the matching
+between the descriptors. It is worth to mention the first lines of the
+algorithm, where we get the \texttt{VideoFrame} and make transformations to its
+image, are very important to the final performance of the algorithm. Converting
+the image to grayscale and using a Gaussian blur filter to reduce it's noise
+helps us to compute faster the keypoints and to have more robust results.
+
+Once we have computed the matches, we use homography to make a perspective
+transformation to get the four corners of the object in the scene. In this code
+example, we use the corners to draw a rectangle where the pattern is located
+and four circles to identify each of the pattern corners.
+
+It is easy to calculate the performance results showed in
+section~\ref{sec:arperf} with this algorithm. We only need to get the
+system time before and after performing each of the steps to see where the
+algorithm takes more computation time. 
+
+\section{Vuforia SDK}
+With Vuforia, as we have said before, we do not have an exact representation of
+the tracking algorithm. Everything is done through the QCAR namespace, which stands
+for Qualcomm Augmented Reality. Our background video view implements
+\texttt{UIGL\-View\-Protocol}, which is an iOS-only protocol that allows
+Vuforia to render the current frame. The view responsible of rendering the
+frame must implement the method \texttt{renderFrameQCAR}. 
+
+Inside our implementation of \texttt{renderFrameQCAR} in the view that draws
+the video output, we query the QCAR object to see if there are tracking
+results: 
+
+\begin{minted}[linenos=true]{objc}
+QCAR::State state = QCAR::Renderer::getInstance().begin();
+for (int i = 0; i < state.getNumTrackableResults(); ++i) {
+    // Get the trackable
+    const QCAR::TrackableResult* result = state.getTrackableResult(i);
+    QCAR::Matrix44F modelViewMatrix = 
+        QCAR::Tool::convertPose2GLMatrix(result->getPose());
+    // Drawing code
+    // ...
+}
+\end{minted}
+
+With the data inside the \texttt{modelViewMatrix} variable, we have all that is
+necessary to know where to draw the poster object. All the drawing is done with
+OpenGL ES, so first we load the textures and then we draw them:
+
+\begin{minted}[linenos=true]{objc++}
+// Get the projection of the tracked object
+glUniformMatrix4fv(mvpMatrixHandle, 1, GL_FALSE, 
+    (const GLfloat*)&modelViewProjection.data[0]);
+glUniform1i(texSampler2DHandle, 0);
+// Draw the poster into the scene
+glDrawElements(GL_TRIANGLES, NUM_QUAD_INDEX,
+    GL_UNSIGNED_SHORT, (const GLvoid*)quadIndices);
+\end{minted}
+
+Our object is just a rectangle defined in a C++ header, but with Vuforia we can
+set any object we want by just creating another texture. For instance, in the
+SDK examples a teapot is used to demonstrate its features.
+
+%% \begin{itemize}
+%% \item First attempt with OpenCV
+%% \item How we have done the algorithm
+%% \item With Vuforia
+%% \item How we introduce the element into the detected feature
+%% \end{itemize}
