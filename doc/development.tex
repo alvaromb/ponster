@@ -57,6 +57,7 @@ title. We just need to provide the \texttt{Poster} entity and this subclass mana
 to draw the entire view.
 
 \subsection{Persistency layer architecture}
+\label{sec:persistency}
 In order to deliver a good user experience, we have to understand the iOS
 architecture. iOS has a high-priority thread called \emph{Main Thread} where all the
 UIKit operations must be executed. Thanks to this, the responsiveness of every UI
@@ -87,6 +88,29 @@ can create use a background thread and trigger the Main Thread, UI-context when 
 have saved any info. This architecture is often known as \emph{child-context},
 because there is a parent-child relationship between all the
 contexts~\ref{fig:coredataarch}. 
+
+\subsubsection{Model design}
+In our model we have three entities. One is the poster category, to separate
+the different kind of posters that we can choose: movie posters, art, and so
+on. Then, we have two entities for the posters. One is an \emph{abstract}
+entity that the main Poster entity inherits from. 
+
+This is a very common way to build models in CoreData. Entity inheritance
+enables developers to perform changes easily in the data model. Every time we
+have to ship a new version of the application, if the model has changed we need
+to perform a migration. It is quite common to change the model when new
+features are added, but migrations are difficult to implement if there are deep
+changes. One way to make migrations easier is to use entity inheritance. If
+somehow in the near future we need to add different posters, we can inherit
+from the \texttt{AbstractPoster} entity without touching the \texttt{Poster}
+on. 
+
+With this model design we can take advantage of \emph{Lightweight migrations}
+in CoreData. Lightweight migrations are automatic migrations performed
+automatically by the framework. Being able to maintain our model versioning to
+use this kind of migrations is another reason of why we are using entity
+inheritance. Otherwise, we would have to do manually migrations, which are
+slower to compute and error prone.
 
 \section{Augmented reality performance}
 \label{sec:arperf}

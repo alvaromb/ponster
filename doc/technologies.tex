@@ -5,7 +5,7 @@ possible all the features that enable us to try the poster images in the camera
 scene, two main technologies have been used. First of all, the iOS SDK provided by
 Apple\textregistered ~is needed to develop any iOS application. For the augmented reality, OpenCV
 has been the first SDK tested, but finally the Vuforia SDK\cite{vuforia} developed
-by Qualcomm\textregistered ~has been the one used in Ponster. We will start this
+by Qualcomm has been the one used in Ponster. We will start this
 discussing first the iOS SDK, and then the augmented reality technologies used.
 
 \section{iOS}
@@ -93,7 +93,7 @@ UIImage *posterImage = [UIImage imageNamed:poster.imageUrl];
 \caption{\label{fig:coredata}Basic data model of Ponster. The CoreData model editor
   enables us to design the model and then generate all the object classes. The
   double arrow represents a to-many relationship and the white arrow represents
-  object inheritance.}
+  object inheritance. This model is explained in chapter~\ref{sec:persistency}.}
 \end{figure} 
 
 CoreData's stack enables us to perform queries and to save information in the SQLite
@@ -182,7 +182,19 @@ is distributed as a Ruby gem and it can be installed easily in any Mac computer.
 
 \section{Computer vision}
 Two computer vision libraries have been used, OpenCV in the first stages of
-development, and later Vuforia, which is made by Qualcomm\textregistered. 
+development, and later Vuforia, which is made by Qualcomm. Before starting to
+introduce this technologies, it is interesting to explain the frame rate
+reference of 60 FPS and why is the main goal of many graphics visual
+applications.
+
+% cite: http://en.wikipedia.org/wiki/Showscan
+Douglas Trumbull introduced the 60 frames per second rate as the most
+convenient for human eye while developing Showscan, his cinematic process. The
+main reason for achieving this performance is that it enables a better
+emotional connection with the viewer if the rate is higher than the regular 24
+FPS used in 35mm film. Although the goal is to achieve 60 frames per second,
+the human eye percieves sloopiness at frame rates lower than 20 FPS, so getting
+a higher value than that is considered enough for most applications.
 
 \subsection{OpenCV}
 OpenCV is an open source computer vision library\cite{opencv}. The library has
@@ -206,7 +218,7 @@ faster and with a constant 30 fps frame rate.
 \subsection{Vuforia}
 \label{sec:vuforia}
 Vuforia is an augmented reality SDK developed by the American chip company
-Qualcomm\textregistered. The Vuforia API supports C++, Objective-C, Java and .NET
+Qualcomm. The Vuforia API supports C++, Objective-C, Java and .NET
 ---with the Unity game engine---. Currently, Vuforia is at it's 3.0 version. 
 
 The SDK consists of several core components\cite{vuforiasdk01}: 
@@ -265,7 +277,7 @@ user moves the smartphone camera changing the scene.
 
 \subsubsection{FastCV}
 Vuforia is based on FastCV, which is another library developed by
-Qualcomm\textregistered that brings computer vision algorithms optimized for mobile
+Qualcomm that brings computer vision algorithms optimized for mobile
 architectures. FastCV has the main computer vision features\cite{fastcv}:
 
 \begin{itemize}

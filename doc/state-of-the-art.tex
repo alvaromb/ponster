@@ -11,8 +11,8 @@ quality AR-based applications. Nowadays, modern mobile devices use integrated
 cameras, motion sensors and proximity sensors to make these AR-based experiences. 
 
 Augmented reality in mobile devices is slightly different from what can be seen in
-desktop environments. Although every year we have more powerful mobile smartphones
-(citation needed), processing and drawing into the device's screen is still an
+desktop environments. Although every year we have more powerful mobile
+smartphones, processing and drawing into the device's screen is still an 
 expensive operation in terms of computational cost. This is one of the reasons why
 cost-efficient computer vision algorithms and techniques have emerged in the recent
 years. 
@@ -25,7 +25,23 @@ Most of the augmented reality apps follow this behaviour:
 \end{itemize}
 
 In this chapter we are going to describe which are the different techniques
-that enables us to do this kind of processing.
+that enables us to do this kind of processing, but before that we need to
+explain some key concepts. 
+
+We define \emph{robustness} as the quality of a tracking
+algorithm when the scene changes and the object to track is not equal as the
+source image. This difference between the image to track and the image
+presented in the camera can be due to \emph{rotation}, \emph{scale} or
+\emph{perspective transformation}. Some algorithms described below are
+unaffected to some of this changes. For instance, being \emph{rotation
+  invariant} means that the algorithm is \emph{robust} enough to still
+recognize the object in the scene despite of its rotation difference between
+the original object.
+
+The goal of this work is to find a combination of techniques that enable us to
+develop an application with object tracking invariant to rotation, scale and
+perspective warp. The different algorithms tested were selected with this goal
+in mind. 
 
 %% In this chapter we are going to review several technologies that can bring augmented
 %% reality to mobile or desktop apps. 
@@ -39,8 +55,7 @@ that enables us to do this kind of processing.
 In order to provide an augmented reality experience, we have to know first
 which is the real world element that we are going to use as a reference to mix
 the real world input with our virtual elements. This reference can be from an
-image from the smartphone camera to the user location. Our application, which is
-called Ponster, searches a
+image from the smartphone camera to the user location. Our application searches a
 particular image inside the camera input in order to draw the poster image
 above. Many other augmented reality mobile apps do not necessarily use image
 processing techniques to mix real world elements with virtual ones. For
@@ -64,7 +79,8 @@ to look for) and compare it with the source image (the image in which we want to
 search)\cite{tmatch01}. Template matching is also called area-based approach.
 
 OpenCV provides a way to perform template matching with several methods, such as
-\texttt{SQDIFF} or \texttt{CCORR}. With the latest, \texttt{CCORR}, we use a
+square difference matching\footnote{\texttt{SQDIFF}.} or correlation-matching
+methods\footnote{\texttt{CCORR}.}. With the latest, \texttt{CCORR}, we use a 
 correlation formula to check if the template is inside the image. Instead of
 applying a yes/no approximation, we can bring a positive match with a certain
 threshold. 
@@ -79,7 +95,8 @@ threshold.
 
 % citar el ppt aquel
 Performing a template matching operation using OpenCV on mobile devices is fast
-enough to deliver a smooth 25/30fps-like detection. However, match template does not
+enough to deliver a smooth 25/30 FPS\footnote{Frames per second.}-like
+detection. However, match template does not 
 take account of scale, rotation and perspective invariance by itself. There are
 several approaches to bring invariation to match template. For instance, image
 pyramids are used to make match template scale and rotation
@@ -98,7 +115,8 @@ invariance template matching algorithm.
 Match template has been tested during the development of Ponster. Also, a basic
 image pyramid system has been developed for scale-invariance, but match template has
 been discarded in favor of feature detection algorithms because they bring rotation
-and scale invariance and perspective warp, and this are required features.
+ invariance and perspective warp, and this are required features to deliver a
+ good augmented reality experience.
 
 \section{Feature detection}
 A feature-based approach can be presented as a three step method. First of all, we
@@ -173,7 +191,8 @@ SURF is as robust as other alternatives such as SIFT, but it's faster to compute
 to the use of integral images. It is rotational and scale-invariant, which is better
 than the template matching technique described before, but it's performance running
 on the device (iPhone 5, iOS 7.1.2 and iOS 8) is not good enough to deliver a decent user
-experience, taking between 0.7 and 1 second to compute each image~\ref{sec:arperf}. Also, SURF is a
+experience, taking between 0.7 and 1 second to compute each image, as can be
+seen in the performance tests in section~\ref{sec:arperf}. Also, SURF is a
 patented algorithm and it's not allowed its use in commercial applications. 
 
 \subsection{Fast Retina Keypoint - FREAK}
@@ -198,7 +217,7 @@ intensities obtained by this pattern.
 
 One of the main reasons of choosing FREAK to test as a descriptor combined with
 SURF is that it has more robustness in term of rotation and scale
-invariance than the SURF keypoint detector and descriptor extractor. The
+invariance than the SURF descriptor extractor. The
 comparison of SURF with different descriptor 
 extractor\cite{rotationscaleinv} shown in the figures~\ref{fig:surfrotation}
 and~\ref{fig:surfscale}
@@ -221,12 +240,13 @@ using FREAK.
 
 In the section~\ref{sec:arperf} we present a comparison between the three
 approaches chosen for the object detection. We can clearly see that using FREAK
-as the descriptor extractor can boost the performance from SURF descriptors,
-but it also delivers less matches.
+as the descriptor extractor can boost the performance compared with SURF
+descriptors, but it also delivers less matches.
 
 \subsection{Features from Accelerated Segment Test - FAST}
 FAST is a keypoint detector based on corner detection. It was introduced by
-Edward Rosten and Tom Drummond\cite{Rosten:2006:MLH:2094437.2094478} and it's primary purpose was to bring a real
+Edward Rosten and Tom Drummond\cite{Rosten:2006:MLH:2094437.2094478} and it's
+primary purpose was to bring a real 
 time interest point detector. FAST considers a circle of sixteen pixels around
 each corner candidate, and detects a candidate as a corner if there are $n$
 contiguous pixels in that circle with brighter intensity than the candidate
@@ -242,8 +262,9 @@ extractor. One example of this is ORB, tested in the development of Ponster.
 % paper: ORB: an efficient alternative to SIFT or SURF
 As we have said before, real time performance has been a very popular topic in
 object detection during the last years. The main characteristic of ORB is to
-perform as good as SIFT, but doing it twice as fast. ORB uses a variant of FAST
-as the interest point detector, and BRIEF as the descriptor extractor. 
+perform as good as SIFT in terms of robustness, but doing it twice as fast. ORB
+uses a variant of FAST as the interest point detector, and BRIEF as the
+descriptor extractor.  
 
 FAST does not have rotation invariance. This is why ORB uses oFAST (FAST
 keypoint orientation), which is a variant of FAST that computes orientation by
@@ -262,7 +283,8 @@ In Ponster, ORB has been tested with better results than the other previous
 techniques, but again with poor performance in the device\footnote{We can
   consider poor performance a FPS under 20.}. Only a 15 FPS
 processing has been achieved, with slightly the same detection quality as
-SURF. It is interesting to note that, althought each of the algorithms tested
+SURF, as it can bee seen in the chapter~\ref{sec:arperf}. It is interesting to
+note that, althought each of the algorithms tested 
 are scale invariant, they tend to lose the tracked image when the scale of the object
 represented in the camera feed is 50\% smaller than the original. This is also
 happening with SURF-SURF and SURF-FREAK combinations~\ref{fig:surfscale}.

@@ -282,10 +282,11 @@ Mat PatternDetector::fastDetection(VideoFrame frame)
     perspectiveTransform(obj_corners, scene_corners, H);
     
     // Draw lines between the corners (the mapped object in the scene - image_2 )
-    line(outputImage, scene_corners[0], scene_corners[1], cv::Scalar(0, 255, 0), 4);
-    line(outputImage, scene_corners[1], scene_corners[2], cv::Scalar(0, 255, 0), 4);
-    line(outputImage, scene_corners[2], scene_corners[3], cv::Scalar(0, 255, 0), 4);
-    line(outputImage, scene_corners[3], scene_corners[0], cv::Scalar(0, 255, 0), 4);
+    Scalar green = Scalar(0, 255, 0);
+    line(outputImage, scene_corners[0], scene_corners[1], green, 4);
+    line(outputImage, scene_corners[1], scene_corners[2], green, 4);
+    line(outputImage, scene_corners[2], scene_corners[3], green, 4);
+    line(outputImage, scene_corners[3], scene_corners[0], green, 4);
     // r g y b
     circle(outputImage, scene_corners[0], 15, Scalar(255, 0, 0));   // r
     circle(outputImage, scene_corners[1], 15, Scalar(0, 255, 0));   // g

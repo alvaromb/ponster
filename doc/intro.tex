@@ -15,11 +15,14 @@ recognition techniques.
 
 Using an object recognition algorithm between two images can help us to
 determine where the object we are searching for is present in the image or
-not. This can be seen in the figure~\ref{fig:introdetect}. But, what happens if
+not. This technique can be seen in the figure~\ref{fig:introdetect}. But, what happens if
 we want to know whether the object is present on a dynamic scene such as a
 live video feed? We can apply the same algorithms for each of the video frame
-that comes from the camera. Also, some techniques allow us to combine the object
-detection algorithms with the sensors of the mobile smartphone.
+that comes from the camera. 
+Also, we can combine these object detection algorithms with the data provided
+by the sensors of mobile smartphones, such as accelerometers or
+gyroscopes. This data can help the algorithms to compute the user movement and
+improve the tracking.
 
 \begin{figure}
 \centering
@@ -33,10 +36,13 @@ video feed, we present
 an study of three different approximations using OpenCV algorithms and another one
 using Vuforia SDK by Qualcomm\textregistered. A comparison of performance and
 robustness between this four different approaches is made to decide which is the
-best to bring augmented reality to a mobile environment. 
+best to bring augmented reality to a mobile environment. This comparison runs
+on a real device in order to determine how this techniques behave on a limited
+performance device such as a mobile smartphone.
 
 The goal of the study is to build an augmented reality application that enables 
-users to try posters on their walls using augmented reality technology.
+users to try posters on their walls using augmented reality technology. The
+name given to this application is Ponster.
 
 \section*{Structure of the work}
 \subsection*{State of the art}
