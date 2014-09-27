@@ -65,7 +65,8 @@ inside the app in this version---, we have several methods to include and displa
 this information. The simplest option would have been to save the data in the preferences
 \texttt{.plist} file and then read all the values. Also, we could have used
 \texttt{NSKeyedArchiver} to save data from our object model into the application
-sandbox. But the best way to maintain data and to
+sandbox\footnote{The application sandbox is the folder that contains the application
+itself and all its data.}. But the best way to maintain data and to
 query it from our application is to use a real SQL database. CoreData integrates
 the SQLite database with a class-based model approach that enables us to save and
 retrieve information easily.
@@ -80,7 +81,7 @@ property of a \texttt{Poster} entity in the following way:
 
 %\begin{verbatim}
 %\begin{lstlisting}
-\begin{minted}{objectivec}
+\begin{minted}[linenos=true]{objectivec}
 Poster *poster = (Poster *)item;
 UIImage *posterImage = [UIImage imageNamed:poster.imageUrl];
 \end{minted}
@@ -101,7 +102,7 @@ store. Due to the fact that iOS applications use a maximum-priority thread for t
 UI calculations and several other threads with lower priority to perform other
 tasks, it's fundamental to understand how CoreData performs it's operations and how
 can we use it efficiently. In the section~\ref{sec:architecture}, our CoreData
-architecture is presented.
+architecture is presented with this goal in mind.
 
 Three objects are fundamental to CoreData, the \textbf{context}, the \textbf{coordinator}
 and the \textbf{store}. The \texttt{NSManagedObject\textbf{Context}} is used to perform
@@ -116,18 +117,18 @@ in~\ref{sec:architecture}, and every operation against the database must be
 performed in a context. For example, when we want to perform a request for a
 selected \textit{entity}, we have to specify the context:
 
-\begin{verbatim}
+\begin{minted}[linenos=true]{objc}
 NSFetchRequest *request = [[NSFetchRequest alloc] init];
 NSEntityDescription *entityDescription = [NSEntityDescription
 entityForName:entityName inManagedObjectContext:context];
 [request setEntity:entityDescription];
 // Build and perform the query
 [request setPredicate:...];
-\end{verbatim}
+\end{minted}
 
 Finally, CoreData works very well with another important class,
 \texttt{NSFetched\-Results\-Controller}. This class allows us to watch for changes in
-any class in our model, with any predicate we want, and then perform an automatic
+any entity in our model, with any predicate we want, and then perform an automatic
 refresh of our data every time some change in our model has been done in the
 observed classes. Thus, the fetched results controller is the class that comunicates
 our view controllers with the data model.
@@ -182,19 +183,7 @@ is distributed as a Ruby gem and it can be installed easily in any Mac computer.
 
 \section{Computer vision}
 Two computer vision libraries have been used, OpenCV in the first stages of
-development, and later Vuforia, which is made by Qualcomm. Before starting to
-introduce this technologies, it is interesting to explain the frame rate
-reference of 60 FPS and why is the main goal of many graphics visual
-applications.
-
-% cite: http://en.wikipedia.org/wiki/Showscan
-Douglas Trumbull introduced the 60 frames per second rate as the most
-convenient for human eye while developing Showscan, his cinematic process. The
-main reason for achieving this performance is that it enables a better
-emotional connection with the viewer if the rate is higher than the regular 24
-FPS used in 35mm film. Although the goal is to achieve 60 frames per second,
-the human eye percieves sloopiness at frame rates lower than 20 FPS, so getting
-a higher value than that is considered enough for most applications.
+development, and later Vuforia, which is made by Qualcomm. 
 
 \subsection{OpenCV}
 OpenCV is an open source computer vision library\cite{opencv}. The library has
@@ -213,7 +202,7 @@ There are a lot of applications that use OpenCV. C++ and Python programming
 languages are supported, among others. The C++ version is the one that has been
 tested in Ponster, using C++ and Objective-C++ files. Although OpenCV has a
 very good performance in most platforms, the Vuforia alternative performed much
-faster and with a constant 30 fps frame rate.
+faster and with a constant 30 FPS frame rate.
 
 \subsection{Vuforia}
 \label{sec:vuforia}
@@ -244,7 +233,7 @@ the first custom scheme used when testing OpenCV feature detection methods.
 \item [User-defined Targets] \hfill \\
 In Ponster, users can define a tracking object by taking a picture of the scene,
 thus enabling to use any image as a placeholder of the poster. This works by
-processing the captured frame and caching it's result for the augmented reality
+processing the captured frame and caching its result for the augmented reality
 session. Vuforia enables developers to use pre-defined targets also.
 \end{description}
 
@@ -257,7 +246,7 @@ session. Vuforia enables developers to use pre-defined targets also.
 One of the main advantages of Vuforia SDK is that it is optimized to run in
 ARM-based devices. In the tests performed during the development of Ponster, Vuforia
 has shown a clear advantage in terms of frames per second processed in comparison
-with OpenCV. While SURF performed roughly at 1 or 2 fps, Vuforia has a constant fps
+with OpenCV. While SURF performed roughly at 1 or 2 FPS, Vuforia has a constant FPS
 rate of 30 to 29 frames.
 
 \subsubsection{Extended tracking}

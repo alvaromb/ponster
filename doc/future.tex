@@ -5,12 +5,15 @@ build products and new techniques.
 
 In this chapter we are going to cite several applications that have served as an
 inspiration to research about augmented reality and to build Ponster app. Also, we
-are going to describe the future work.
+are going to describe the future work that can be applied to enhace the app
+functionality. 
 
 \section{Commercial applications}
+\label{sec:comapps}
 Speaking about mobile environments only, there are great commercial applications
-that use augmented reality available to the major platforms. In this section we are
-going to review a few applications that have served as an inspiration to Ponster.
+that use augmented reality available to the major platforms, iOS and Android. In
+this section we are going to review a few applications that have served as an
+inspiration to Ponster. 
 
 \begin{description}
 \item [SkyGuide] \hfill \\
@@ -31,7 +34,8 @@ they can easily determine at what size the objects must be rendered.
 \item [Sony TV size] \hfill \\
 This application enables users to test if a Sony TV is going to fit well in their
 living room. They use a custom pattern that the user has to put where they want to
-test the virtual television.
+test the virtual television. Again, this application manages to render a real size
+TV by using a know-size pattern.
 
 \item [LEGO Connect] \hfill \\
 LEGO Connect also uses Vuforia to virtually enhace their product catalog. With a
@@ -40,3 +44,45 @@ virtual 3D model of any of their toys. These models can also be animated.
 \end{description}
 
 \section{Future work}
+There are several improvements that can be done to Ponster to enhace the
+functionality and user experience of the app. After reviewing the applications
+mentioned in the previous chapter~\ref{sec:comapps}, it is clear that augmented
+reality-based applications can improve customer experience when browsing products. 
+
+In this section we are going to review some of the different improvements that can
+be implemented in Ponster app.
+
+\subsection{API integration}
+Ponster has been developed to be ready to integrate to an external API. From the
+model to the design of the controllers or the tracking algorithm, everything is
+independent in terms of where the poster data comes from. 
+
+One of the most important improvements that could be made to Ponster is to integrate
+it with an REST API to get the poster data. Actually the poster metadata is attached
+when the application starts, and the poster images are embedded inside the
+application sandbox. Integrating an API would be easy with the actual state of the
+application. 
+
+This API should have three main features: provide a registration process to the
+user, enable the user to browse different types of posters or wall-related products
+and providing a payment process to purchase posters.
+
+\subsection{Purchasing posters}
+Ponster has been built with the goal in mind of allowing users to browse, try and
+buy posters directly from the application. The API integration can bring the ability
+to get the products and the purchase process.
+
+With the latest iOS API, a new way to make payments has been introduced to the
+recent iPhone devices. This new feature is called Apple Pay\cite{applepay} and uses the TouchID
+fingerprint sensor and the credit card associated with the Apple ID account to
+process the payments.
+
+\subsection{Custom images}
+The current version of Ponster supports \texttt{png} images as the poster images
+only. One improvement that could be made to the application is to enable users to
+choose a poster image from its camera roll.
+
+In order to implement this feature, there should be changes to the navigation and
+menus of the app and to the texture load of the augmented reality algorithm. This
+could be integrated with an option in the API to enable the user to print their
+custom image instead of buying an existing one.

@@ -28,7 +28,10 @@ In this chapter we are going to describe which are the different techniques
 that enables us to do this kind of processing, but before that we need to
 explain some key concepts. 
 
-We define \emph{robustness} as the quality of a tracking
+We call \emph{source image} or \emph{source object} to the image used as the pattern
+that the algorithm is searching for in the scene. Depending on the source image, the
+algorithms tested will perform better or worst. We define \emph{robustness} as the
+quality of a tracking 
 algorithm when the scene changes and the object to track is not equal as the
 source image. This difference between the image to track and the image
 presented in the camera can be due to \emph{rotation}, \emph{scale} or
@@ -37,6 +40,20 @@ unaffected to some of this changes. For instance, being \emph{rotation
   invariant} means that the algorithm is \emph{robust} enough to still
 recognize the object in the scene despite of its rotation difference between
 the original object.
+
+Before starting to
+introduce this technologies, it is interesting to explain the frame rate
+reference of 60 FPS and why is the main goal of many graphics visual
+applications.
+
+% cite: http://en.wikipedia.org/wiki/Showscan3
+Douglas Trumbull introduced the 60 frames per second rate as the most
+convenient for human eye while developing Showscan, his cinematic process. The
+main reason for achieving this performance is that it enables a better
+emotional connection with the viewer if the rate is higher than the regular 24
+FPS used in 35mm film. Although the goal is to achieve 60 frames per second,
+the human eye percieves sloopiness at frame rates lower than 20 FPS, so getting
+a higher value than that is considered enough for most applications.
 
 The goal of this work is to find a combination of techniques that enable us to
 develop an application with object tracking invariant to rotation, scale and
@@ -64,7 +81,7 @@ with the mobile phone. These applications only use GPS location and digital
 compass orientation to enable the user to see which constellations are they
 pointing their device to.
 
-This technique of searching an image and follow it along it's 
+The technique of searching an image and follow it along it's 
 movement is usually referred as object tracking. 
 In computer vision there are a lot of object recognition techniques. In the
 development of Ponster, two of these techniques have been tested: template
@@ -74,9 +91,10 @@ differences, becomes an object tracking technique.
 
 \section{Template matching}
 Template matching\cite{ocv01} consists of finding areas of an image that are similar to a
-provided template image. We have to set as the input of the algorithm a template image (the image that we want
-to look for) and compare it with the source image (the image in which we want to
-search)\cite{tmatch01}. Template matching is also called area-based approach.
+provided template image. We have to set as the input of the algorithm a template
+image ---the image that we want to look for--- and compare it with the source image
+---the image in which we want to search\cite{tmatch01}---. Template matching is also
+called area-based approach. 
 
 OpenCV provides a way to perform template matching with several methods, such as
 square difference matching\footnote{\texttt{SQDIFF}.} or correlation-matching
@@ -101,13 +119,22 @@ take account of scale, rotation and perspective invariance by itself. There are
 several approaches to bring invariation to match template. For instance, image
 pyramids are used to make match template scale and rotation
 invariant\cite{4368176}, but it is not part of the OpenCV match template function, although it
-provides some methods to implement image pyramids\cite{ocv02}. 
+provides some methods to implement image pyramids\cite{ocv02}. A visual
+representation of an image pyramid can be seen in figure~\ref{fig:pyramid}. 
+
+%% image pyramid figure
+\begin{figure}
+\centering
+\includegraphics[scale=0.55]{img/pyramid.png}
+\caption{\label{fig:pyramid}An example of image pyramid technique. Taken
+  from~\cite{imgpyramid}.} 
+\end{figure} 
 
 In the testing of template matching in Ponster, a basic image pyramid algorithm
-has been tested. Our simple image pyramid algorithm consists of building
+has been developed. Our simple image pyramid algorithm consists of building
 several sizes of the pattern image provided to the app. We generate four
 smaller versions of the image and then we try to match them in each frame of
-the camera loop. If any of the images are detected, we take account of the
+the camera loop. If any of the images is detected, we take account of the
 image scale to draw the poster above the detected pattern. In our tests this
 worked really well, but more scale images were needed to bring a better scale
 invariance template matching algorithm.
@@ -120,7 +147,8 @@ been discarded in favor of feature detection algorithms because they bring rotat
 
 \section{Feature detection}
 A feature-based approach can be presented as a three step method. First of all, we
-have to detect keypoints\cite{feature} (also called interest points) in the image. Usually,
+have to detect keypoints\cite{feature} ---also called interest points--- in the
+image. Usually, 
 interest points are corners, blobs\footnote{Regions and points that have
   different brightness, color or contrast compared with their neighbour
   region.} or junctions ---see figure~\ref{fig:junctions}---. A good keypoint is a 
@@ -168,8 +196,9 @@ development of Ponster: SURF, FREAK and ORB.
 \subsection{Speeded-Up Robust Features - SURF}
 Speeded-Up Robust Features ---also know as SURF--- is a group of detector and descriptor
 introduced by Herbert Bay et al. SURF is faster and more robust than other
-alternatives like SIFT\cite{Bay:2008:SRF:1370312.1370556}. It's descriptors are rotation and scale invariant.
-Perspective transformations are also considered, but in lower order. 
+alternatives like SIFT\cite{Bay:2008:SRF:1370312.1370556}. Its descriptors are
+rotation and scale invariant. Perspective transformations are also considered, but
+in lower order.  
 
 The keypoint detection in SURF uses a Hessian-matrix approximation. This use of
 integral images reduces computational cost in comparison with another interest point
@@ -201,7 +230,7 @@ have stated before, the trend is to make descriptors faster to compute while
 remaining robust and scale, rotation invariant. FREAK uses a keypoint descriptor
 designed like the human retina with this goal in mind.
 
-Fast Retina Keypoint proposes to use a retinal sampling grid, that takes account of
+Fast Retina Keypoint proposes to use a retinal sampling grid that takes account of
 the higher density points near the center of the sample points. This is exacly how
 the human retina works, and the FREAK sampling pattern imitates this natural
 behaviour~\ref{fig:freak}. With FREAK, every keypoint gets this retina sampling
@@ -245,7 +274,7 @@ descriptors, but it also delivers less matches.
 
 \subsection{Features from Accelerated Segment Test - FAST}
 FAST is a keypoint detector based on corner detection. It was introduced by
-Edward Rosten and Tom Drummond\cite{Rosten:2006:MLH:2094437.2094478} and it's
+Edward Rosten and Tom Drummond\cite{Rosten:2006:MLH:2094437.2094478} and its
 primary purpose was to bring a real 
 time interest point detector. FAST considers a circle of sixteen pixels around
 each corner candidate, and detects a candidate as a corner if there are $n$
@@ -269,9 +298,9 @@ descriptor extractor.
 FAST does not have rotation invariance. This is why ORB uses oFAST (FAST
 keypoint orientation), which is a variant of FAST that computes orientation by
 intensity centroid. This technique assumes that a corner's intensity is offset
-from it's center, and this vector may be used to impute an
-orientation\cite{6126544}. To bring scale invariance, ORB employs a scale pyramid of the image
-and computes FAST on each level of the pyramid.
+from its center, and this vector may be used to impute an
+orientation\cite{6126544}. To bring scale invariance, ORB employs a scale pyramid of
+the image and computes FAST on each level of the pyramid.
 
 ORB also uses a variant of BRIEF called rBRIEF, or Rotation-aware BRIEF. The
 BRIEF descriptor, unlike SURF, is a binary descriptor. rBRIEF is based on

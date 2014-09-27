@@ -14,7 +14,7 @@ and finally how the augmented reality fits into the app.
 Each of the main components of Ponster is represented by a subclass of UIKit's
 controller, the \texttt{UIViewController}. When developing complex applications is
 frequent to have a base view controller with shared functionality. Then, the rest of
-the view controllers inherit from them. In Ponster, the main view controller from
+the view controllers inherit from it. In Ponster, the main view controller from
 where all of our controllers inherit from are the ones presented by UIKit, without
 any other feature added. 
 
@@ -44,7 +44,7 @@ Apart of the view controllers, all the data model is separated into
 \texttt{NSManaged\-Object} subclasses. Each of that subclass represent an entity in
 our model. Business logic is usually implemented as a category of each of the model
 subclass. Categories in Objective-C are capable of adding methods to any object
-without having to change it's implementations. This logic is usually added as a
+without having to change its implementations. This logic is usually added as a
 category in order to not interfere with the \texttt{NSManagedObject} subclass,
 because every time a change is made to a model, we have to generate the subclass
 again and this would erase all the logic that we could have built inside.
@@ -103,13 +103,13 @@ features are added, but migrations are difficult to implement if there are deep
 changes. One way to make migrations easier is to use entity inheritance. If
 somehow in the near future we need to add different posters, we can inherit
 from the \texttt{AbstractPoster} entity without touching the \texttt{Poster}
-on. 
+one. 
 
 With this model design we can take advantage of \emph{Lightweight migrations}
 in CoreData. Lightweight migrations are automatic migrations performed
-automatically by the framework. Being able to maintain our model versioning to
-use this kind of migrations is another reason of why we are using entity
-inheritance. Otherwise, we would have to do manually migrations, which are
+ by the framework. Being able to maintain our model versioning 
+using this kind of migrations is another reason of why we are using entity
+inheritance. Otherwise, we would have to perform manual migrations, which are
 slower to compute and error prone.
 
 \section{Augmented reality performance}
@@ -144,8 +144,8 @@ while providing almost the same robustness as the other two algorithms tested.
 However, the only technique that led to a real-time performance has been the Vuforia
 SDK. The average frames per second of the processing with Vuforia is between 29 and
 30 FPS, while maintaining the best robustness and tracking of all the above
-algorithms tested. This is due to the natural feature~\ref{sec:naturalfeature}
-approximation of Vuforia.
+algorithms tested. This is due to the natural feature
+approximation of Vuforia~\ref{sec:naturalfeature}.
 
 The reason behind testing only SURF, FREAK and ORB under OpenCV is that they
 represent different approaches to the same problem of object tracking. Analyzing
@@ -178,6 +178,19 @@ blurred or translated image using the SURF keypoint and descriptor combination.
   ORB keypoint detection algorithms.}
 \end{figure} 
 
+In the figure~\ref{fig:descriptors} we can see the difference of performance between
+the descriptor extractors. The difference of performance between SURF keypoint
+detector and descriptor extractor and SURF keypoint detector and FREAK descriptor
+extractor can be explained because FREAK takes much less time to compute the
+descriptors than SURF.
+
+\begin{figure}
+\centering
+\includegraphics[scale=0.75]{performance/descriptors.pdf}
+\caption{\label{fig:descriptors} Average time to extract descriptors with SURF,
+  FREAK and ORB.}
+\end{figure} 
+
 Finally, when we have extracted the descriptors of the image from the camera, we
 have to match them with the descriptors obtained from the pattern image. Once the
 match is performed, we have to calculate the homography to locate the object in the
@@ -202,16 +215,17 @@ delivers an average number of matches similar to SURF.
 \begin{center}
 \renewcommand{\arraystretch}{1.5}
 \begin{table}
-\begin{tabular}{|l|p{2.45cm}|p{2.45cm}|p{2.45cm}|p{2.45cm}|}
+\begin{tabular}{|l|p{2.15cm}|p{1.9cm}|p{1.9cm}|p{1.9cm}|p{1.9cm}|}
 \hline\hline
-\multicolumn{5}{|c|}{\large\bfseries Performance comparison between algorithms}
+\multicolumn{6}{|c|}{\large\bfseries Performance comparison between algorithms}
 \\ \hline
-\sffamily Algorithms & \sffamily Avg. Frame (s) & \sffamily Avg. Keypoint (s) & \sffamily Avg. number
+\sffamily Algorithms & \sffamily Avg. Frame (s) & \sffamily Avg. Keypoint (s) &
+\sffamily Avg. Descriptor (s) & \sffamily Avg. number
 keypoints & \sffamily Avg. good matches \\ \hline
-SURF & 0.3111817 & 0.1638936 & 845.4911 & 70.65957 \\ \hline
-FREAK & 0.2044958 & --- & --- & 27.62121 \\ \hline
-ORB & 0.08778909 & 0.02553993 & 481.1667 & 59.21101 \\ \hline
-Vuforia & 0.03273424 & --- & --- & --- \\ \hline\hline
+SURF & 0.3111817 & 0.1638936 & 0.260446452 & 845.4911 & 70.65957 \\ \hline
+FREAK & 0.2044958 & --- & 0.005685782 & --- & 27.62121 \\ \hline
+ORB & 0.08778909 & 0.02553993 & 0.015048248 & 481.1667 & 59.21101 \\ \hline
+Vuforia & 0.03273424 & --- & --- & --- & --- \\ \hline\hline
 %\captionof{figure}{Data used to build the performance figures.}
 %\label{label}
 \end{tabular}
@@ -242,7 +256,7 @@ automatically update the collection view of all the posters.
 The user can scroll the screen to see all the posters and when tapping on one,
 a new view is presented with more information about the poster and the ability
 to test the augmented reality using both the OpenCV approximation and the
-Vuforia SDK~\ref{fig:posterview}.
+Vuforia SDK, as it can be seen in figure~\ref{fig:posterview}.
 
 \begin{figure}
 \centering

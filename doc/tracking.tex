@@ -49,9 +49,9 @@ The required delegate \texttt{frameReady:} is used to deliver the
 class must implement
 \texttt{AV\-Capture\-Video\-Data\-Output\-Sample\-Buffer\-Delegate} in order to
 get the data from the camera. The delegate method implementation of this class
-is the next one.
+is presented next.
 
-\subsubsection*{AVCaptureVideoDataOutputSampleBufferDelegate}
+\subsubsection*{\texttt{AVCaptureVideoDataOutputSampleBufferDelegate} method}
 \begin{minted}[linenos=true]{objectivec++}
 - (void)captureOutput:(AVCaptureOutput *)captureOutput
 didOutputSampleBuffer:(CMSampleBufferRef)sampleBuffer
@@ -138,7 +138,7 @@ algorithm works.
 \begin{minted}[linenos=true]{c++}
 Mat PatternDetector::fastDetection(VideoFrame frame)
 {
-    // (1) Build the grayscale query image from the camera data
+    // Build the grayscale query image from the camera data
     Mat queryImageGray, queryImageGrayResized, outputImage;
     Mat queryImage = Mat(frame.width, frame.height, CV_8UC4,
     frame.data, frame.bytesPerRow);
@@ -149,14 +149,14 @@ Mat PatternDetector::fastDetection(VideoFrame frame)
     Size(7, 7), 2, 2 );
     cvtColor(queryImage, outputImage, CV_BGR2BGRA);
     
-    // (2) Detect scene keypoints
+    // Detect scene keypoints
     vector<KeyPoint> sceneKeypoints;
     m_detector.detect(queryImageGrayResized, sceneKeypoints);
     if (sceneKeypoints.size() <= 1) {
         return outputImage;
     }
     
-    // (3) Calculate scene descriptors
+    // Calculate scene descriptors
     Mat sceneDescriptors;
     m_extractor.compute(queryImageGrayResized, sceneKeypoints,
     sceneDescriptors);
@@ -169,7 +169,7 @@ Mat PatternDetector::fastDetection(VideoFrame frame)
     vector<DMatch> matches;
     m_matcher.match(m_posterDescriptors, sceneDescriptors, matches);
 
-    // (5) Compute good matches
+    // Compute good matches
     for (int i = 0; i < m_posterDescriptors.rows; i++) {
         double dist = matches[i].distance;
         if (dist < min_dist) min_dist = dist;
