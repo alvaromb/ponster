@@ -24,7 +24,7 @@ iPhone devices. All of the UIKit's classes inherit from a common interface objec
 called \texttt{NSObject}. This framework provides classes to manage gestures, fonts,
 navigation bars, tab bars, text inputs, images, tables, buttons and many more
 elements. Almost every iOS application uses UIKit in one way or another. Only some
-videogames do not make extensive use of the framework due to the specific user
+video games do not make extensive use of the framework due to the specific user
 interfaces and game engines that most of them are based on.
 
 Most of the Apple's frameworks naming convention date back from the NeXTStep era. They're written in
@@ -58,9 +58,9 @@ and \texttt{UIGestureRecognizer}s.
 The main purpose of the research presented in the chapter \ref{chap:sota} was to
 bring augmented reality to display posters in any surface the user wants
 to. However, Ponster app has been developed with the addition of more features in
-mind. One of this features is data persistency.
+mind. One of this features is data persistence.
 
-In order to mantain a list of all the posters included in the app ---they are bundled
+In order to maintain a list of all the posters included in the app ---they are bundled
 inside the app in this version---, we have several methods to include and display
 this information. The simplest option would have been to save the data in the preferences
 \texttt{.plist} file and then read all the values. Also, we could have used
@@ -109,8 +109,8 @@ and the \textbf{store}. The \texttt{NSManagedObject\textbf{Context}} is used to 
 any save or query operation to the CoreData stack. The
 \texttt{NSPersistentStore\textbf{Coordinator}} is the object that communicates
 between the contexts and the stores. Finally, the
-\texttt{NSPersistent\textbf{Store}} is the responsable of applying the changes to
-the SQLite backend. The store and the coordinator are initialized once you start
+\texttt{NSPersistent\textbf{Store}} is the responsible of applying the changes to
+the SQLite back-end. The store and the coordinator are initialized once you start
 your app. All the data that we've saved is present in the SQLite file, inside our
 application sandbox. Apps can use more than one context, as we discuss
 in~\ref{sec:architecture}, and every operation against the database must be
@@ -130,7 +130,7 @@ Finally, CoreData works very well with another important class,
 \texttt{NSFetched\-Results\-Controller}. This class allows us to watch for changes in
 any entity in our model, with any predicate we want, and then perform an automatic
 refresh of our data every time some change in our model has been done in the
-observed classes. Thus, the fetched results controller is the class that comunicates
+observed classes. Thus, the fetched results controller is the class that communicates
 our view controllers with the data model.
 
 \subsection{AVFoundation}
@@ -194,8 +194,8 @@ commercial and non-commercial applications.
 The OpenCV library can be used in Windows, GNU/Linux and OS X platforms. The
 latest OpenCV library available for iOS platforms is the 2.4.9
 build\cite{opencvpod}. Some of the algorithms used in Ponster --like SURF or SIFT--
-are patented, so they are available in the \texttt{nonfree} headers. These
-algorithms cannot be used in commercial applications, but an implementatios is
+are patented, so they are available in the \texttt{non-free} headers. These
+algorithms cannot be used in commercial applications, but an implementation is
 included in the library with educational purposes. 
 
 There are a lot of applications that use OpenCV. C++ and Python programming
@@ -216,7 +216,7 @@ The SDK consists of several core components\cite{vuforiasdk01}:
 Delivers the image frame with a custom data structure, independent from the
 platform.
 \item [Image Converter] \hfill \\
-This downsamples the image for a better performance and converts the image format to
+This downscales the image for a better performance and converts the image format to
 a suitable OpenGL ES format.
 \item [Tracker] \hfill \\
 The tracker performs the computer vision algorithms and stores the result in a
@@ -262,7 +262,7 @@ detection even if the whole pattern is not visible. With iOS, Vuforia can bring 
 using CoreMotion framework. It is not defined how exactly Vuforia makes extended
 tracking possible under iOS applications, but it is sure that they use the
 accelerometer and the gyroscope to keep the object visible in the scene while the
-user moves the smartphone camera changing the scene.
+user moves the smart-phone camera changing the scene.
 
 \subsubsection{FastCV}
 Vuforia is based on FastCV, which is another library developed by
@@ -276,6 +276,6 @@ architectures. FastCV has the main computer vision features\cite{fastcv}:
 \end{itemize}
 
 When running on ARM devices, FastCV is CPU-optimized. Due to the fact that Qualcomm
-builds the Snapdragon ARM microchip, FastCV is finely tuned for that artchitecture. 
+builds the Snapdragon ARM microchip, FastCV is finely tuned for that architecture. 
 Internally, Vuforia uses all of the FastCV algorithms, but it also takes advantage
 of other inputs such as the gyroscope or the accelerometer.

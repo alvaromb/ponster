@@ -2,12 +2,12 @@
 \section{Application Architecture}
 \label{sec:architecture}
 All the iOS applications follow the model view controller architecture. This
-artchitecture separates the data model ---inside the \emph{model}---, the presentation
+architecture separates the data model ---inside the \emph{model}---, the presentation
 of the data ---the \emph{view}--- and the interaction and logic between them ---the
 \emph{controller}---. 
 
 First of all we're going to discuss how Ponster applies the MVC
-architecture; then we will introduce the selected persistency layer with CoreData
+architecture; then we will introduce the selected persistence layer with CoreData
 and finally how the augmented reality fits into the app.
 
 \subsection{Model View Controller}
@@ -33,8 +33,8 @@ screen. It is common in iOS to represent tables or collection views using the UI
 view controller that is ready for those tasks, \texttt{UITableViewController} or
 \texttt{UICollectionViewController}. Usually this is done because both view
 controllers have built-in methods like the refresh control that are easier and
-more correct to use when subclassing from those UIKit view controllers. In order to
-customize the rest of the view controller and to keep responsability separated ---one
+more correct to use when sub-classing from those UIKit view controllers. In order to
+customize the rest of the view controller and to keep responsibility separated ---one
 view manages the collection, the other the whole screen--- we use
 view controller containment to embed the collection VC inside the main screen view
 controller. This allows us to keep the single responsibility principle and to have
@@ -56,7 +56,7 @@ encapsulates all the views that are needed to display the poster image and it's
 title. We just need to provide the \texttt{Poster} entity and this subclass manages
 to draw the entire view.
 
-\subsection{Persistency layer architecture}
+\subsection{Persistence layer architecture}
 \label{sec:persistency}
 In order to deliver a good user experience, we have to understand the iOS
 architecture. iOS has a high-priority thread called \emph{Main Thread} where all the
@@ -136,7 +136,7 @@ for a minute.
 \end{figure} 
 
 As we can see, SURF is, by far, the most expensive technique tested on the device. This is the
-expected behaviour, as it's stated in the cited articles in
+expected behavior, as it's stated in the cited articles in
 section~\ref{chap:sota}. FREAK uses SURF to compute 
 the keypoints, so the performance boost happens on the descriptor calculation
 only. Between all the OpenCV algorithms tested, ORB is the one that performs better
@@ -182,7 +182,10 @@ In the figure~\ref{fig:descriptors} we can see the difference of performance bet
 the descriptor extractors. The difference of performance between SURF keypoint
 detector and descriptor extractor and SURF keypoint detector and FREAK descriptor
 extractor can be explained because FREAK takes much less time to compute the
-descriptors than SURF.
+descriptors than SURF. This is an expected behavior, as it can be seen in Table 1
+of the FREAK paper~\cite{Ortiz:2012:FFR:2354409.2354903}, where the computation time
+for a descriptor using SIFT, SURF, BRISK and FREAK is compared. In that comparison,
+FREAK is 77 times faster than SURF to compute descriptors.
 
 \begin{figure}
 \centering
@@ -215,7 +218,7 @@ delivers an average number of matches similar to SURF.
 \begin{center}
 \renewcommand{\arraystretch}{1.5}
 \begin{table}
-\begin{tabular}{|l|p{2.15cm}|p{1.9cm}|p{1.9cm}|p{1.9cm}|p{1.9cm}|}
+\begin{tabular}{|l|p{2.05cm}|p{1.9cm}|p{2cm}|p{1.85cm}|p{1.9cm}|}
 \hline\hline
 \multicolumn{6}{|c|}{\large\bfseries Performance comparison between algorithms}
 \\ \hline
@@ -240,13 +243,13 @@ estimate the time spent processing for each frame delivered by the camera.
 
 \section{Features}
 The Ponster app has three main features: list posters, try how they look wherever
-the user wants and capture an screenshot of the poster in the scene. 
+the user wants and capture an screen-shot of the poster in the scene. 
 
 \subsection*{List posters}
 The main screen of Ponster shows a complete list of the images available to
 test. In the figure~\ref{fig:iosapp01} we can see how this screen is. Each of
 the images represented come from a \texttt{Poster} entity from the
-database. This posters are queried inmediately using a special class called
+database. This posters are queried immediately using a special class called
 \texttt{NS\-Fetched\-Results\-Controller}. 
 
 This screen is ready for reading data from an API, because the way it has been
@@ -268,7 +271,7 @@ Vuforia SDK, as it can be seen in figure~\ref{fig:posterview}.
 The main feature of Ponster is to show the posters where the user wants to try
 them, using augmented reality techniques. Tapping on the \textbf{Try Me} button
 opens the Vuforia window with the camera output. Once there, we present two
-buttons, one for the Screenshot~\ref{sub:screenshot} feature and another one
+buttons, one for the Screen-shot~\ref{sub:screenshot} feature and another one
 for the selection of the pattern to track. 
 
 When we tap the camera button, we capture an image from the video output and
@@ -277,13 +280,13 @@ pattern, the selected poster is presented. The extended tracking is also
 enabled, so the user can still see the poster even if the pattern is not
 anymore present in the video output.
 
-For testing purposes, we also bring the oportunity to test the augmented
+For testing purposes, we also bring the opportunity to test the augmented
 reality using OpenCV algorithms. This feature has been used to run the speed
 and robustness tests presented in the performance section~\ref{sec:arperf}.
 
-\subsection*{Screenshot}
+\subsection*{Screen-shot}
 \label{sub:screenshot}
-The screenshot feature enables the user to take a picture of what's seen on the
+The screen-shot feature enables the user to take a picture of what's seen on the
 video output. This is very useful when it is combined with the augmented
 reality tracking, and allows the user to keep a still picture in the camera
 roll with the poster located in the scene. With this, the tested posters in the

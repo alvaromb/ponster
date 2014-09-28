@@ -1,6 +1,6 @@
 \chapter{State of the art}
 \label{chap:sota}
-The techinique of
+The technique of
 mixing real world elements with virtual elements displayed on the screen of a
 device is what we call augmented reality. In the field of augmented reality, a
 lot of things have happened during the last years. The progress in the fields
@@ -12,12 +12,12 @@ cameras, motion sensors and proximity sensors to make these AR-based experiences
 
 Augmented reality in mobile devices is slightly different from what can be seen in
 desktop environments. Although every year we have more powerful mobile
-smartphones, processing and drawing into the device's screen is still an 
+smart-phones, processing and drawing into the device's screen is still an 
 expensive operation in terms of computational cost. This is one of the reasons why
 cost-efficient computer vision algorithms and techniques have emerged in the recent
 years. 
 
-Most of the augmented reality apps follow this behaviour:
+Most of the augmented reality apps follow this behavior:
 \begin{itemize}
 \item Get the input from the camera or a video.
 \item Search for an object of interest.
@@ -45,34 +45,28 @@ Before starting to
 introduce this technologies, it is interesting to explain the frame rate
 reference of 60 FPS and why is the main goal of many graphics visual
 applications.
-
-% cite: http://en.wikipedia.org/wiki/Showscan3
 Douglas Trumbull introduced the 60 frames per second rate as the most
 convenient for human eye while developing Showscan, his cinematic process. The
 main reason for achieving this performance is that it enables a better
-emotional connection with the viewer if the rate is higher than the regular 24
-FPS used in 35mm film. Although the goal is to achieve 60 frames per second,
-the human eye percieves sloopiness at frame rates lower than 20 FPS, so getting
-a higher value than that is considered enough for most applications.
+emotional connection with the viewer because the frame rate is higher than the
+regular 24 FPS used in 35mm film. Trumbull ran laboratory tests with
+electroencephalograms and electrocardiograms when projecting 24, 36, 48, 60, 66, and
+72 FPS films to viewers~\cite{trumbull}. The result was that the stimulus when 
+viewing 60 frames per second films was higher than others.
+Although the goal is to achieve 60 frames per
+second, the human eye perceives sloppiness at frame rates lower than 20 FPS, so
+getting a higher value than that is considered enough for most applications.
 
 The goal of this work is to find a combination of techniques that enable us to
 develop an application with object tracking invariant to rotation, scale and
-perspective warp. The different algorithms tested were selected with this goal
+perspective warp. The different algorithms tested were selected with this target
 in mind. 
-
-%% In this chapter we are going to review several technologies that can bring augmented
-%% reality to mobile or desktop apps. 
-
-% Esto más bien en un glosario
-%% \section{Computer vision}
-%% Computer Vision is the field of computer science that allows to process and
-%% analyze images. It's very related to machine vision and image processing. 
 
 \section{Object recognition}
 In order to provide an augmented reality experience, we have to know first
 which is the real world element that we are going to use as a reference to mix
 the real world input with our virtual elements. This reference can be from an
-image from the smartphone camera to the user location. Our application searches a
+image from the smart-phone camera to the user location. Our application searches a
 particular image inside the camera input in order to draw the poster image
 above. Many other augmented reality mobile apps do not necessarily use image
 processing techniques to mix real world elements with virtual ones. For
@@ -86,7 +80,7 @@ movement is usually referred as object tracking.
 In computer vision there are a lot of object recognition techniques. In the
 development of Ponster, two of these techniques have been tested: template
 matching and feature-based detection. Detecting the image in a continuous input from
-the smartphone camera, taking account of scale, rotation and perspective
+the smart-phone camera, taking account of scale, rotation and perspective
 differences, becomes an object tracking technique. 
 
 \section{Template matching}
@@ -105,7 +99,7 @@ threshold.
 
 \begin{figure}
 \centering
-\includegraphics[scale=0.55]{img/templatematch.png}
+\includegraphics[scale=0.75]{img/templatematch.png}
 \caption{\label{fig:templatematch}How the template matching algorithm works in
   OpenCV. Taken from
   \url{http://docs.opencv.org/doc/tutorials/imgproc/histograms/template_matching/template_matching.html}} 
@@ -116,16 +110,15 @@ Performing a template matching operation using OpenCV on mobile devices is fast
 enough to deliver a smooth 25/30 FPS\footnote{Frames per second.}-like
 detection. However, match template does not 
 take account of scale, rotation and perspective invariance by itself. There are
-several approaches to bring invariation to match template. For instance, image
+several approaches to bring invariance to match template. For instance, image
 pyramids are used to make match template scale and rotation
 invariant\cite{4368176}, but it is not part of the OpenCV match template function, although it
 provides some methods to implement image pyramids\cite{ocv02}. A visual
 representation of an image pyramid can be seen in figure~\ref{fig:pyramid}. 
 
-%% image pyramid figure
 \begin{figure}
 \centering
-\includegraphics[scale=0.55]{img/pyramid.png}
+\includegraphics[scale=0.65]{img/pyramid.png}
 \caption{\label{fig:pyramid}An example of image pyramid technique. Taken
   from~\cite{imgpyramid}.} 
 \end{figure} 
@@ -150,12 +143,12 @@ A feature-based approach can be presented as a three step method. First of all, 
 have to detect keypoints\cite{feature} ---also called interest points--- in the
 image. Usually, 
 interest points are corners, blobs\footnote{Regions and points that have
-  different brightness, color or contrast compared with their neighbour
+  different brightness, color or contrast compared with their neighbor
   region.} or junctions ---see figure~\ref{fig:junctions}---. A good keypoint is a 
 \emph{repeatable} keypoint; if we can find the same keypoint under different
 conditions such as light difference or rotation, it's considered as a quality
 keypoint. The second step is to compute \emph{descriptors} or feature
-vectors. These descriptors are represented as neighbourhoods of interest
+vectors. These descriptors are represented as neighborhoods of interest
 points. Assuming that feature
 detection makes sense when we have two images to compare, these two steps have to be
 performed on both images. Once we've done that, we have a group of descriptors for
@@ -178,15 +171,15 @@ As we've said before, in order to deliver a good augmented reality experience,
 we need to make our detection algorithm scale, rotation and perspective
 invariant. Feature detection techniques can be scaled invariant by extracting
 features that are invariant to scale, such as feature vectors computed from
-interest point neighbourhoods. For rotation invariance, algorithms can
+interest point neighborhoods. For rotation invariance, algorithms can
 estimate the orientation of the keypoint. % and for perspective 
 
 %TODO introduce following chapters
 There are plenty of feature-detection based algorithms, many of them based on
 Scale-Invariant Feature Transform, or SIFT. Cost efficiency is one of the most
 important features of these algorithms, as every new technique introduced tries to
-mantain robustness while reducing computation time. Robustness it's also very
-important, but less robust algorithms are also been developed in favour of more
+maintain robustness while reducing computation time. Robustness it's also very
+important, but less robust algorithms are also been developed in favor of more
 efficient techniques. One good example is FAST\cite{6126544} keypoint detector, which is
 not rotation invariant but it's faster to compute.
 
@@ -207,7 +200,7 @@ by calculating integral image pyramids, but instead of reducing the image size,
 integral images allow SURF to upscale and build the pyramids more efficiently. 
 
 The SURF descriptor calculation is slightly based on SIFT. SURF descriptor describes
-the distribution of the intensity content within the interest point neighbourhood,
+the distribution of the intensity content within the interest point neighborhood,
 which is similar to the gradient information used by SIFT. It is done in two steps,
 fixing a reproducible orientation based on information from a circular region around
 the keypoint, and then building a square region aligned to the calculated
@@ -231,9 +224,9 @@ remaining robust and scale, rotation invariant. FREAK uses a keypoint descriptor
 designed like the human retina with this goal in mind.
 
 Fast Retina Keypoint proposes to use a retinal sampling grid that takes account of
-the higher density points near the center of the sample points. This is exacly how
+the higher density points near the center of the sample points. This is exactly how
 the human retina works, and the FREAK sampling pattern imitates this natural
-behaviour~\ref{fig:freak}. With FREAK, every keypoint gets this retina sampling
+behavior~\ref{fig:freak}. With FREAK, every keypoint gets this retina sampling
 pattern to compute its descriptors. Then, the algorithm compares pairs of image
 intensities obtained by this pattern.
 
@@ -313,7 +306,7 @@ techniques, but again with poor performance in the device\footnote{We can
   consider poor performance a FPS under 20.}. Only a 15 FPS
 processing has been achieved, with slightly the same detection quality as
 SURF, as it can bee seen in the chapter~\ref{sec:arperf}. It is interesting to
-note that, althought each of the algorithms tested 
+note that, although each of the algorithms tested 
 are scale invariant, they tend to lose the tracked image when the scale of the object
 represented in the camera feed is 50\% smaller than the original. This is also
 happening with SURF-SURF and SURF-FREAK combinations~\ref{fig:surfscale}.
@@ -332,7 +325,7 @@ Brute-force matcher and Fast Library for Approximate Nearest Neighbors.
 %features.ppt hay una buena imagen
 % mirar Fast Matching of Binary Features
 Brute-Force Matcher, as it's name states, will compare each of the descriptors
-found in the images, thus performing a linear search. Althought it may seem that
+found in the images, thus performing a linear search. Although it may seem that
 this approach is not very efficient, BF-matcher performs really well on binary
 descriptors like ORB. 
 
@@ -350,7 +343,7 @@ normalization with SURF.
 
 \subsection{Fast Library for Approximate Nearest Neighbors - FLANN}
 Instead of performing a linear search for matching descriptors, we can use a
-nearest neighbour matching technique. The nearest neighbour search tries to
+nearest neighbor matching technique. The nearest neighbor search tries to
 find, given a set of points $P$ in a vector space $X$, all the points that are 
 close to a given point $q$. FLANN\cite{muja:fast}
 is a library that enables us to perform this
@@ -362,7 +355,7 @@ Basic KD-tree search performs well for small datasets, but quickly degrades
 its performance when the dimensionality increases. In order
 to reduce the computational cost of KD-tree searches with large datasets, several
 KD-tree algorithm variants have been introduced, such as approximate nearest
-neighbour. 
+neighbor. 
 
 This algorithm creates multiple randomized KD-trees, built by choosing the
 split dimension randomly from the first $5$ dimensions on which data has the
@@ -371,21 +364,21 @@ trees, so the search can be ordered by increasing distance to each bin
 boundary. 
 
 Using this approximation techniques can boost performance by reducing the
-precision of the matching, although the loss is usually small enough to mantain
+precision of the matching, although the loss is usually small enough to maintain
 a $95\%$ precision. 
 
 \subsubsection{Locality-Sensitive Hashing}
 Locality-Sensitive Hashing is a matching algorithm to solve the nearest
-neighbour search in high datasets. LSH is used with binary descriptors like the
+neighbor search in high datasets. LSH is used with binary descriptors like the
 ones computed with ORB. The main idea of LSH is to hash the points with
 functions that ensure that close points will be more likely to key collision,
-thus allowing to get the nearest neighbours of each point querying the other
+thus allowing to get the nearest neighbors of each point querying the other
 points in it's bucket\cite{Andoni:2008:NHA:1327452.1327494}.
 
 The LSH parameters defines the hash functions \emph{amplification}. This means that
 the hash functions must be \emph{amplified} enough to ensure hash collision;
 otherwise, the algorithm would be useless. The effect of this parameters and a more
-in-depth explaination of LSH can be found in
+in-depth explanation of LSH can be found in
 this~\cite{Andoni:2008:NHA:1327452.1327494} paper. 
 
 \section{Natural feature tracking}

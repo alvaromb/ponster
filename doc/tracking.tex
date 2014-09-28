@@ -10,11 +10,11 @@ camera with the selected quality, and with the tracking algorithm we use that
 frames to find the chosen pattern. 
 
 \subsection{Video feed}
-To recive the images from the camera, we have created an Objective-C++ class
+To receive the images from the camera, we have created an Objective-C++ class
 called \texttt{PNS\-Image\-Capture}. In this class, we use
 \texttt{AV\-Capture\-Video} to get the video frames, and then we send each
 frame as a parameter to the \texttt{PNS\-Image\-Capture\-Delegate}. Our class
-just uses \texttt{AV\-Capture\-Video} API to instantiate the camera objet, so
+just uses \texttt{AV\-Capture\-Video} API to instantiate the camera object, so
 the main functionality comes from the delegate:
 
 \subsubsection*{\texttt{PNSImageCaptureDelegate.h}}
@@ -126,7 +126,7 @@ posterImage)
         printf(``WARNING empty descriptors \n'');
     }
     
-    // FlannBasedMatcher macher    
+    // FlannBasedMatcher matcher    
     m_matcher = FlannBasedMatcher();
 }
 \end{minted}

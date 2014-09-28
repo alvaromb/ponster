@@ -1,4 +1,4 @@
-S=hunspell -d en_US
+S=hunspell -d en_US -t
 P=pdflatex -halt-on-error -interaction batchmode --shell-escape 
 B=bibtex
 O=open
@@ -17,7 +17,7 @@ latex:
 	$O document.pdf
 
 spell:
-	$S intro.tex
+	$S *.tex
 
 clean:
 	rm *.aux *.bak *.idx *.ilg *.ind *.lof *.lot *.log *.out *.toc *~ *.bbl *.blg 2> /dev/null
