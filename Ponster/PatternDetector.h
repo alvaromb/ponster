@@ -59,12 +59,12 @@ private:
     vector<KeyPoint> m_posterKeypoints;
     
     // Feature detection
-    SurfFeatureDetector m_detector;
+//    SurfFeatureDetector m_detector;
 //    SURF_GPU m_surf_gpu;
-//    OrbFeatureDetector m_detector;
-    SurfDescriptorExtractor m_extractor;
-//    OrbDescriptorExtractor m_extractor;
-//    FREAK m_freak;
+    OrbFeatureDetector m_detector;
+//    SurfDescriptorExtractor m_extractor;
+    OrbDescriptorExtractor m_extractor;
+    FREAK m_freak;
 //    cv::FastFeatureDetector m_detector;
     FlannBasedMatcher m_matcher;
     BFMatcher m_bfmatcher;

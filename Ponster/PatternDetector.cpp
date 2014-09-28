@@ -41,16 +41,16 @@ PatternDetector::PatternDetector(const cv::Mat& patternImage, const cv::Mat& pos
     m_patternImageGrayScaled = patternImageGray;
     
     // SURF
-    double t = (double)getTickCount();
-    m_detector = SurfFeatureDetector(4);
-    m_detector.detect(m_patternImageGrayScaled, m_posterKeypoints);
-    t = ((double)getTickCount() - t)/getTickFrequency();
-    std::cout << "surf keypoints [s]: " << t/1.0 << std::endl;
+//    double t = (double)getTickCount();
+//    m_detector = SurfFeatureDetector(4);
+//    m_detector.detect(m_patternImageGrayScaled, m_posterKeypoints);
+//    t = ((double)getTickCount() - t)/getTickFrequency();
+//    std::cout << "surf keypoints [s]: " << t/1.0 << std::endl;
     
-    // SURF descriptors
-    m_extractor = cv::SurfDescriptorExtractor();
-    m_extractor.compute(m_patternImageGrayScaled, m_posterKeypoints, m_posterDescriptors);
-    cout << "surf descriptors [d]: " << m_posterDescriptors.size() << endl;
+//    // SURF descriptors
+//    m_extractor = cv::SurfDescriptorExtractor();
+//    m_extractor.compute(m_patternImageGrayScaled, m_posterKeypoints, m_posterDescriptors);
+//    cout << "surf descriptors [d]: " << m_posterDescriptors.size() << endl;
     
 //    // FREAK descriptors
 //    FREAK m_freak;
@@ -66,15 +66,15 @@ PatternDetector::PatternDetector(const cv::Mat& patternImage, const cv::Mat& pos
     
     
     
-//    // (5) Detect keypoints using ORB
-//    double t = (double)getTickCount();
-//    m_detector = OrbFeatureDetector();
-//    m_detector.detect(m_patternImageGrayScaled, m_posterKeypoints);
-//    t = ((double)getTickCount() - t)/getTickFrequency();
-//    std::cout << "orb keypoints [s]: " << t/1.0 << std::endl;
+    // (5) Detect keypoints using ORB
+    double t = (double)getTickCount();
+    m_detector = OrbFeatureDetector();
+    m_detector.detect(m_patternImageGrayScaled, m_posterKeypoints);
+    t = ((double)getTickCount() - t)/getTickFrequency();
+    std::cout << "orb keypoints [s]: " << t/1.0 << std::endl;
 
-//    m_detector = OrbFeatureDetector();
-//    m_detector.detect(m_patternImageGrayScaled, m_posterKeypoints);
+    m_detector = OrbFeatureDetector();
+    m_detector.detect(m_patternImageGrayScaled, m_posterKeypoints);
     
     
     
@@ -94,7 +94,7 @@ PatternDetector::PatternDetector(const cv::Mat& patternImage, const cv::Mat& pos
     
     // (7) Initialize matcher
 //    m_matcher = FlannBasedMatcher(new flann::LshIndexParams(6, 12, 1), new cv::flann::SearchParams(50));
-//    m_matcher = FlannBasedMatcher(new flann::LshIndexParams(30, 12, 2), new cv::flann::SearchParams(50));
+    m_matcher = FlannBasedMatcher(new flann::LshIndexParams(30, 12, 2), new cv::flann::SearchParams(50));
 //    FlannBasedMatcher m_matcher(new flann::LshIndexParams(30, 12, 2), new cv::flann::SearchParams(50));
 //    vector<Mat> vDescriptors;
 //    vDescriptors.push_back(m_posterDescriptors);
@@ -105,7 +105,7 @@ PatternDetector::PatternDetector(const cv::Mat& patternImage, const cv::Mat& pos
 //    FlannBasedMatcher macher = new FlannBasedMatcher(new flann::LshIndexParams(6, 12, 1), new cv::flann::SearchParams(50));
 //    cv::drawKeypoints(m_patternImageGrayScaled, m_posterKeypoints, m_sampleImage);
     
-    m_matcher = FlannBasedMatcher();
+//    m_matcher = FlannBasedMatcher();
 }
 
 void PatternDetector::scanFrame(VideoFrame frame)
@@ -201,7 +201,7 @@ Mat PatternDetector::fastDetection(VideoFrame frame)
 //    m_detector.compute(queryImageGrayResized, sceneKeypoints, sceneDescriptors);
     m_extractor.compute(queryImageGrayResized, sceneKeypoints, sceneDescriptors);
     t = ((double)getTickCount() - t)/getTickFrequency();
-//    std::cout << "extraction time       [s]: " << t/1.0 << std::endl;
+    std::cout << "extraction time       [s]: " << t/1.0 << std::endl;
     total += t/1.0;
 //    if (sceneDescriptors.type() != CV_32F) {
 //        sceneDescriptors.convertTo(sceneDescriptors, CV_32F);
@@ -242,7 +242,7 @@ Mat PatternDetector::fastDetection(VideoFrame frame)
         }
     }
 //    printf("-- Matches = %lu \n", matches.size());
-    printf("Good matches            = %lu \n", good_matches.size());
+//    printf("Good matches            = %lu \n", good_matches.size());
     if (good_matches.size() < 4) {
 //        cout << "-- NO GOOD MATCHES" << endl;
         return outputImage;
