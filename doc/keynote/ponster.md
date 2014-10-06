@@ -40,6 +40,12 @@ footer: Álvaro Medina Ballester, PFC EI, UIB, 2014
 
 ---
 
+## Ponster
+### Augmented reality app to draw posters on flat surfaces such as walls or doors
+
+
+---
+
 # Different ways to bring AR
 
 - Image processing-only
@@ -59,7 +65,7 @@ footer: Álvaro Medina Ballester, PFC EI, UIB, 2014
 - **Invariance**: capacity of algorithms to be tolerant to rotation, scale and perspective changes.
 - **Performance**:
     - 20 FPS minimum acceptable
-    - 30 FPS enough
+    - 60 FPS goal, 30 FPS enough
 
 ---
 
@@ -86,7 +92,7 @@ footer: Álvaro Medina Ballester, PFC EI, UIB, 2014
 Several methods of template matching: `CCOR`, `SQDIFF`
 
 
-25~30 FPS on A6 & A8 chip
+25~30 FPS on A6 chip
 
 
 Not invariant to rotation, scale, perspective warp
@@ -96,7 +102,7 @@ Easy to implement
 
 ---
 
-## Template matching pseudocode
+## Code example
 
 ```c++
 // Perform Match Template
@@ -107,7 +113,68 @@ if (PatternDetector::isTracking()) {
   roiRect = cv::Rect(x, y, poster.size().width, poster.size().height);
   poster.copyTo(outputImage(roiRect));
 }
-
-// Copy the output image
-poster.copyTo(outputImage);
 ```
+---
+
+## Advantages
+
+Fast to compute
+
+Easy to develop
+
+
+## Disadvantages
+
+Not rotation, scale and perspective invariant
+
+---
+
+## Image pyramids for scale invariance
+
+![fill](pyramid.png)
+
+---
+
+# Template matching
+## Fast, easy to implement. More features needed (invariance).
+
+---
+
+![fill](intro-feature.jpg)
+# Feature detection
+
+---
+
+![fill](intro-feature.jpg)
+# Feature detection
+
+- Many techniques available
+- Three approximations tested: SURF, FREAK, ORB
+- Most are invariant to scale, rotation and perspective
+
+---
+
+# [fit] Keypoint detection
+
+---
+
+# [fit] Keypoint detection
+## Corners, points, blobs, junctions
+
+---
+
+# [fit] Keypoint detection
+## Must be easy to find, repeatable, robust to image changes to get good results
+
+---
+
+# [fit] Descriptors
+
+---
+
+# [fit] Descriptors
+## Neighbourhood of keypoints
+
+---
+
+# [fit] Matching
