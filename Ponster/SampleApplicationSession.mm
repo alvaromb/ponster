@@ -194,9 +194,9 @@ namespace {
         [self.delegate onQCARUpdate:state];
     }
     
-    NSDate *now = [NSDate date];
-    NSLog(@"frame seconds %f", [now timeIntervalSinceDate:self.frameLoop]);
-    self.frameLoop = [NSDate date];
+//    NSDate *now = [NSDate date];
+//    NSLog(@"frame seconds %f", [now timeIntervalSinceDate:self.frameLoop]);
+//    self.frameLoop = [NSDate date];
 }
 
 - (void) prepareAR  {

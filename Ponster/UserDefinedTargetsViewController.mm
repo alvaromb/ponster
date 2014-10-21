@@ -39,7 +39,7 @@ and other countries. Trademarks of QUALCOMM Incorporated are used with permissio
         vapp = [[SampleApplicationSession alloc] initWithDelegate:self];
         
         // Custom initialization
-        self.title = @"User Defined Targets";
+        self.title = @"Ponster";//@"User Defined Targets";
         // Create the EAGLView with the screen dimensions
         CGRect screenBounds = [[UIScreen mainScreen] bounds];
         viewFrame = screenBounds;
@@ -497,11 +497,11 @@ typedef enum {
 
 - (void)prepareMenu
 {
-    SampleAppMenu * menu = [SampleAppMenu prepareWithCommandProtocol:self title:@"User Defined Targets"];
+    SampleAppMenu * menu = [SampleAppMenu prepareWithCommandProtocol:self title:@"Ponster"];//@"User Defined Targets"];
     SampleAppMenuGroup * group;
     
     group = [menu addGroup:@""];
-    [group addTextItem:@"Vuforia Samples" command:-1];
+    [group addTextItem:@"Back" command:-1];
 
     group = [menu addGroup:@""];
     [group addSelectionItem:@"Extended Tracking" command:C_EXTENDED_TRACKING isSelected:NO];
